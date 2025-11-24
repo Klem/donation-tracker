@@ -5,7 +5,7 @@ pragma solidity ^0.8.28;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract DonationTracker is Ownable, ReentrancyGuard  {
+contract DonationTracker is Ownable, ReentrancyGuard {
     mapping(address => Donation[]) private donations;
     mapping(address => uint) private totalUserDonations;
     mapping(address => uint) private totalUnspentUserDonations;
@@ -48,6 +48,7 @@ contract DonationTracker is Ownable, ReentrancyGuard  {
     error AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
     error InvalidIndex(uint index);
     error NotRecipient(address addr);
+    error UseDonateFunction();
 
     modifier onlyRecipient() {
         bool isRecipient = false;
@@ -57,7 +58,7 @@ contract DonationTracker is Ownable, ReentrancyGuard  {
                 break;
             }
         }
-        require( isRecipient, NotRecipient(msg.sender));
+        require(isRecipient, NotRecipient(msg.sender));
         _;
     }
 
@@ -128,7 +129,7 @@ contract DonationTracker is Ownable, ReentrancyGuard  {
     function transferLeftoversToWallet() external onlyOwner {
         require(totalDonationLeftovers > 0, NotEnoughFunds(totalDonationLeftovers, totalDonationLeftovers));
 
-        (bool success,) = owner().call{value : totalDonationLeftovers}("");
+        (bool success,) = owner().call{value: totalDonationLeftovers}("");
         require(success, "Transfer failed");
     }
 
@@ -149,9 +150,19 @@ contract DonationTracker is Ownable, ReentrancyGuard  {
         return total;
     }
 
+    function donate() external payable returns (Donation memory)  {
+        return _deposit();
+    }
 
+    /**
+     * @dev use the DonationReceived event to rebuild the donation Struct
+     * and provide it as parameter
+     */
+    function allocate(Donation memory d) external onlyOwner ()  {
+         _deposit();
+    }
 
-    function _deposit() private {
+    function _deposit() private returns (Donation memory){
         require(msg.value > 0, "NullDonation");
         // check if donator is a new one
         if (donations[msg.sender].length == 0) {
@@ -172,7 +183,7 @@ contract DonationTracker is Ownable, ReentrancyGuard  {
 
         emit DonationReceived(d.donator, d.amount, d.timestamp, donations[msg.sender].length - 1);
 
-        _allocateDonation(d);
+        return d;
     }
 
     function _allocateDonation(Donation memory d) private nonReentrant {
@@ -205,11 +216,11 @@ contract DonationTracker is Ownable, ReentrancyGuard  {
     }
 
     receive() external payable {
-        _deposit();
+        revert("UseDonateFunction");
     }
 
     fallback() external payable {
-        _deposit();
+        revert("UseDonateFunction");
     }
 
 }

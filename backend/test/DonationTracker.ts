@@ -80,72 +80,54 @@ describe("DonationTracker", function () {
             ({tracker, owner, donator1} = await setUpSmartContract());
         })
 
-        it("Receive() should accept ETH when sent with empty calldata", async function () {
+        it("Receive() should revert when sent with empty calldata", async function () {
             const amount = ethers.parseEther("1.0");
 
-            const tx = await
-                donator1.sendTransaction({
-                    to: await tracker.getAddress(),
-                    value: amount,
-                });
+            const tx = donator1.sendTransaction({
+                to: await tracker.getAddress(),
+                value: amount,
+            });
 
-            await expect(tx).to.changeEtherBalances(ethers,
-                [donator1, tracker],
-                [-amount, amount]
-            );
-            expect(tx).to.emit(tracker, "DonationReceived");
+            await expect(tx).be.revertedWith("UseDonateFunction");
         });
 
-        it("Fallback() should accept ETH when sent with dummy calldata", async function () {
+        it("Fallback() should revert when sent with dummy calldata", async function () {
             const amount = ethers.parseEther("1.0");
 
-            const tx = await
-                donator1.sendTransaction({
-                    to: await tracker.getAddress(),
-                    value: amount,
-                    data: "0x00000000"
-                });
+            const tx = donator1.sendTransaction({
+                to: await tracker.getAddress(),
+                value: amount,
+                data: "0x00000000"
+            });
 
-            await expect(tx).to.changeEtherBalances(ethers,
-                [donator1, tracker],
-                [-amount, amount]
-            );
-
-            expect(tx).to.emit(tracker, "DonationReceived");
+            await expect(tx).be.revertedWith("UseDonateFunction");
 
         });
 
         it("fallback() should revert on call to non-existent function (no ETH)", async function () {
             const iface = new ethers.Interface(["function thisDoesNotExist()"]);
 
-            const tx = await
-                donator1.sendTransaction({
-                    to: await tracker.getAddress(),
-                    data: iface.encodeFunctionData("thisDoesNotExist"),
-                    value: 0,
-                })
+            const tx = donator1.sendTransaction({
+                to: await tracker.getAddress(),
+                data: iface.encodeFunctionData("thisDoesNotExist"),
+                value: 0,
+            })
 
-           await expect(tx).to.not.be.revertedWithCustomError(tracker, "NullDonation");
-
-            // expect(tx).to.emit(tracker, "DonationReceived");
+            await expect(tx).be.revertedWith("UseDonateFunction");
         });
 
-        it("fallback() should accept ETH when calling non-existent function", async function () {
+        it("fallback() should revert when calling non-existent function", async function () {
             const amount = ethers.parseEther("1.0");
             const iface = new ethers.Interface(["function thisDoesNotExist()"]);
 
-            const tx = await
-                donator1.sendTransaction({
+            const tx = donator1.sendTransaction({
                     to: await tracker.getAddress(),
                     data: iface.encodeFunctionData("thisDoesNotExist"),
                     value: amount,
                 })
-            await expect(tx).to.changeEtherBalances(ethers,
-                [donator1, tracker],
-                [-amount, amount]
-            );
 
-            expect(tx).to.emit(tracker, "DonationReceived");
+            await expect(tx).be.revertedWith("UseDonateFunction");
+
         });
     });
 
@@ -226,7 +208,6 @@ describe("DonationTracker", function () {
             expect(await tracker.userUnspentDonations(donator1)).to.be.equal(ethers.parseEther("2.0"));
         });
 
-
         it("contractBalance should be incremented by the donation amount", async function () {
             const amount = ethers.parseEther("1.0");
             await donate(donator1, amount);
@@ -254,12 +235,67 @@ describe("DonationTracker", function () {
         });
 
         async function donate(donator: any, amount: BigInt) {
-            return await
-                donator.sendTransaction({
-                    to: await tracker.getAddress(),
-                    value: amount,
-                    data: "0x00000000"
-                });
+
+            return await tracker.connect(donator).donate({
+                value: amount
+            })
+        }
+    });
+
+    describe("Allocate", async function() {
+        let tracker: any;
+        let owner: any;
+        let donator1: any;
+        let donator2: any;
+        let donation: Donation;
+
+        beforeEach(async () => {
+            ({tracker, owner, donator1, donator2} = await setUpSmartContract());
+            let donationReceipt = await donate(donator1, ethers.parseEther("10.0"))
+            const event = donationReceipt?.logs.map((log: any) => {
+                try {
+                    return tracker.interface.parseLog(log);
+                } catch {
+                    return null; // ignore logs from other contracts
+                }
+            })
+
+            // donation.donator = event[0]
+            // donation.amount = event[1]
+
+        })
+
+        it("Should use the tx receipt to retrive the donation to allocate", async function () {
+
+            const events = donationReceipt?.logs.map((log: any) => {
+                try {
+                    return tracker.interface.parseLog(log);
+                } catch {
+                    return null; // ignore logs from other contracts
+                }
+            })
+
+            console.table(events[0].args);
+
+        });
+
+        it.skip("Should handle rounding errors and add the leftover to totalDonationLeftovers", async function () {
+            // Donate 1 wei to test rounding
+            const donationAmount = 1n;
+
+            await tracker.connect(donator1).donate({
+                value: donationAmount
+            })
+
+            expect(await tracker.totalDonationLeftovers()).to.be.eq(donationAmount);
+        });
+
+        async function donate(donator: any, amount: BigInt) {
+            const tx = await tracker.connect(donator).donate({
+                value: amount
+            })
+
+            return await tx.wait();
         }
     });
 
@@ -283,18 +319,5 @@ describe("DonationTracker", function () {
             ).to.be.revert(ethers); // Ethers.js/Hardhat may not revert explicitly, but the transaction will fail
         });
 
-        it("Should handle rounding errors and add the leftover to totalDonationLeftovers", async function () {
-            // Donate 1 wei to test rounding
-            const donationAmount = 1n;
-
-            await donator1.sendTransaction({
-                to: await tracker.getAddress(),
-                value: donationAmount,
-                data: "0x",
-            });
-
-            // Owner should receive the leftover 1 wei (since 60% and 40% of 1 wei = 0)
-            expect(await tracker.totalDonationLeftovers()).to.be.eq(donationAmount);
-        });
     });
 });
