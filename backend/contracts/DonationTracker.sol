@@ -49,6 +49,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     event FundsAllocated (address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp);
     event ReceiptRequested (address indexed donator, uint index, uint timestamp);
     event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint timestamp);
+    event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
 
     error NotEnoughFunds(uint256 available, uint256 requested);
     error AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
@@ -149,9 +150,12 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     function transferLeftoversToWallet() external onlyOwner {
         require(totalDonationLeftovers > 0, NotEnoughFunds(totalDonationLeftovers, totalDonationLeftovers));
-
-        (bool success,) = owner().call{value: totalDonationLeftovers}("");
+        uint amount = totalDonationLeftovers;
+        totalDonationLeftovers = 0;
+        (bool success,) = owner().call{value: amount}("");
         require(success, TransferFailed());
+
+        emit LeftoverTransferred(address(this), owner(), amount, block.timestamp);
     }
 
     function getRecipientBalanceForDonator(address _recipient, address _donator) external view returns (uint) {
