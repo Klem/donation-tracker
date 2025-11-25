@@ -39,16 +39,9 @@ contract DonationReceipt is ERC721URIStorage, Ownable {
 
         uint256 newTokenId = ++_tokenIdCounter;
 
-        // 1. Mint the token and assign it to the 'to' address
         _safeMint(to, newTokenId);
 
-        // 2. Set the metadata URI for the specific token ID
         _setTokenURI(newTokenId, tokenURI);
     }
 
-    // Fallback: If no token URI is explicitly set, this base URI is used (optional).
-    function _baseURI() internal view override returns (string memory) {
-        // Note: For ERC721URIStorage, tokenURI(tokenId) is preferred over baseURI
-        return "ipfs://";
-    }
 }

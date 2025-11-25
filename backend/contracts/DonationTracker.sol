@@ -19,7 +19,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     uint public totalDonationLeftovers; // from possible rounding issues
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
 
-    DonationReceipt donationReceipt;
+    DonationReceipt public donationReceipt;
 
     struct Donation {
         address donator;
@@ -184,6 +184,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function requestReceipt(uint _index) external onlyDonator() {
+        require(_index < donations[msg.sender].length, InvalidIndex(_index));
         Donation storage d = _userDonationAtStorage(msg.sender, _index);
         require(!d.receiptRequested, ReceiptAlreadyRequested(msg.sender, _index));
 
@@ -193,6 +194,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function mintReceipt(address _donator, uint _index, string memory _tokenURI) external onlyOwner() {
+        require(_index < donations[_donator].length, InvalidIndex(_index));
         Donation storage d = _userDonationAtStorage(_donator, _index);
         require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
         require(!d.receiptMinted, ReceiptAlreadyMinted(_donator, _index));
@@ -202,7 +204,6 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {
-        require(_index < donations[_donator].length, InvalidIndex(_index));
         return donations[_donator][_index];
     }
 
