@@ -4,16 +4,32 @@ import {network} from "hardhat";
 const {ethers} = await network.connect();
 
 async function setUpSmartContract() {
-    const tracker = await ethers.deployContract("DonationTracker");
-    const [owner, donator1, donator2, donator3] = await ethers.getSigners();
 
-    return {tracker, owner, donator1, donator2, donator3};
+    const [owner, donator1, donator2, donator3] = await ethers.getSigners();
+    const deployer = owner; // Owner will be the deployer in tests
+
+    const ReceiptFactory = await ethers.getContractFactory("DonationReceipt");
+    const receipt = await ReceiptFactory.deploy(deployer.address);
+    await receipt.waitForDeployment();
+
+    const TrackerFactory = await ethers.getContractFactory("DonationTracker");
+    const tracker = await TrackerFactory.deploy(await receipt.getAddress());
+    await tracker.waitForDeployment();
+
+    const trackerAddress = await tracker.getAddress();
+    const receiptTx = await receipt.connect(deployer).transferOwnership(trackerAddress);
+    await receiptTx.wait();
+
+    // The rest of your test file already expects:
+    return {tracker, receipt, owner, donator1, donator2, donator3};
 }
 
 export interface Donation {
     donator: string;     // address → string in TS
     amount: bigint;      // uint256 → bigint (recommended for large numbers)
     timestamp: bigint;   // uint256 → bigint
+    receiptRequested: boolean;
+    receiptMinted: boolean;
 }
 
 export interface Allocation {
@@ -38,6 +54,21 @@ describe("DonationTracker", function () {
 
         it("Should set the deployer as the owner", async function () {
             expect(await tracker.owner()).eq(owner.address);
+        });
+
+        it("Should set the address of DonationReceipt in the DonationTracker", async function () {
+            const storedReceiptAddress = await tracker.donationReceipt();
+            const deployedReceiptAddress = await receipt.getAddress();
+
+            expect(storedReceiptAddress).to.equal(deployedReceiptAddress);
+            expect(storedReceiptAddress).to.not.equal(ethers.ZeroAddress);
+        });
+
+        it("Should set DonationReceipt as the owner of DonationTracker", async function () {
+            const receiptOwner = await receipt.owner();
+            const trackerAddress = await tracker.getAddress();
+
+            expect(receiptOwner).to.equal(trackerAddress);
         });
 
         it("Should have zero balance", async function () {
@@ -252,21 +283,6 @@ describe("DonationTracker", function () {
         beforeEach(async () => {
             ({tracker, owner, donator1, donator2} = await setUpSmartContract());
             let donationReceipt = await donate(donator1, ethers.parseEther("10.0"))
-            const event = donationReceipt?.logs.map((log: any) => {
-                try {
-                    return tracker.interface.parseLog(log);
-                } catch {
-                    return null; // ignore logs from other contracts
-                }
-            })
-
-            // donation.donator = event[0]
-            // donation.amount = event[1]
-
-        })
-
-        it("Should use the tx receipt to retrive the donation to allocate", async function () {
-
             const events = donationReceipt?.logs.map((log: any) => {
                 try {
                     return tracker.interface.parseLog(log);
@@ -297,6 +313,150 @@ describe("DonationTracker", function () {
 
             return await tx.wait();
         }
+    });
+
+    describe("Receipt Request", function () {
+
+        let tracker: any;
+        let receipt: any;
+        let owner: any;
+        let donator1: any;
+        let donator2: any;
+        let donation: Donation;
+
+        beforeEach(async () => {
+            ({tracker, receipt, owner, donator1, donator2} = await setUpSmartContract());
+            let donationReceipt = await donate(donator1, ethers.parseEther("10.0"))
+            const events = donationReceipt?.logs.map((log: any) => {
+                try {
+                    return tracker.interface.parseLog(log);
+                } catch {
+                    return null; // ignore logs from other contracts
+                }
+            }).filter((event: any) => event !== null);
+
+            const donationEvent = events[0];
+            donation = {
+                donator: donationEvent.args?.donator,
+                amount: donationEvent.args?.amount,
+                timestamp: donationEvent.args?.timestamp,
+                receiptRequested: false,
+                receiptMinted: false
+            };
+        })
+
+        async function donate(donator: any, amount: BigInt) {
+            const tx = await tracker.connect(donator).donate({
+                value: amount
+            })
+
+            return await tx.wait();
+        }
+
+        describe("Request", function () {
+            it("Should allow the donator to request a receipt for an unrequested donation and emit event", async function () {
+
+                let donation = await tracker.userDonationAt(donator1.address, 0);
+                expect(donation.receiptRequested).to.be.false;
+
+                const tx = await tracker.connect(donator1).requestReceipt(0);
+                const receiptTx = await tx.wait();
+
+                donation = await tracker.userDonationAt(donator1.address, 0);
+                expect(donation.receiptRequested).to.be.true;
+
+                const block = await ethers.provider.getBlock(receiptTx!.blockHash);
+                const timestamp = block!.timestamp;
+
+                await expect(tx)
+                    .to.emit(tracker, "ReceiptRequested")
+                    .withArgs(donator1.address, 0, timestamp);
+
+            });
+
+            it("Should revert if an invalid index is provided", async function () {
+                // receipt 0 is in the setUp()
+                await expect(
+                    tracker.connect(donator1).requestReceipt(1)
+                ).to.be.revertedWithCustomError(tracker, "InvalidIndex").withArgs(1);
+
+            });
+
+            it("Should revert if the receipt has already been requested", async function () {
+                await donate(donator1, ethers.parseEther("1.0"));
+                await tracker.connect(donator1).requestReceipt(0);
+
+                await expect(
+                    tracker.connect(donator1).requestReceipt(0)
+                ).to.be.revertedWithCustomError(tracker, "ReceiptAlreadyRequested");
+            });
+        });
+
+        describe("Mint", function(){
+            const TOKEN_URI = "test/metadata.json";
+            it("Should successfully mint a receipt NFT and emit an event", async function () {
+
+                await tracker.connect(donator1).requestReceipt(0);
+
+                const tx = await tracker.connect(owner).mintReceipt(donator1.address, 0, TOKEN_URI);
+                const receiptTx = await tx.wait();
+
+                const donation = await tracker.userDonationAt(donator1.address, 0);
+                expect(donation.receiptMinted).to.be.true;
+
+                const block = await ethers.provider.getBlock(receiptTx!.blockHash);
+                const timestamp = block!.timestamp;
+                await expect(tx)
+                    .to.emit(tracker, "ReceiptMinted")
+                    .withArgs(owner.address, donator1.address, 0, timestamp);
+
+                // ASSERT 3: Check the NFT was actually minted and tokenURI set
+                const receiptAddress = await receipt.getAddress();
+                const tokenId = 1n; // First mint will be token ID 1
+                expect(await receipt.ownerOf(tokenId)).to.equal(donator1.address);
+                expect(await receipt.tokenURI(tokenId)).to.equal(TOKEN_URI);
+            });
+
+            it("Should revert if called by a non-owner", async function () {
+                await expect(
+                    tracker.connect(donator1).mintReceipt(donator1.address, 0, TOKEN_URI)
+                ).to.be.revertedWithCustomError(tracker, "OwnableUnauthorizedAccount");
+            });
+
+            it("Should revert if an invalid index is provided", async function () {
+                const invalidIndex = 1;
+                await expect(
+                    tracker.connect(owner).mintReceipt(donator1.address, invalidIndex, TOKEN_URI)
+                ).to.be.revertedWithCustomError(tracker, "InvalidIndex").withArgs(invalidIndex);
+            });
+
+            it("Should revert if the receipt has NOT been requested", async function () {
+                await donate(donator1, ethers.parseEther("1.0"));
+                const unrequestedIndex = 1;
+
+                const donation = await tracker.userDonationAt(donator1.address, unrequestedIndex);
+                expect(donation.receiptRequested).to.be.false;
+
+                await expect(
+                    tracker.connect(owner).mintReceipt(donator1.address, unrequestedIndex, TOKEN_URI)
+                ).to.be.revertedWithCustomError(tracker, "ReceiptNotRequested").withArgs(donator1.address, unrequestedIndex);
+            });
+
+            it("Should revert if the receipt has already been minted", async function () {
+
+                await tracker.connect(donator1).requestReceipt(0);
+
+                await tracker.connect(owner).mintReceipt(donator1.address, 0, TOKEN_URI);
+
+                await expect(
+                    tracker.connect(owner).mintReceipt(donator1.address, 0, TOKEN_URI)
+                ).to.be.revertedWithCustomError(tracker, "ReceiptAlreadyMinted").withArgs(donator1.address, 0);
+            });
+        })
+
+
+
+
     });
 
     describe("Edge Cases", function () {

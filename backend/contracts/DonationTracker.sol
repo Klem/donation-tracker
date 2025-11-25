@@ -4,6 +4,7 @@ pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {DonationReceipt} from "./DonationReceipt.sol";
 
 contract DonationTracker is Ownable, ReentrancyGuard {
     mapping(address => Donation[]) private donations;
@@ -16,13 +17,16 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     uint public totalAllocated;
     uint public totalDonators;
     uint public totalDonationLeftovers; // from possible rounding issues
-
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
+
+    DonationReceipt public donationReceipt;
 
     struct Donation {
         address donator;
         uint amount;
         uint timestamp;
+        bool receiptRequested;
+        bool receiptMinted;
     }
 
     struct Allocation {
@@ -43,12 +47,20 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     event DonationReceived(address indexed donator, uint amount, uint indexed timestamp, uint index);
     event FundsAllocated (address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp);
+    event ReceiptRequested (address indexed donator, uint index, uint timestamp);
+    event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint timestamp);
 
     error NotEnoughFunds(uint256 available, uint256 requested);
     error AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
     error InvalidIndex(uint index);
-    error NotRecipient(address addr);
+    error NotARecipient(address addr);
+    error NotADonator(address addr);
+    error NullDonation(address addr);
     error UseDonateFunction();
+    error TransferFailed();
+    error ReceiptAlreadyRequested(address donator, uint tokenId);
+    error ReceiptNotRequested(address donator, uint tokenId);
+    error ReceiptAlreadyMinted(address donator, uint tokenId);
 
     modifier onlyRecipient() {
         bool isRecipient = false;
@@ -58,11 +70,18 @@ contract DonationTracker is Ownable, ReentrancyGuard {
                 break;
             }
         }
-        require(isRecipient, NotRecipient(msg.sender));
+        require(isRecipient, NotARecipient(msg.sender));
         _;
     }
 
-    constructor() Ownable(msg.sender) {
+    modifier onlyDonator() {
+        bool isDonator = false;
+
+        require(donations[msg.sender].length > 0, NotADonator(msg.sender));
+        _;
+    }
+
+    constructor(address _donationReceiptAddress) Ownable(msg.sender) {
         ALLOCATION_RECIPIENTS.push(
             Recipient("Colin", payable(0x70997970C51812dc3A010C7d01b50e0d17dc79C8), 1000)
         );
@@ -75,6 +94,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         ALLOCATION_RECIPIENTS.push(
             Recipient("Klem", payable(0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65), 3500)
         );
+
+        donationReceipt = DonationReceipt(_donationReceiptAddress);
     }
 
     // Optional: Owner can rescue stuck tokens/ETH in emergency
@@ -130,7 +151,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         require(totalDonationLeftovers > 0, NotEnoughFunds(totalDonationLeftovers, totalDonationLeftovers));
 
         (bool success,) = owner().call{value: totalDonationLeftovers}("");
-        require(success, "Transfer failed");
+        require(success, TransferFailed());
     }
 
     function getRecipientBalanceForDonator(address _recipient, address _donator) external view returns (uint) {
@@ -158,12 +179,36 @@ contract DonationTracker is Ownable, ReentrancyGuard {
      * @dev use the DonationReceived event to rebuild the donation Struct
      * and provide it as parameter
      */
-    function allocate(Donation memory d) external onlyOwner ()  {
-         _deposit();
+    function allocate(Donation memory d) external onlyOwner () {
+        _allocateDonation(d);
+    }
+
+    function requestReceipt(uint _index) external onlyDonator() {
+        require(_index < donations[msg.sender].length, InvalidIndex(_index));
+        Donation storage d = _userDonationAtStorage(msg.sender, _index);
+        require(!d.receiptRequested, ReceiptAlreadyRequested(msg.sender, _index));
+
+        d.receiptRequested = true;
+
+        emit ReceiptRequested(msg.sender, _index, block.timestamp);
+    }
+
+    function mintReceipt(address _donator, uint _index, string memory _tokenURI) external onlyOwner() {
+        require(_index < donations[_donator].length, InvalidIndex(_index));
+        Donation storage d = _userDonationAtStorage(_donator, _index);
+        require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
+        require(!d.receiptMinted, ReceiptAlreadyMinted(_donator, _index));
+        d.receiptMinted = true;
+        donationReceipt.mint(_donator, _tokenURI);
+        emit ReceiptMinted(msg.sender, _donator, _index, block.timestamp);
+    }
+
+    function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {
+        return donations[_donator][_index];
     }
 
     function _deposit() private returns (Donation memory){
-        require(msg.value > 0, "NullDonation");
+        require(msg.value > 0, NullDonation(msg.sender));
         // check if donator is a new one
         if (donations[msg.sender].length == 0) {
             totalDonators++;
@@ -172,7 +217,9 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         Donation memory d = Donation({
             donator: msg.sender,
             amount: msg.value,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            receiptRequested: false,
+            receiptMinted: false
         });
 
         donations[msg.sender].push(d);
@@ -191,6 +238,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         for (uint256 i = 0; i < ALLOCATION_RECIPIENTS.length; i++) {
             uint256 recipientAmount = (d.amount * ALLOCATION_RECIPIENTS[i].percentage) / PERCENTAGE_BASE;
             address recipientWallet = ALLOCATION_RECIPIENTS[i].wallet;
+
+            if(recipientAmount == 0) continue;
 
             remainingAmount -= recipientAmount;
             totalUnspentUserDonations[d.donator] -= recipientAmount;
