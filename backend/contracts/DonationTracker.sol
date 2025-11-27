@@ -12,21 +12,30 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     mapping(address => uint) private totalUnspentUserDonations;
     mapping(address => mapping(address => uint)) private recipientBalancesByDonator;
     mapping(address => address[]) private recipientDonators;
+    mapping(address => uint) private recipientTotalBalance;
 
+    /**
+     * These will only increase onvertime
+     */
     uint public totalDonated;
     uint public totalAllocated;
+    uint public totalSpent;
     uint public totalDonators;
-    uint public totalDonationLeftovers; // from possible rounding issues
+
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
+    uint public totalDonationLeftovers; // from possible rounding issues
 
     DonationReceipt public donationReceipt;
 
     struct Donation {
         address donator;
         uint amount;
+        uint remaining;
         uint timestamp;
+        bool allocated;
         bool receiptRequested;
         bool receiptMinted;
+        uint index;
     }
 
     struct Allocation {
@@ -39,7 +48,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     struct Recipient {
         string name;
-        address payable wallet; // Use 'payable' for direct transfers
+        address payable wallet;
         uint percentage; // In units of PERCENTAGE_BASE
     }
 
@@ -47,6 +56,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     event DonationReceived(address indexed donator, uint amount, uint indexed timestamp, uint index);
     event FundsAllocated (address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp);
+    event FundsSpent (address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp);
+    event SpendingReason (address indexed donator, uint timestamp, string message);
     event ReceiptRequested (address indexed donator, uint index, uint timestamp);
     event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint timestamp);
     event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
@@ -77,7 +88,6 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     modifier onlyDonator() {
         bool isDonator = false;
-
         require(donations[msg.sender].length > 0, NotADonator(msg.sender));
         _;
     }
@@ -149,7 +159,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function transferLeftoversToWallet() external onlyOwner {
-        require(totalDonationLeftovers > 0, NotEnoughFunds(totalDonationLeftovers, totalDonationLeftovers));
+        require(totalDonationLeftovers > 0, NotEnoughFunds(0, totalDonationLeftovers));
         uint amount = totalDonationLeftovers;
         totalDonationLeftovers = 0;
         (bool success,) = owner().call{value: amount}("");
@@ -166,13 +176,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         return recipientDonators[_recipient];
     }
 
-    function getRecipientTotalBalance(address _recipient) external view returns (uint) {
-        uint total = 0;
-        address[] memory donatorsList = recipientDonators[_recipient];
-        for (uint i = 0; i < donatorsList.length; i++) {
-            total += recipientBalancesByDonator[_recipient][donatorsList[i]];
-        }
-        return total;
+    function getRecipientTotalBalance(address _recipient) onlyRecipient external view returns (uint) {
+        return recipientTotalBalance[_recipient];
     }
 
     function donate() external payable returns (Donation memory)  {
@@ -183,8 +188,13 @@ contract DonationTracker is Ownable, ReentrancyGuard {
      * @dev use the DonationReceived event to rebuild the donation Struct
      * and provide it as parameter
      */
-    function allocate(Donation memory d) external onlyOwner () {
+    function allocate(Donation calldata d) external onlyOwner () {
         _allocateDonation(d);
+    }
+
+    function payout(address payable _to, string calldata _message) external payable onlyRecipient () {
+        require(recipientTotalBalance[msg.sender] >= msg.value, NotEnoughFunds(recipientTotalBalance[msg.sender], msg.value));
+        _payout(_to, msg.value, recipientDonators[msg.sender], _message);
     }
 
     function requestReceipt(uint _index) external onlyDonator() {
@@ -197,7 +207,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         emit ReceiptRequested(msg.sender, _index, block.timestamp);
     }
 
-    function mintReceipt(address _donator, uint _index, string memory _tokenURI) external onlyOwner() {
+    function mintReceipt(address _donator, uint _index, string calldata _tokenURI) external onlyOwner() {
         require(_index < donations[_donator].length, InvalidIndex(_index));
         Donation storage d = _userDonationAtStorage(_donator, _index);
         require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
@@ -221,9 +231,12 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         Donation memory d = Donation({
             donator: msg.sender,
             amount: msg.value,
+            remaining: msg.value,
             timestamp: block.timestamp,
+            allocated: false,
             receiptRequested: false,
-            receiptMinted: false
+            receiptMinted: false,
+            index: donations[msg.sender].length // length of 1 is index 0
         });
 
         donations[msg.sender].push(d);
@@ -243,7 +256,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             uint256 recipientAmount = (d.amount * ALLOCATION_RECIPIENTS[i].percentage) / PERCENTAGE_BASE;
             address recipientWallet = ALLOCATION_RECIPIENTS[i].wallet;
 
-            if(recipientAmount == 0) continue;
+            if (recipientAmount == 0) continue;
 
             remainingAmount -= recipientAmount;
             totalUnspentUserDonations[d.donator] -= recipientAmount;
@@ -254,6 +267,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
                 recipientDonators[recipientWallet].push(d.donator);
             }
             recipientBalancesByDonator[recipientWallet][d.donator] += recipientAmount;
+            recipientTotalBalance[recipientWallet] += recipientAmount;
 
             (bool success,) = recipientWallet.call{value: recipientAmount}("");
             require(success, AllocationFailed(d.donator, address(this), recipientWallet, recipientAmount, block.timestamp));
@@ -265,6 +279,88 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         // Handle rounding errors (if any)
         if (remainingAmount > 0) {
             totalDonationLeftovers += remainingAmount;
+        }
+
+        _userDonationAtStorage(d.donator, d.index).allocated = true;
+    }
+
+    function _payout(address payable _to, uint _amount, address[] memory _donators, string calldata _message) onlyRecipient private {
+        // loop though all donors of this recipient
+        uint _remaining = _amount;
+        recipientTotalBalance[msg.sender] -= _amount;
+        totalSpent += _amount;
+
+        for (uint256 i = 0; i < _donators.length; i++) {
+            address donator = _donators[i];
+            Donation[] storage userDonations = donations[donator];
+
+            for (uint256 j = 0; j < userDonations.length && _remaining > 0 ; j++) {
+                Donation storage d = userDonations[j];
+
+                if (!d.allocated || d.remaining == 0) continue;
+
+                uint _toSend = _remaining < d.remaining ? _remaining : d.remaining;
+                d.remaining -= _toSend;
+                _remaining -= _toSend;
+
+                // Update the recipient-specific balance tracking
+                recipientBalancesByDonator[msg.sender][donator] -= _toSend;
+
+                if(_toSend > 0) {
+                    emit FundsSpent(d.donator, msg.sender, _to, _toSend, block.timestamp);
+                    emit SpendingReason(d.donator, block.timestamp, _message);
+                }
+            }
+        }
+        (bool success,) = payable(_to).call{value: _amount}("");
+        require(success, TransferFailed());
+
+        _cleanupSpentDonations();
+    }
+
+    function _cleanupSpentDonations() private {
+        address[] storage activeDonators = recipientDonators[msg.sender];
+        uint writeIndex = 0;
+
+        // Iterate through all current donators for this recipient
+        for (uint i = 0; i < activeDonators.length; i++) {
+            address donator = activeDonators[i];
+            Donation[] storage userDonations = donations[donator];
+
+            // Remove fully spent donations (where remaining == 0 for ALL recipients)
+            uint j = userDonations.length;
+            while (j > 0) {
+                j--;
+                Donation storage d = userDonations[j];
+
+                // Only remove if donation is allocated AND completely spent by ALL recipients
+                if (d.allocated && d.remaining == 0) {
+                    uint lastIndex = userDonations.length - 1;
+                    if (j != lastIndex) {
+                        userDonations[j] = userDonations[lastIndex];
+                        // Update the swapped donation's index to reflect its new position
+                        userDonations[j].index = j;
+                    }
+                    userDonations.pop();
+                }
+            }
+
+            // Check if THIS RECIPIENT still has any balance from this donator
+            // Use recipientBalancesByDonator which tracks recipient-specific balances
+            bool hasRemainingForThisRecipient = recipientBalancesByDonator[msg.sender][donator] > 0;
+
+            // If this recipient still has funds from this donator, keep them in the active list
+            if (hasRemainingForThisRecipient) {
+                if (writeIndex != i) {
+                    activeDonators[writeIndex] = activeDonators[i];
+                }
+                writeIndex++;
+            }
+        }
+
+        // Truncate the activeDonators array to remove donators with no remaining funds for this recipient
+        while (activeDonators.length > writeIndex) {
+            activeDonators.pop();
         }
     }
 
