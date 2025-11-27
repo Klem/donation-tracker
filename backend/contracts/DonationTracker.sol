@@ -21,8 +21,9 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     uint public totalAllocated;
     uint public totalSpent;
     uint public totalDonators;
-    uint public totalDonationLeftovers; // from possible rounding issues
+
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
+    uint public totalDonationLeftovers; // from possible rounding issues
 
     DonationReceipt public donationReceipt;
 
@@ -47,7 +48,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     struct Recipient {
         string name;
-        address payable wallet; // Use 'payable' for direct transfers
+        address payable wallet;
         uint percentage; // In units of PERCENTAGE_BASE
     }
 
@@ -87,7 +88,6 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     modifier onlyDonator() {
         bool isDonator = false;
-
         require(donations[msg.sender].length > 0, NotADonator(msg.sender));
         _;
     }
@@ -159,7 +159,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function transferLeftoversToWallet() external onlyOwner {
-        require(totalDonationLeftovers > 0, NotEnoughFunds(totalDonationLeftovers, totalDonationLeftovers));
+        require(totalDonationLeftovers > 0, NotEnoughFunds(0, totalDonationLeftovers));
         uint amount = totalDonationLeftovers;
         totalDonationLeftovers = 0;
         (bool success,) = owner().call{value: amount}("");
@@ -176,13 +176,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         return recipientDonators[_recipient];
     }
 
-    function getRecipientTotalBalance(address _recipient) external view returns (uint) {
-        uint total = 0;
-        address[] memory donatorsList = recipientDonators[_recipient];
-        for (uint i = 0; i < donatorsList.length; i++) {
-            total += recipientBalancesByDonator[_recipient][donatorsList[i]];
-        }
-        return total;
+    function getRecipientTotalBalance(address _recipient) onlyRecipient external view returns (uint) {
+        return recipientTotalBalance[_recipient];
     }
 
     function donate() external payable returns (Donation memory)  {
@@ -193,7 +188,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
      * @dev use the DonationReceived event to rebuild the donation Struct
      * and provide it as parameter
      */
-    function allocate(Donation memory d) external onlyOwner () {
+    function allocate(Donation calldata d) external onlyOwner () {
         _allocateDonation(d);
     }
 
@@ -212,7 +207,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         emit ReceiptRequested(msg.sender, _index, block.timestamp);
     }
 
-    function mintReceipt(address _donator, uint _index, string memory _tokenURI) external onlyOwner() {
+    function mintReceipt(address _donator, uint _index, string calldata _tokenURI) external onlyOwner() {
         require(_index < donations[_donator].length, InvalidIndex(_index));
         Donation storage d = _userDonationAtStorage(_donator, _index);
         require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
@@ -261,7 +256,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             uint256 recipientAmount = (d.amount * ALLOCATION_RECIPIENTS[i].percentage) / PERCENTAGE_BASE;
             address recipientWallet = ALLOCATION_RECIPIENTS[i].wallet;
 
-            if(recipientAmount == 0) continue;
+            if (recipientAmount == 0) continue;
 
             remainingAmount -= recipientAmount;
             totalUnspentUserDonations[d.donator] -= recipientAmount;
