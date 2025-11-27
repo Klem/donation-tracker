@@ -1,5 +1,6 @@
 import {expect} from "chai";
 import {network} from "hardhat";
+import {parseEther} from "ethers";
 
 const {ethers} = await network.connect();
 
@@ -8,6 +9,9 @@ async function setUpSmartContract() {
 
     const owner = signers[0];
     const recipient1 = signers[1];
+    const recipient2 = signers[2];
+    const recipient3 = signers[3];
+    const recipient4 = signers[4];
     // 1 to 4 are recipients;
     const donator1 = signers[5];
     const donator2 = signers[6];
@@ -28,15 +32,18 @@ async function setUpSmartContract() {
     await receiptTx.wait();
 
     // The rest of your test file already expects:
-    return {tracker, receipt, owner, recipient1, donator1, donator2, donator3};
+    return {tracker, receipt, owner, recipient1, recipient2, recipient3, recipient4, donator1, donator2, donator3};
 }
 
 export interface Donation {
-    donator: string;     // address → string in TS
-    amount: bigint;      // uint256 → bigint (recommended for large numbers)
-    timestamp: bigint;   // uint256 → bigint
+    donator: string;
+    amount: bigint;
+    remaining: bigint;
+    timestamp: bigint;
+    allocated: boolean;
     receiptRequested: boolean;
     receiptMinted: boolean;
+    index: number;
 }
 
 export interface Allocation {
@@ -304,9 +311,12 @@ describe("DonationTracker", function () {
             donation = {
                 donator: donationEvent.args?.donator,
                 amount: donationEvent.args?.amount,
+                remaining: donationEvent.args?.amount,
                 timestamp: donationEvent.args?.timestamp,
+                allocated: false,
                 receiptRequested: false,
-                receiptMinted: false
+                receiptMinted: false,
+                index: donationEvent.args?.index
             };
 
         })
@@ -405,9 +415,12 @@ describe("DonationTracker", function () {
             const donation2 = {
                 donator: donationEvent2.args?.donator,
                 amount: donationEvent2.args?.amount,
+                remaining: donationEvent2.args?.amount,
                 timestamp: donationEvent2.args?.timestamp,
+                allocated: false,
                 receiptRequested: false,
-                receiptMinted: false
+                receiptMinted: false,
+                index: donationEvent2.args?.index,
             };
 
             await tracker.connect(owner).allocate(donation2);
@@ -464,9 +477,12 @@ describe("DonationTracker", function () {
             const smallDonation = {
                 donator: smallDonationEvent.args?.donator,
                 amount: smallDonationEvent.args?.amount,
+                remaining: smallDonationEvent.args?.amount,
                 timestamp: smallDonationEvent.args?.timestamp,
+                allocated: false,
                 receiptRequested: false,
-                receiptMinted: false
+                receiptMinted: false,
+                index: smallDonationEvent.args?.index,
             };
 
             const initialLeftovers = await tracker.totalDonationLeftovers();
@@ -548,6 +564,420 @@ describe("DonationTracker", function () {
         }
     });
 
+    describe("Payout", async function () {
+        let tracker: any;
+        let owner: any;
+        let donator1: any;
+        let donator2: any;
+        let recipient1: any;
+        let recipient2: any;
+        let recipient3: any;
+        let recipient4: any;
+        let donation: Donation;
+
+        beforeEach(async () => {
+            ({tracker, owner, recipient1, recipient2, recipient3, recipient4, donator1, donator2} = await setUpSmartContract());
+
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+            const toAllocate: Donation = await tracker.userDonationAt(donator1.address, 0);
+
+            donation = {
+                donator: toAllocate.donator,
+                amount: toAllocate.amount,
+                remaining: toAllocate.remaining,
+                timestamp: toAllocate.timestamp,
+                allocated: toAllocate.allocated,
+                receiptRequested: toAllocate.receiptRequested,
+                receiptMinted: toAllocate.receiptMinted,
+                index: toAllocate.index,
+            };
+
+            await tracker.connect(owner).allocate(donation);
+
+            const allocated: Donation = await tracker.userDonationAt(donator1.address, 0);
+            donation = {
+                donator: allocated.donator,
+                amount: allocated.amount,
+                remaining: allocated.remaining,
+                timestamp: allocated.timestamp,
+                allocated: allocated.allocated,
+                receiptRequested: allocated.receiptRequested,
+                receiptMinted: allocated.receiptMinted,
+                index: allocated.index,
+            };
+        })
+
+        it("Should only be callable by a recipient", async function () {
+            await expect(tracker.connect(donator1).payout(owner, "test", {value: ethers.parseEther("10.0")})
+            ).to.be.revertedWithCustomError(tracker, "NotARecipient").withArgs(donator1.address);
+
+            await expect(tracker.connect(owner).payout(owner, "test", {value: ethers.parseEther("10.0")})
+            ).to.be.revertedWithCustomError(tracker, "NotARecipient").withArgs(owner.address);
+
+            await expect(tracker.connect(recipient1).payout(owner, "test", {value: ethers.parseEther("10.0")})
+            ).to.not.be.revertedWith("NotARecipient");
+        });
+
+        it("Should transfer funds from recipient wallet to the _to and emit events", async function () {
+            const balanceBefore = await ethers.provider.getBalance(owner.address);
+            const amount = ethers.parseEther("0.6");
+
+            const tx = await tracker.connect(recipient1).payout(owner.address, "TotalPayout", {
+                value: amount
+            });
+
+            const receiptTx = await tx.wait();
+            const block = await ethers.provider.getBlock(receiptTx!.blockHash);
+            const timestamp = block!.timestamp;
+
+            await expect(tx).to.emit(tracker, "FundsSpent")
+                .withArgs(donator1.address, recipient1.address, owner.address, amount, timestamp);
+
+            await expect(tx).to.emit(tracker, "SpendingReason")
+                .withArgs(donator1, timestamp, "TotalPayout");
+
+            const balanceAfter = await ethers.provider.getBalance(owner.address);
+            expect(balanceAfter - balanceBefore).to.equal(amount);
+        });
+
+        it("Should revert if recipient does not have the proper totalBalance", async function () {
+            const recipientBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            const overflow = recipientBalance + 1n;
+
+            await expect(tracker.connect(recipient1).payout(owner, "test", {value: overflow})
+            ).to.be.revertedWithCustomError(tracker, "NotEnoughFunds").withArgs(recipientBalance, overflow);
+        });
+
+        it("Should handle full spend", async function () {
+            //recipient1 (colin) has 10% of shares so
+            const fullShare = ethers.parseEther("1");
+            await tracker.connect(recipient1).payout(owner, "TotalPayout", {value: fullShare});
+
+            // donation is not empty, only recipient share has been processed
+            const remainingDonations = await tracker.userDonationCount(donator1.address);
+            expect(remainingDonations).to.equal(1);
+
+            const d = await tracker.userDonationAt(donator1.address, 0);
+            expect(d.remaining).to.equal(ethers.parseEther("9")); // 10 - 1
+        });
+
+        it("Should handle partial spend", async function () {
+            //recipient1 (colin) has 10% of shares so
+            const partial = ethers.parseEther("0.5");
+            await tracker.connect(recipient1).payout(owner, "PartialPayout", {value: partial});
+
+            const d = await tracker.userDonationAt(donator1.address, 0);
+            expect(d.remaining).to.equal(ethers.parseEther("10") - partial);
+        });
+
+        it("Should handle a fully spent donation", async function () {
+            // recipient1 has 10%
+            const share1 = ethers.parseEther("1");
+            await tracker.connect(recipient1).payout(owner, "TotalPayout", {value: share1});
+
+            // recipient2 has 20%
+            const share2 = ethers.parseEther("2");
+            await tracker.connect(recipient2).payout(owner, "TotalPayout", {value: share2});
+
+            // recipient3 has 35%
+            const share3 = ethers.parseEther("3.5");
+            await tracker.connect(recipient3).payout(owner, "TotalPayout", {value: share3});
+
+            // recipient4 has 35%
+            const share4 = ethers.parseEther("3.5");
+            await tracker.connect(recipient4).payout(owner, "TotalPayout", {value: share4});
+
+            await expect(
+                tracker.userDonationAt(donator1.address, 0)
+            ).to.be.revertedWithCustomError(tracker, "InvalidIndex").withArgs(0);
+        });
+
+        it("Should update recipientTotalBalance correctly after payout", async function () {
+            const initialBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            const payoutAmount = ethers.parseEther("0.5");
+
+            await tracker.connect(recipient1).payout(owner, "Test", {value: payoutAmount});
+
+            const finalBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            expect(finalBalance).to.equal(initialBalance - payoutAmount);
+        });
+
+        it("Should update totalSpent correctly after payout", async function () {
+            const initialTotalSpent = await tracker.totalSpent();
+            const payoutAmount = ethers.parseEther("0.5");
+
+            await tracker.connect(recipient1).payout(owner, "Test", {value: payoutAmount});
+
+            const finalTotalSpent = await tracker.totalSpent();
+            expect(finalTotalSpent).to.equal(initialTotalSpent + payoutAmount);
+        });
+
+        it("Should correctly maintain donation.index after cleanup (single donation removed)", async function () {
+            // Add a second donation from donator1
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+            const toAllocate2: Donation = await tracker.userDonationAt(donator1.address, 1);
+
+            const donation2 = {
+                donator: toAllocate2.donator,
+                amount: toAllocate2.amount,
+                remaining: toAllocate2.remaining,
+                timestamp: toAllocate2.timestamp,
+                allocated: false,
+                receiptRequested: false,
+                receiptMinted: false,
+                index: toAllocate2.index,
+            };
+
+            await tracker.connect(owner).allocate(donation2);
+
+            // Fully spend the first donation (index 0)
+            await tracker.connect(recipient1).payout(owner, "Spend1", {value: ethers.parseEther("1")});
+            await tracker.connect(recipient2).payout(owner, "Spend2", {value: ethers.parseEther("2")});
+            await tracker.connect(recipient3).payout(owner, "Spend3", {value: ethers.parseEther("3.5")});
+            await tracker.connect(recipient4).payout(owner, "Spend4", {value: ethers.parseEther("3.5")});
+
+            // First donation should be removed, second donation should now be at index 0
+            const remainingDonation = await tracker.userDonationAt(donator1.address, 0);
+            expect(remainingDonation.index).to.equal(0);
+            expect(remainingDonation.amount).to.equal(ethers.parseEther("10.0"));
+
+            // Should only have 1 donation left
+            expect(await tracker.userDonationCount(donator1.address)).to.equal(1);
+        });
+
+        it("Should correctly maintain donation.index after cleanup (middle donation removed)", async function () {
+            // Create 3 donations
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+
+            const toAllocate2: Donation = await tracker.userDonationAt(donator1.address, 1);
+            const toAllocate3: Donation = await tracker.userDonationAt(donator1.address, 2);
+
+            await tracker.connect(owner).allocate({
+                donator: toAllocate2.donator,
+                amount: toAllocate2.amount,
+                remaining: toAllocate2.remaining,
+                timestamp: toAllocate2.timestamp,
+                allocated: false,
+                receiptRequested: false,
+                receiptMinted: false,
+                index: toAllocate2.index,
+            });
+
+            await tracker.connect(owner).allocate({
+                donator: toAllocate3.donator,
+                amount: toAllocate3.amount,
+                remaining: toAllocate3.remaining,
+                timestamp: toAllocate3.timestamp,
+                allocated: false,
+                receiptRequested: false,
+                receiptMinted: false,
+                index: toAllocate3.index,
+            });
+
+            // Now we have 3 donations, each with 10 ETH remaining
+            // To remove donation[0], we need all recipients to spend 10 ETH total
+            await tracker.connect(recipient1).payout(owner, "Spend1", {value: ethers.parseEther("1")});
+            await tracker.connect(recipient2).payout(owner, "Spend2", {value: ethers.parseEther("2")});
+            await tracker.connect(recipient3).payout(owner, "Spend3", {value: ethers.parseEther("3.5")});
+            await tracker.connect(recipient4).payout(owner, "Spend4", {value: ethers.parseEther("3.5")});
+            // Total: 10 ETH spent, donation[0] should be removed
+
+            // Should have 2 donations left (donation[1] and donation[2])
+            expect(await tracker.userDonationCount(donator1.address)).to.equal(2);
+
+            // Check that indices are correct and sequential
+            // What was donation[2] should now be at index 1 (swapped with removed donation[0])
+            for (let i = 0; i < 2; i++) {
+                const d = await tracker.userDonationAt(donator1.address, i);
+                expect(d.index).to.equal(i);
+            }
+        });
+
+
+        it("Should remove donator from recipientDonators when all their donations are spent", async function () {
+            // Fully spend donator1's allocation for recipient1
+            await tracker.connect(recipient1).payout(owner, "FullSpend", {value: ethers.parseEther("1")});
+
+            const donators = await tracker.getRecipientDonators(recipient1.address);
+            expect(donators.length).to.equal(0);
+        });
+
+        it("Should keep donator in recipientDonators when they have remaining donations", async function () {
+            // Partially spend donator1's allocation for recipient1
+            await tracker.connect(recipient1).payout(owner, "PartialSpend", {value: ethers.parseEther("0.5")});
+
+            const donators = await tracker.getRecipientDonators(recipient1.address);
+            expect(donators).to.include(donator1.address);
+            expect(donators.length).to.equal(1);
+        });
+
+        it("Should handle multiple donators with mixed spend patterns", async function () {
+            // Add donation from donator2
+            await tracker.connect(donator2).donate({value: ethers.parseEther("20.0")});
+            const toAllocate2: Donation = await tracker.userDonationAt(donator2.address, 0);
+
+            await tracker.connect(owner).allocate({
+                donator: toAllocate2.donator,
+                amount: toAllocate2.amount,
+                remaining: toAllocate2.remaining,
+                timestamp: toAllocate2.timestamp,
+                allocated: false,
+                receiptRequested: false,
+                receiptMinted: false,
+                index: toAllocate2.index,
+            });
+
+            // recipient1 has 10% from donator1 (1 ETH) + 10% from donator2 (2 ETH) = 3 ETH total
+            const initialDonators = await tracker.getRecipientDonators(recipient1.address);
+            expect(initialDonators.length).to.equal(2);
+
+            // Spend exactly donator1's full share (1 ETH)
+            await tracker.connect(recipient1).payout(owner, "SpendDonator1Share", {value: ethers.parseEther("1")});
+
+            // donator1 should be removed, donator2 should remain
+            const remainingDonators = await tracker.getRecipientDonators(recipient1.address);
+            expect(remainingDonators.length).to.equal(1);
+            expect(remainingDonators).to.include(donator2.address);
+            expect(remainingDonators).to.not.include(donator1.address);
+        });
+
+        it("Should handle payout across multiple donations from same donator", async function () {
+            // Add second donation from donator1
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+            const toAllocate2: Donation = await tracker.userDonationAt(donator1.address, 1);
+
+            await tracker.connect(owner).allocate({
+                donator: toAllocate2.donator,
+                amount: toAllocate2.amount,
+                remaining: toAllocate2.remaining,
+                timestamp: toAllocate2.timestamp,
+                allocated: false,
+                receiptRequested: false,
+                receiptMinted: false,
+                index: toAllocate2.index,
+            });
+
+            // recipient1 now has 2 ETH total (1 from each donation)
+            const totalBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            expect(totalBalance).to.equal(ethers.parseEther("2"));
+
+            // Spend 1.5 ETH (should come from first donation's remaining, which is 10 ETH)
+            await tracker.connect(recipient1).payout(owner, "CrossDonationSpend", {value: ethers.parseEther("1.5")});
+
+            // First donation now has 8.5 ETH remaining (10 - 1.5)
+            // Second donation still has 10 ETH remaining
+            const donation0 = await tracker.userDonationAt(donator1.address, 0);
+            expect(donation0.remaining).to.equal(ethers.parseEther("8.5"));
+
+            // Should have 2 donations still
+            expect(await tracker.userDonationCount(donator1.address)).to.equal(2);
+        });
+
+        it("Should emit correct events when spending across multiple donations", async function () {
+            // Add second donation
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+            const toAllocate2: Donation = await tracker.userDonationAt(donator1.address, 1);
+            await tracker.connect(owner).allocate({
+                donator: toAllocate2.donator,
+                amount: toAllocate2.amount,
+                remaining: toAllocate2.remaining,
+                timestamp: toAllocate2.timestamp,
+                allocated: false,
+                receiptRequested: false,
+                receiptMinted: false,
+                index: toAllocate2.index,
+            });
+
+            // Spend across both donations
+            const tx = await tracker.connect(recipient1).payout(owner, "MultiDonationSpend", {value: ethers.parseEther("1.5")});
+            const receipt = await tx.wait();
+
+            // Should emit FundsSpent events - but since donation.remaining is global,
+            // the 1.5 ETH will come from first donation's remaining (which is 10 ETH after allocation)
+            const fundsSpentEvents = receipt.logs
+                .map((log: any) => {
+                    try {
+                        return tracker.interface.parseLog(log);
+                    } catch {
+                        return null;
+                    }
+                })
+                .filter((event: any) => event !== null && event.name === "FundsSpent");
+
+            // Actually, it should emit 1 event since 1.5 ETH < first donation's 10 ETH remaining
+            expect(fundsSpentEvents.length).to.equal(1);
+            expect(fundsSpentEvents[0].args.amount).to.equal(ethers.parseEther("1.5"));
+        });
+
+        it("Should skip unallocated donations during payout", async function () {
+            // Add a second donation but don't allocate it
+            await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+
+            // Payout should only use allocated funds (first donation)
+            const initialBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            expect(initialBalance).to.equal(ethers.parseEther("1")); // Only first donation's 10%
+
+            await tracker.connect(recipient1).payout(owner, "Test", {value: ethers.parseEther("1")});
+
+            // Both donations should still exist (first one has 9 ETH remaining, second unallocated)
+            expect(await tracker.userDonationCount(donator1.address)).to.equal(2);
+
+            const firstDonation = await tracker.userDonationAt(donator1.address, 0);
+            expect(firstDonation.remaining).to.equal(ethers.parseEther("9"));
+
+            const secondDonation = await tracker.userDonationAt(donator1.address, 1);
+            expect(secondDonation.allocated).to.be.false;
+        });
+
+        it("Should handle edge case: payout of 0 ETH", async function () {
+            // This should technically work but do nothing
+            const initialBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+
+            await tracker.connect(recipient1).payout(owner, "ZeroPayout", {value: 0});
+
+            const finalBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            expect(finalBalance).to.equal(initialBalance);
+        });
+
+        it("Should maintain array integrity after multiple cleanup operations", async function () {
+            // Create 5 donations
+            for (let i = 0; i < 4; i++) {
+                await tracker.connect(donator1).donate({value: ethers.parseEther("10.0")});
+                const toAllocate: Donation = await tracker.userDonationAt(donator1.address, i + 1);
+                await tracker.connect(owner).allocate({
+                    donator: toAllocate.donator,
+                    amount: toAllocate.amount,
+                    remaining: toAllocate.remaining,
+                    timestamp: toAllocate.timestamp,
+                    allocated: false,
+                    receiptRequested: false,
+                    receiptMinted: false,
+                    index: toAllocate.index,
+                });
+            }
+
+            // Now we have 5 donations, each with 10 ETH remaining
+            expect(await tracker.userDonationCount(donator1.address)).to.equal(5);
+
+            // Spend 2.5 ETH (should come from first donation, leaving it with 7.5 ETH)
+            await tracker.connect(recipient1).payout(owner, "MultiCleanup", {value: ethers.parseEther("2.5")});
+
+            // Should still have 5 donations (none removed yet)
+            expect(await tracker.userDonationCount(donator1.address)).to.equal(5);
+
+            // Verify first donation has correct remaining
+            const firstDonation = await tracker.userDonationAt(donator1.address, 0);
+            expect(firstDonation.remaining).to.equal(ethers.parseEther("7.5"));
+
+            // Verify all indices are correct and sequential
+            for (let i = 0; i < 5; i++) {
+                const d = await tracker.userDonationAt(donator1.address, i);
+                expect(d.index).to.equal(i);
+            }
+        });
+    });
+
     describe("Receipt Request", function () {
 
         let tracker: any;
@@ -572,9 +1002,12 @@ describe("DonationTracker", function () {
             donation = {
                 donator: donationEvent.args?.donator,
                 amount: donationEvent.args?.amount,
+                remaining: donationEvent.args?.amount,
                 timestamp: donationEvent.args?.timestamp,
+                allocated: false,
                 receiptRequested: false,
-                receiptMinted: false
+                receiptMinted: false,
+                index: donationEvent.args?.index
             };
         })
 
@@ -725,11 +1158,14 @@ describe("DonationTracker", function () {
             const donationToAllocate = await tracker.userDonationAt(donator1.address, 0);
 
             const donation = {
-                donator: donationToAllocate[0],
-                amount: donationToAllocate[1],
-                timestamp: 0,
-                receiptRequested: false,
-                receiptMinted: false,
+                donator: donationToAllocate.donator,
+                amount: donationToAllocate.amount,
+                remaining: donationToAllocate.remaining,
+                timestamp: donationToAllocate.timestamp,
+                allocated: donationToAllocate.allocated,
+                receiptRequested: donationToAllocate.receiptRequested,
+                receiptMinted: donationToAllocate.receiptMinted,
+                index: donationToAllocate.index,
             };
 
             await tracker.connect(owner).allocate(donation);
