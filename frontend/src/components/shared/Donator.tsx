@@ -3,9 +3,17 @@ import React, {useState, useMemo, useEffect} from 'react'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "../ui/card";
 import {Button} from "@/components/ui/button";
 import {DollarSign} from "lucide-react";
-import {useAccount, useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt, usePublicClient} from "wagmi";
+import {
+    useAccount,
+    useReadContract,
+    useReadContracts,
+    useWriteContract,
+    useWaitForTransactionReceipt,
+    usePublicClient
+} from "wagmi";
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from "@/utils/constants";
 import {formatEther, parseEther} from "viem";
+import {GenerateReceiptButton} from "./GenerateReceiptButton";
 
 const Donator = () => {
 
@@ -15,7 +23,7 @@ const Donator = () => {
     const [pastDonations, setPastDonations] = useState<any[]>([]);
 
     // Récupération des statistiques du user
-    const {data: totalDonations} = useReadContract({
+    const {data: totalDonations, refetch: refetchTotalDonations} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'userTotalDonations',
@@ -25,7 +33,7 @@ const Donator = () => {
         },
     });
 
-    const {data: donationCount} = useReadContract({
+    const {data: donationCount, refetch: refetchDonationCount} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'userDonationCount',
@@ -35,13 +43,13 @@ const Donator = () => {
         },
     });
 
-    const {data: unspentDonations} = useReadContract({
+    const {data: unspentDonations, refetch: refetchUnspentDonations} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'userUnspentDonations',
         args: [address as `0x${string}`],
         query: {
-            enabled:!!address && isConnected,
+            enabled: !!address && isConnected,
         },
     });
 
@@ -58,7 +66,7 @@ const Donator = () => {
     }, [address, donationCount]);
 
     // Récupérer toutes les donations
-    const {data: donations} = useReadContracts({
+    const {data: donations, refetch: refetchDonations} = useReadContracts({
         contracts: donationContracts,
         query: {
             enabled: donationContracts.length > 0,
@@ -87,12 +95,17 @@ const Donator = () => {
         }
     };
 
-    // Reset form after successful donation
+    // Reset form and refetch data after successful donation
     useEffect(() => {
         if (isSuccess) {
             setDonationAmount('');
+            // Refetch all contract data
+            refetchTotalDonations();
+            refetchDonationCount();
+            refetchUnspentDonations();
+            refetchDonations();
         }
-    }, [isSuccess]);
+    }, [isSuccess, refetchTotalDonations, refetchDonationCount, refetchUnspentDonations, refetchDonations]);
 
     // Récupérer les donations passées depuis les logs
     useEffect(() => {
@@ -125,7 +138,7 @@ const Donator = () => {
                     transactionHash: log.transactionHash,
                 }));
 
-                setPastDonations(formattedLogs.reverse());
+                setPastDonations(formattedLogs);
             } catch (error) {
                 console.error('Error fetching past donations:', error);
             }
@@ -162,11 +175,16 @@ const Donator = () => {
                 if (donation.remaining === 0n) return null;
 
                 return {
+                    donator: donation.donator,
                     amount: parseFloat(formatEther(donation.amount)).toFixed(4),
+                    amountBigInt: donation.amount,
                     remaining: parseFloat(formatEther(donation.remaining)).toFixed(4),
                     timestamp: new Date(Number(donation.timestamp) * 1000).toLocaleString(),
+                    timestampBigInt: donation.timestamp,
                     index: Number(donation.index),
                     allocated: donation.allocated,
+                    receiptRequested: donation.receiptRequested,
+                    receiptMinted: donation.receiptMinted,
                 };
             })
             .filter(d => d !== null)

@@ -59,7 +59,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     event FundsSpent (address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp);
     event SpendingReason (address indexed donator, uint timestamp, string message);
     event ReceiptRequested (address indexed donator, uint index, uint timestamp);
-    event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint timestamp);
+    event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint tokenId, uint timestamp);
     event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
 
     error NotEnoughFunds(uint256 available, uint256 requested);
@@ -213,8 +213,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
         require(!d.receiptMinted, ReceiptAlreadyMinted(_donator, _index));
         d.receiptMinted = true;
-        donationReceipt.mint(_donator, _tokenURI);
-        emit ReceiptMinted(msg.sender, _donator, _index, block.timestamp);
+        uint256 tokenId = donationReceipt.mint(_donator, _tokenURI);
+        emit ReceiptMinted(msg.sender, _donator, _index, tokenId, block.timestamp);
     }
 
     function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {

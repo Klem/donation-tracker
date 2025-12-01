@@ -1,5 +1,5 @@
 export const CONTRACT_ADDRESS: `0x${string}` = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-export const CONTRACT_ABI = [
+export const CONTRACT_ABI =[
     {
         "inputs": [
             {
@@ -361,6 +361,12 @@ export const CONTRACT_ABI = [
                 "indexed": false,
                 "internalType": "uint256",
                 "name": "index",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "tokenId",
                 "type": "uint256"
             },
             {

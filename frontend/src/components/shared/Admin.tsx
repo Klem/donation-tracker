@@ -325,6 +325,7 @@ const DonationItem = ({donator, amount, timestamp, index, isPending = false, onS
     if (!donation) return null;
 
     const donationData = donation as Donation;
+    const isReceiptReady = donationData.receiptRequested && donationData.receiptMinted;
 
     const handleAllocate = () => {
         console.log('🔵 Allocate clicked', {
@@ -388,13 +389,26 @@ const DonationItem = ({donator, amount, timestamp, index, isPending = false, onS
                 </div>
             </div>
             {isPending && (
-                <Button
-                    onClick={handleAllocate}
-                    disabled={isWritePending || isConfirming}
-                    className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 disabled:opacity-50"
-                >
-                    {isWritePending ? 'Confirming...' : isConfirming ? 'Allocating...' : 'Allocate'}
-                </Button>
+                <div className="flex flex-col items-end gap-2">
+                    {!isReceiptReady && (
+                        <div className="text-xs text-amber-600">
+                            ⏳ En attente de la génération du reçu fiscal
+                        </div>
+                    )}
+                    <Button
+                        onClick={handleAllocate}
+                        disabled={!isReceiptReady || isWritePending || isConfirming}
+                        className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 disabled:opacity-50"
+                    >
+                        {!isReceiptReady
+                            ? 'Reçu fiscal en attente'
+                            : isWritePending
+                                ? 'Confirmation...'
+                                : isConfirming
+                                    ? 'Allocation...'
+                                    : 'Allouer'}
+                    </Button>
+                </div>
             )}
         </div>
     );
