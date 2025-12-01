@@ -155,8 +155,8 @@ const Admin = () => {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Admin Dashboard</h2>
-                    <p className="text-slate-600">Manage donations and allocations</p>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Tableau de bord Admin</h2>
+                    <p className="text-slate-600">Gérer les donations et allocations</p>
                 </div>
 
                 {/* Global Statistics */}
@@ -165,7 +165,7 @@ const Admin = () => {
                         <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                                 <DollarSign className="w-4 h-4 text-blue-500"/>
-                                Total Donated
+                                Total des dons
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -177,7 +177,7 @@ const Admin = () => {
                         <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                                 <Users className="w-4 h-4 text-purple-500"/>
-                                Total Donators
+                                Total des donateurs
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -189,7 +189,7 @@ const Admin = () => {
                         <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                                 <TrendingUp className="w-4 h-4 text-green-500"/>
-                                Total Allocated
+                                Total alloué
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -201,7 +201,7 @@ const Admin = () => {
                         <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                                 <TrendingDown className="w-4 h-4 text-red-500"/>
-                                Total Spent
+                                Total dépensé
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -213,7 +213,7 @@ const Admin = () => {
                         <CardHeader className="pb-3">
                             <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                                 <Wallet className="w-4 h-4 text-orange-500"/>
-                                Contract Balance
+                                Solde du contrat
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -385,7 +385,7 @@ const DonationItem = ({donator, amount, timestamp, index, isPending = false, onS
                     {parseFloat(formatEther(amount)).toFixed(4)} ETH
                 </div>
                 <div className={`text-xs ${isPending ? 'text-yellow-700 font-semibold' : 'text-green-700'}`}>
-                    Remaining: {parseFloat(formatEther(donationData.remaining)).toFixed(4)} ETH
+                    Restant: {parseFloat(formatEther(donationData.remaining)).toFixed(4)} ETH
                 </div>
             </div>
             {isPending && (

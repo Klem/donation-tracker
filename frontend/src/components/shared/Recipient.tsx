@@ -210,12 +210,12 @@ const Recipient = () => {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Your Dashboard</h2>
-                    <p className="text-slate-600">Manage your donations and track fund flow</p>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Tableau de bord</h2>
+                    <p className="text-slate-600">Gérez vos dons et suivez les flux de fonds</p>
                 </div>
                 <Card className="border-slate-200 bg-gradient-to-br from-orange-50 to-orange-100">
                     <CardHeader className="pb-3">
-                        <CardTitle className="text-sm font-medium text-slate-700">Your Balance</CardTitle>
+                        <CardTitle className="text-sm font-medium text-slate-700">Votre solde</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold text-orange-700">{userStats.recipientBalance} ETH
@@ -224,12 +224,12 @@ const Recipient = () => {
                 </Card>
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
-                        <CardTitle>Payout Funds</CardTitle>
-                        <CardDescription>Withdraw funds to any address</CardDescription>
+                        <CardTitle>Effectuer un paiement</CardTitle>
+                        <CardDescription>Retirer des fonds vers n'importe quelle adresse</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-2">Amount (ETH)</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">Montant (ETH)</label>
                             <input
                                 type="number"
                                 placeholder="0.0"
@@ -240,7 +240,7 @@ const Recipient = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-2">Destination Address</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">Adresse de destination</label>
                             <input
                                 type="text"
                                 placeholder="0x..."
@@ -252,11 +252,11 @@ const Recipient = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-2">
-                                Payment Reason <span className="text-red-500">*</span>
+                                Raison du paiement <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
-                                placeholder="e.g., Salary, Equipment purchase, etc."
+                                placeholder="ex: Salaire, Achat d'équipement, etc."
                                 value={paymentReason}
                                 onChange={(e) => setPaymentReason(e.target.value)}
                                 maxLength={256}
@@ -264,18 +264,18 @@ const Recipient = () => {
                                 disabled={isPending || isConfirming}
                             />
                             <p className="text-xs text-slate-500 mt-1">
-                                {paymentReason.length}/256 characters
+                                {paymentReason.length}/256 caractères
                             </p>
                         </div>
                         <Button
                             onClick={handlePayout}
                             disabled={isPending || isConfirming || !payoutAmount || !destinationAddress || !paymentReason}
                             className="w-full bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 disabled:opacity-50">
-                            {isPending ? 'Confirming...' : isConfirming ? 'Processing...' : 'Payout'}
+                            {isPending ? 'Confirmation...' : isConfirming ? 'Traitement...' : 'Effectuer le paiement'}
                         </Button>
                         {isSuccess && (
                             <div className="text-sm text-green-600 text-center">
-                                Payout successful! 🎉
+                                Paiement effectué avec succès! 🎉
                             </div>
                         )}
                     </CardContent>
@@ -283,15 +283,15 @@ const Recipient = () => {
 
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
-                        <CardTitle>Your Donators</CardTitle>
+                        <CardTitle>Vos donateurs</CardTitle>
                         <CardDescription>
-                            {donatorsWithBalances.length} active donator{donatorsWithBalances.length !== 1 ? 's' : ''} with remaining balance
+                            {donatorsWithBalances.length} donateur{donatorsWithBalances.length !== 1 ? 's' : ''} actif{donatorsWithBalances.length !== 1 ? 's' : ''} avec solde restant
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         {donatorsWithBalances.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
-                                No active donators yet
+                                Aucun donateur actif pour le moment
                             </div>
                         ) : (
                             <div className="space-y-3">
@@ -305,7 +305,7 @@ const Recipient = () => {
                                                 {donator.address.slice(0, 6)}...{donator.address.slice(-4)}
                                             </div>
                                             <div className="text-xs text-slate-500 mt-1">
-                                                Donator Address
+                                                Adresse du donateur
                                             </div>
                                         </div>
                                         <div className="text-right">
@@ -313,7 +313,7 @@ const Recipient = () => {
                                                 {donator.balance} ETH
                                             </div>
                                             <div className="text-xs text-slate-500">
-                                                Available Balance
+                                                Solde disponible
                                             </div>
                                         </div>
                                     </div>
@@ -325,15 +325,15 @@ const Recipient = () => {
 
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
-                        <CardTitle>Spending History</CardTitle>
+                        <CardTitle>Historique des dépenses</CardTitle>
                         <CardDescription>
-                            {pastSpending.length} payout{pastSpending.length !== 1 ? 's' : ''} made
+                            {pastSpending.length} paiement{pastSpending.length !== 1 ? 's' : ''} effectué{pastSpending.length !== 1 ? 's' : ''}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         {pastSpending.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
-                                No spending history yet
+                                Aucun historique de dépenses pour le moment
                             </div>
                         ) : (
                             <div className="space-y-3">
@@ -346,7 +346,7 @@ const Recipient = () => {
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
-                                                        PAID
+                                                        PAYÉ
                                                     </span>
                                                     <span className="text-xs text-slate-500">
                                                         {new Date(Number(spending.timestamp) * 1000).toLocaleString()}
@@ -360,19 +360,19 @@ const Recipient = () => {
 
                                         <div className="space-y-2 text-sm">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-slate-500 font-medium min-w-[80px]">Donator:</span>
+                                                <span className="text-slate-500 font-medium min-w-[80px]">Donateur:</span>
                                                 <span className="font-mono text-slate-700">
                                                     {spending.donator.slice(0, 6)}...{spending.donator.slice(-4)}
                                                 </span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <span className="text-slate-500 font-medium min-w-[80px]">To:</span>
+                                                <span className="text-slate-500 font-medium min-w-[80px]">Vers:</span>
                                                 <span className="font-mono text-slate-700">
                                                     {spending.to.slice(0, 6)}...{spending.to.slice(-4)}
                                                 </span>
                                             </div>
                                             <div className="flex items-start gap-2">
-                                                <span className="text-slate-500 font-medium min-w-[80px]">Reason:</span>
+                                                <span className="text-slate-500 font-medium min-w-[80px]">Raison:</span>
                                                 <span className="text-slate-700 italic flex-1">
                                                     "{spending.reason}"
                                                 </span>

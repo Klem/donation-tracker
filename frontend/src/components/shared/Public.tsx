@@ -102,11 +102,10 @@ const Public = () => {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-4xl mx-auto text-center mb-12">
                 <h2 className="text-4xl font-bold text-slate-900 mb-4">
-                    Transparent Donation Tracking
+                    Suivi Transparent des Dons
                 </h2>
                 <p className="text-lg text-slate-600 mb-8">
-                    Track every donation from source to destination with complete transparency and traceability on the
-                    blockchain.
+                    Suivez chaque don de sa source à sa destination avec une transparence et une traçabilité complètes sur la blockchain.
                 </p>
             </div>
 
@@ -115,7 +114,7 @@ const Public = () => {
                     <CardHeader className="pb-3">
                         <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                             <DollarSign className="w-4 h-4 text-blue-500"/>
-                            Total Donated
+                            Total des dons
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -127,7 +126,7 @@ const Public = () => {
                     <CardHeader className="pb-3">
                         <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                             <Users className="w-4 h-4 text-purple-500"/>
-                            Total Donators
+                            Total des donateurs
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -139,7 +138,7 @@ const Public = () => {
                     <CardHeader className="pb-3">
                         <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                             <TrendingUp className="w-4 h-4 text-green-500"/>
-                            Total Allocated
+                            Total alloué
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -151,7 +150,7 @@ const Public = () => {
                     <CardHeader className="pb-3">
                         <CardTitle className="text-sm font-medium text-slate-600 flex items-center gap-2">
                             <Wallet className="w-4 h-4 text-orange-500"/>
-                            Contract Balance
+                            Solde du contrat
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -162,8 +161,8 @@ const Public = () => {
 
             <Card className="border-slate-200 bg-gradient-to-br from-blue-50 to-purple-50 mb-8">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Allocation Recipients</CardTitle>
-                    <CardDescription>Current fund distribution breakdown</CardDescription>
+                    <CardTitle className="text-2xl">Bénéficiaires des allocations</CardTitle>
+                    <CardDescription>Répartition actuelle des fonds</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4">
@@ -195,15 +194,15 @@ const Public = () => {
             {/* Latest Donations */}
             <Card className="border-slate-200 mt-6">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Latest Donations</CardTitle>
+                    <CardTitle className="text-2xl">Derniers dons</CardTitle>
                     <CardDescription>
-                        {latestDonations.length} recent donation{latestDonations.length !== 1 ? 's' : ''}
+                        {latestDonations.length} don{latestDonations.length !== 1 ? 's' : ''} récent{latestDonations.length !== 1 ? 's' : ''}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     {latestDonations.length === 0 ? (
                         <div className="text-center py-8 text-slate-500">
-                            No donations yet
+                            Aucun don pour le moment
                         </div>
                     ) : (
                         <div className="space-y-3">
