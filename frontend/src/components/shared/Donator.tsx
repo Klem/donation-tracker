@@ -195,14 +195,14 @@ const Donator = () => {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Your Dashboard</h2>
-                    <p className="text-slate-600">Manage your donations and track fund flow</p>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Tableau de bord</h2>
+                    <p className="text-slate-600">Gérer et suivez l'utilisation de vos dons</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <Card className="border-slate-200 bg-gradient-to-br from-blue-50 to-blue-100">
                         <CardHeader className="pb-3">
-                            <CardTitle className="text-sm font-medium text-slate-700">Total Donations</CardTitle>
+                            <CardTitle className="text-sm font-medium text-slate-700">Total Dons</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-blue-700">{userStats.totalDonations} ETH</div>
@@ -211,7 +211,7 @@ const Donator = () => {
 
                     <Card className="border-slate-200 bg-gradient-to-br from-purple-50 to-purple-100">
                         <CardHeader className="pb-3">
-                            <CardTitle className="text-sm font-medium text-slate-700">Donation Count</CardTitle>
+                            <CardTitle className="text-sm font-medium text-slate-700">Dons en cours</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-purple-700">{userStats.donationCount}</div>
@@ -220,7 +220,7 @@ const Donator = () => {
 
                     <Card className="border-slate-200 bg-gradient-to-br from-green-50 to-green-100">
                         <CardHeader className="pb-3">
-                            <CardTitle className="text-sm font-medium text-slate-700">Unspent</CardTitle>
+                            <CardTitle className="text-sm font-medium text-slate-700">Non dépensé</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold text-green-700">{userStats.unspentDonations} ETH</div>
@@ -231,12 +231,12 @@ const Donator = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                     <Card className="border-slate-200 mt-6">
                         <CardHeader>
-                            <CardTitle>Make a Donation</CardTitle>
-                            <CardDescription>Send ETH to support the project</CardDescription>
+                            <CardTitle>Faîtes un don</CardTitle>
+                            <CardDescription>Envoyer de l' ETH pour soutenir les projets</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-2">Amount (ETH)</label>
+                                <label className="block text-sm font-medium text-slate-700 mb-2">Montant (ETH)</label>
                                 <input
                                     type="number"
                                     placeholder="0.0"
@@ -250,11 +250,11 @@ const Donator = () => {
                                 onClick={handleDonate}
                                 disabled={isPending || isConfirming || !donationAmount || parseFloat(donationAmount) <= 0}
                                 className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50">
-                                {isPending ? 'Confirming...' : isConfirming ? 'Processing...' : 'Donate Now'}
+                                {isPending ? 'Confirmation...' : isConfirming ? 'En cours...' : 'Donner'}
                             </Button>
                             {isSuccess && (
                                 <div className="text-sm text-green-600 text-center">
-                                    Donation successful! 🎉
+                                    Don effectué! 🎉
                                 </div>
                             )}
                         </CardContent>
@@ -265,13 +265,13 @@ const Donator = () => {
                 {/* Donations en cours */}
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
-                        <CardTitle>Donations en cours</CardTitle>
-                        <CardDescription>Vos donations avec des fonds non alloués</CardDescription>
+                        <CardTitle>Dons en cours</CardTitle>
+                        <CardDescription>Vos dons avec des fonds non alloués</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {activeDonations.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
-                                Aucune donation en cours. Toutes vos donations ont été entièrement allouées!
+                                Aucun don en cours
                             </div>
                         ) : (
                             <div className="space-y-3">
@@ -281,23 +281,47 @@ const Donator = () => {
                                         className="flex items-center justify-between p-4 bg-blue-50 rounded-lg border border-blue-200"
                                     >
                                         <div className="flex items-center gap-4 flex-1">
-                                            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
+                                            <div
+                                                className="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
                                                 <DollarSign className="w-5 h-5 text-white"/>
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="font-semibold text-slate-900">{donation.amount} ETH</div>
-                                                    <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">
+                                                    <div
+                                                        className="font-semibold text-slate-900">{donation.amount} ETH
+                                                    </div>
+                                                    <span
+                                                        className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">
                                                         Active
                                                     </span>
+                                                    {donation.allocated && (
+                                                        <span
+                                                            className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
+                                                            Allouée
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 <div className="text-sm text-slate-500">{donation.timestamp}</div>
                                                 <div className="text-xs text-blue-700 mt-1 font-semibold">
-                                                    Remaining: {donation.remaining} ETH
+                                                    Restant: {donation.remaining} ETH
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="text-sm text-slate-600 font-mono">#{donation.index}</div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="text-sm text-slate-600 font-mono">#{donation.index}</div>
+                                            {!donation.allocated && (
+                                                <GenerateReceiptButton
+                                                    donation={{
+                                                        donator: donation.donator,
+                                                        amount: donation.amountBigInt,
+                                                        timestamp: donation.timestampBigInt,
+                                                        receiptRequested: donation.receiptRequested,
+                                                        receiptMinted: donation.receiptMinted,
+                                                        index: BigInt(donation.index)
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -308,13 +332,13 @@ const Donator = () => {
                 {/* Donations passées */}
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
-                        <CardTitle>Donations passées</CardTitle>
-                        <CardDescription>Historique complet de toutes vos donations</CardDescription>
+                        <CardTitle>Dons passés</CardTitle>
+                        <CardDescription>Historique complet de tous vos dons</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {pastDonations.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
-                                Aucune donation trouvée. Faites votre première donation ci-dessus!
+                                Aucun don passé trouvé
                             </div>
                         ) : (
                             <div className="space-y-3">
@@ -324,13 +348,17 @@ const Donator = () => {
                                         className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200"
                                     >
                                         <div className="flex items-center gap-4 flex-1">
-                                            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-gray-500 to-gray-600">
+                                            <div
+                                                className="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-gray-500 to-gray-600">
                                                 <DollarSign className="w-5 h-5 text-white"/>
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="font-semibold text-slate-900">{donation.amount} ETH</div>
-                                                    <span className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full">
+                                                    <div
+                                                        className="font-semibold text-slate-900">{donation.amount} ETH
+                                                    </div>
+                                                    <span
+                                                        className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full">
                                                         Block #{donation.blockNumber}
                                                     </span>
                                                 </div>
