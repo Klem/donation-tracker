@@ -1283,4 +1283,123 @@ describe("DonationTracker", function () {
         });
 
     });
+
+    describe("Safety Limits", function () {
+        let tracker: DonationTracker, owner: HardhatEthersSigner, donator1: HardhatEthersSigner, recipient1: HardhatEthersSigner;
+
+        beforeEach(async () => {
+            ({tracker, owner, donator1, recipient1} = await setUpSmartContract());
+        });
+
+        it("Should enforce MAX_DONATIONS_PER_DONATOR limit", async function () {
+            const MAX_DONATIONS = await tracker.MAX_DONATIONS_PER_DONATOR();
+
+            // Make MAX_DONATIONS donations successfully
+            for (let i = 0; i < Number(MAX_DONATIONS); i++) {
+                await tracker.connect(donator1).donate({value: ethers.parseEther("1")});
+            }
+
+            // Verify we have MAX_DONATIONS donations
+            const count = await tracker.userDonationCount(donator1.address);
+            expect(count).to.equal(MAX_DONATIONS);
+
+            // The next donation should fail
+            await expect(
+                tracker.connect(donator1).donate({value: ethers.parseEther("1")})
+            ).to.be.revertedWithCustomError(tracker, "TooManyDonations")
+                .withArgs(donator1.address, MAX_DONATIONS, MAX_DONATIONS);
+        });
+
+        it("Should enforce MAX_ACTIVE_DONATORS_PER_RECIPIENT limit", async function () {
+            const MAX_DONATORS = await tracker.MAX_ACTIVE_DONATORS_PER_RECIPIENT();
+            const signers = await ethers.getSigners();
+
+            // Use signers starting from index 5 (after owner and 4 recipients)
+            // Hardhat provides 20 signers by default, so we have 15 available (5-19)
+            const startIndex = 5;
+            const donators = signers.slice(startIndex, startIndex + Number(MAX_DONATORS));
+
+            for (let i = 0; i < donators.length; i++) {
+                const tx = await tracker.connect(donators[i]).donate({value: ethers.parseEther("1")});
+                await tx.wait();
+            }
+
+            // Allocate all donations (this should work)
+            for (let i = 0; i < donators.length; i++) {
+                const donatorAddress = await donators[i].getAddress();
+                const donation = await tracker.userDonationAt(donatorAddress, 0);
+                const donationCopy = {
+                    donator: donation.donator,
+                    amount: donation.amount,
+                    remaining: donation.remaining,
+                    timestamp: donation.timestamp,
+                    allocated: donation.allocated,
+                    receiptRequested: donation.receiptRequested,
+                    receiptMinted: donation.receiptMinted,
+                    index: donation.index
+                };
+                await tracker.connect(owner).allocate(donationCopy);
+            }
+
+            // Verify recipient1 has MAX_DONATORS active donators
+            const activeDonators = await tracker.getRecipientDonators(recipient1.address);
+            expect(activeDonators.length).to.equal(MAX_DONATORS);
+
+            // Try to add one more donator - should fail
+            const extraDonator = signers[startIndex + Number(MAX_DONATORS)];
+            await tracker.connect(extraDonator).donate({value: ethers.parseEther("1")});
+            const extraDonatorAddress = await extraDonator.getAddress();
+            const extraDonation = await tracker.userDonationAt(extraDonatorAddress, 0);
+            const extraDonationCopy = {
+                donator: extraDonation.donator,
+                amount: extraDonation.amount,
+                remaining: extraDonation.remaining,
+                timestamp: extraDonation.timestamp,
+                allocated: extraDonation.allocated,
+                receiptRequested: extraDonation.receiptRequested,
+                receiptMinted: extraDonation.receiptMinted,
+                index: extraDonation.index
+            };
+
+            await expect(
+                tracker.connect(owner).allocate(extraDonationCopy)
+            ).to.be.revertedWithCustomError(tracker, "TooManyActiveDonators")
+                .withArgs(recipient1.address, MAX_DONATORS, MAX_DONATORS);
+        });
+
+        it("Should allow new donations after previous ones are fully spent", async function () {
+            const MAX_DONATIONS = await tracker.MAX_DONATIONS_PER_DONATOR();
+
+            // Fill up to the limit
+            for (let i = 0; i < Number(MAX_DONATIONS); i++) {
+                await tracker.connect(donator1).donate({value: ethers.parseEther("1")});
+            }
+
+            // Allocate all donations
+            for (let i = 0; i < Number(MAX_DONATIONS); i++) {
+                const donation = await tracker.userDonationAt(donator1.address, i);
+                const donationCopy = {
+                    donator: donation.donator,
+                    amount: donation.amount,
+                    remaining: donation.remaining,
+                    timestamp: donation.timestamp,
+                    allocated: donation.allocated,
+                    receiptRequested: donation.receiptRequested,
+                    receiptMinted: donation.receiptMinted,
+                    index: donation.index
+                };
+                await tracker.connect(owner).allocate(donationCopy);
+            }
+
+            // Get recipient1's balance and spend it all
+            const balance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            await tracker.connect(recipient1).payout(donator1.address, "Full spend", {value: balance});
+
+            // After spending, the cleanup should have removed the spent donations
+            // Now we should be able to donate again
+            await expect(
+                tracker.connect(donator1).donate({value: ethers.parseEther("1")})
+            ).to.not.be.revert(ethers);
+        });
+    });
 });

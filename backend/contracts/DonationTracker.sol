@@ -27,6 +27,10 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
     uint public totalDonationLeftovers; // from possible rounding issues
 
+    // Safety limits to prevent gas issues and ensure contract stability
+    uint public constant MAX_ACTIVE_DONATORS_PER_RECIPIENT = 10;
+    uint public constant MAX_DONATIONS_PER_DONATOR = 20;
+
     DonationReceipt public donationReceipt;
 
     struct Donation {
@@ -75,6 +79,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     error ReceiptAlreadyRequested(address donator, uint tokenId);
     error ReceiptNotRequested(address donator, uint tokenId);
     error ReceiptAlreadyMinted(address donator, uint tokenId);
+    error TooManyDonations(address donator, uint current, uint max);
+    error TooManyActiveDonators(address recipient, uint current, uint max);
 
     modifier onlyRecipient() {
         bool isRecipient = false;
@@ -225,6 +231,13 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     function _deposit() private returns (Donation memory){
         require(msg.value > 0, NullDonation(msg.sender));
+
+        // Check donation limit per donator
+        require(
+            donations[msg.sender].length < MAX_DONATIONS_PER_DONATOR,
+            TooManyDonations(msg.sender, donations[msg.sender].length, MAX_DONATIONS_PER_DONATOR)
+        );
+
         // check if donator is a new one
         if (donations[msg.sender].length == 0) {
             totalDonators++;
@@ -266,6 +279,11 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
             // Save amout donated by this donor to this reicipient
             if (recipientBalancesByDonator[recipientWallet][d.donator] == 0) {
+                // Check active donators limit for this recipient
+                require(
+                    recipientDonators[recipientWallet].length < MAX_ACTIVE_DONATORS_PER_RECIPIENT,
+                    TooManyActiveDonators(recipientWallet, recipientDonators[recipientWallet].length, MAX_ACTIVE_DONATORS_PER_RECIPIENT)
+                );
                 recipientDonators[recipientWallet].push(d.donator);
             }
             recipientBalancesByDonator[recipientWallet][d.donator] += recipientAmount;
