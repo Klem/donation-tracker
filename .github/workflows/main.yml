@@ -1,0 +1,38 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  tests:
+    name: Smart Contract Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 22.10.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 22.10.0
+
+      # --- Change working directory for these steps ---
+
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: 'backend/node_modules' # Path must be relative to the new working directory or include it
+          key: node_modules-${{ hashFiles('backend/package-lock.json') }} # Hash must look for the correct file
+          restore-keys: |
+            node_modules-
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
+        working-directory: ./backend
+
+      - name: Run Tests
+        run: npx hardhat test
+        working-directory: ./backend
