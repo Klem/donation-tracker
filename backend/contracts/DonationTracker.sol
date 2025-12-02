@@ -297,7 +297,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             Donation[] storage userDonations = donations[donator];
 
             for (uint256 j = 0; j < userDonations.length && _remaining > 0 ; j++) {
-                Donation storage d = userDonations[j];
+                Donation memory d = userDonations[j];
 
                 if (!d.allocated || d.remaining == 0) continue;
 
