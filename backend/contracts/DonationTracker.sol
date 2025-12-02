@@ -299,12 +299,17 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
                 if (!d.allocated || d.remaining == 0) continue;
 
+                uint availableFromDonator = recipientBalancesByDonator[msg.sender][donator];
                 uint _toSend = _remaining < d.remaining ? _remaining : d.remaining;
+
+                // do not try to send more than the donator balance fo this receipient
+                _toSend = _toSend < availableFromDonator ? _toSend : availableFromDonator;
                 d.remaining -= _toSend;
                 _remaining -= _toSend;
 
                 // Update the recipient-specific balance tracking
                 recipientBalancesByDonator[msg.sender][donator] -= _toSend;
+                userDonations[j].remaining = d.remaining;
 
                 if(_toSend > 0) {
                     emit FundsSpent(d.donator, msg.sender, _to, _toSend, block.timestamp);
