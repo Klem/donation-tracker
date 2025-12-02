@@ -1,4 +1,4 @@
-import pinataSDK from '@pinata/sdk';
+import pinataSDK, {PinataPinOptions} from '@pinata/sdk';
 
 const pinata = new pinataSDK(
   process.env.PINATA_API_KEY!,
@@ -24,12 +24,12 @@ export async function uploadReceiptToIPFS(
     // Step 1: Upload image to IPFS
     console.log('📤 Uploading image to IPFS...');
 
-    const imageOptions = {
+    const imageOptions: PinataPinOptions= {
       pinataMetadata: {
         name: imageFileName,
       },
       pinataOptions: {
-        cidVersion: 0,
+        cidVersion:0,
       },
     };
 
@@ -74,7 +74,7 @@ export async function uploadReceiptToIPFS(
       ],
     };
 
-    const jsonOptions = {
+    const jsonOptions: PinataPinOptions = {
       pinataMetadata: {
         name: jsonFileName,
       },
