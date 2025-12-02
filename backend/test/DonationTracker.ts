@@ -1122,7 +1122,7 @@ describe("DonationTracker", function () {
                 const timestamp = block!.timestamp;
                 await expect(tx)
                     .to.emit(tracker, "ReceiptMinted")
-                    .withArgs(owner.address, donator1.address, 0, timestamp);
+                    .withArgs(owner.address, donator1.address, 0, 1, timestamp);
 
                 // ASSERT 3: Check the NFT was actually minted and tokenURI set
                 const receiptAddress = await receipt.getAddress();
