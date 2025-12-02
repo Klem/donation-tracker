@@ -13,6 +13,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     mapping(address => mapping(address => uint)) private recipientBalancesByDonator;
     mapping(address => address[]) private recipientDonators;
     mapping(address => uint) private recipientTotalBalance;
+    mapping(address => uint256) private recipientPayoutCount;
 
     /**
      * These will only increase onvertime
@@ -22,6 +23,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     uint public totalSpent;
     uint public totalDonators;
 
+    uint private constant CLEANUP_FREQUENCY = 10; // 100% is 10000 units
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
     uint public totalDonationLeftovers; // from possible rounding issues
 
@@ -320,7 +322,10 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         (bool success,) = payable(_to).call{value: _amount}("");
         require(success, TransferFailed());
 
-        _cleanupSpentDonations();
+        if (recipientPayoutCount[msg.sender] % CLEANUP_FREQUENCY == 0) {
+            _cleanupSpentDonations();
+        }
+
     }
 
     function _cleanupSpentDonations() private {
