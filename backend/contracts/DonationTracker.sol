@@ -13,6 +13,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     mapping(address => mapping(address => uint)) private recipientBalancesByDonator;
     mapping(address => address[]) private recipientDonators;
     mapping(address => uint) private recipientTotalBalance;
+    mapping(address => uint256) private recipientPayoutCount;
 
     /**
      * These will only increase onvertime
@@ -22,8 +23,13 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     uint public totalSpent;
     uint public totalDonators;
 
+    uint private constant CLEANUP_FREQUENCY = 10; // 100% is 10000 units
     uint private constant PERCENTAGE_BASE = 10000; // 100% is 10000 units
     uint public totalDonationLeftovers; // from possible rounding issues
+
+    // Safety limits to prevent gas issues and ensure contract stability
+    uint public constant MAX_ACTIVE_DONATORS_PER_RECIPIENT = 10;
+    uint public constant MAX_DONATIONS_PER_DONATOR = 20;
 
     DonationReceipt public donationReceipt;
 
@@ -59,7 +65,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     event FundsSpent (address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp);
     event SpendingReason (address indexed donator, uint timestamp, string message);
     event ReceiptRequested (address indexed donator, uint index, uint timestamp);
-    event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint timestamp);
+    event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint tokenId, uint timestamp);
     event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
 
     error NotEnoughFunds(uint256 available, uint256 requested);
@@ -73,6 +79,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     error ReceiptAlreadyRequested(address donator, uint tokenId);
     error ReceiptNotRequested(address donator, uint tokenId);
     error ReceiptAlreadyMinted(address donator, uint tokenId);
+    error TooManyDonations(address donator, uint current, uint max);
+    error TooManyActiveDonators(address recipient, uint current, uint max);
 
     modifier onlyRecipient() {
         bool isRecipient = false;
@@ -213,8 +221,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
         require(!d.receiptMinted, ReceiptAlreadyMinted(_donator, _index));
         d.receiptMinted = true;
-        donationReceipt.mint(_donator, _tokenURI);
-        emit ReceiptMinted(msg.sender, _donator, _index, block.timestamp);
+        uint256 tokenId = donationReceipt.mint(_donator, _tokenURI);
+        emit ReceiptMinted(msg.sender, _donator, _index, tokenId, block.timestamp);
     }
 
     function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {
@@ -223,6 +231,13 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     function _deposit() private returns (Donation memory){
         require(msg.value > 0, NullDonation(msg.sender));
+
+        // Check donation limit per donator
+        require(
+            donations[msg.sender].length < MAX_DONATIONS_PER_DONATOR,
+            TooManyDonations(msg.sender, donations[msg.sender].length, MAX_DONATIONS_PER_DONATOR)
+        );
+
         // check if donator is a new one
         if (donations[msg.sender].length == 0) {
             totalDonators++;
@@ -264,6 +279,11 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
             // Save amout donated by this donor to this reicipient
             if (recipientBalancesByDonator[recipientWallet][d.donator] == 0) {
+                // Check active donators limit for this recipient
+                require(
+                    recipientDonators[recipientWallet].length < MAX_ACTIVE_DONATORS_PER_RECIPIENT,
+                    TooManyActiveDonators(recipientWallet, recipientDonators[recipientWallet].length, MAX_ACTIVE_DONATORS_PER_RECIPIENT)
+                );
                 recipientDonators[recipientWallet].push(d.donator);
             }
             recipientBalancesByDonator[recipientWallet][d.donator] += recipientAmount;
@@ -295,16 +315,21 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             Donation[] storage userDonations = donations[donator];
 
             for (uint256 j = 0; j < userDonations.length && _remaining > 0 ; j++) {
-                Donation storage d = userDonations[j];
+                Donation memory d = userDonations[j];
 
                 if (!d.allocated || d.remaining == 0) continue;
 
+                uint availableFromDonator = recipientBalancesByDonator[msg.sender][donator];
                 uint _toSend = _remaining < d.remaining ? _remaining : d.remaining;
+
+                // do not try to send more than the donator balance fo this receipient
+                _toSend = _toSend < availableFromDonator ? _toSend : availableFromDonator;
                 d.remaining -= _toSend;
                 _remaining -= _toSend;
 
                 // Update the recipient-specific balance tracking
                 recipientBalancesByDonator[msg.sender][donator] -= _toSend;
+                userDonations[j].remaining = d.remaining;
 
                 if(_toSend > 0) {
                     emit FundsSpent(d.donator, msg.sender, _to, _toSend, block.timestamp);
@@ -315,7 +340,10 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         (bool success,) = payable(_to).call{value: _amount}("");
         require(success, TransferFailed());
 
-        _cleanupSpentDonations();
+        if (recipientPayoutCount[msg.sender] % CLEANUP_FREQUENCY == 0) {
+            _cleanupSpentDonations();
+        }
+
     }
 
     function _cleanupSpentDonations() private {

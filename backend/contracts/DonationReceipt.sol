@@ -31,8 +31,9 @@ contract DonationReceipt is ERC721URIStorage, Ownable {
      * @dev Restricted to be called only by the owner (the DonationTracker contract).
      * @param to The address of the donator (the recipient of the NFT).
      * @param tokenURI The IPFS URI pointing to the NFT metadata JSON (e.g., ipfs://Qm.../1.json).
+     * @return newTokenId The ID of the newly minted token.
      */
-    function mint(address to, string memory tokenURI) external onlyOwner {
+    function mint(address to, string memory tokenURI) external onlyOwner returns (uint256) {
         // Ensure the recipient address is valid
         require(to != address(0), "ERC721: mint to the zero address");
 
@@ -42,6 +43,8 @@ contract DonationReceipt is ERC721URIStorage, Ownable {
         _safeMint(to, newTokenId);
 
         _setTokenURI(newTokenId, tokenURI);
+
+        return newTokenId;
     }
 
 }
