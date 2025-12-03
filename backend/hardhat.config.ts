@@ -1,9 +1,15 @@
 import hardhatToolboxMochaEthersPlugin from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 import { configVariable, defineConfig } from "hardhat/config";
+import hardhatVerify from "@nomicfoundation/hardhat-verify";
 import "@nomicfoundation/hardhat-ethers";
 
 export default defineConfig({
-  plugins: [hardhatToolboxMochaEthersPlugin],
+  plugins: [hardhatToolboxMochaEthersPlugin, hardhatVerify],
+    verify: {
+        etherscan: {
+            apiKey: configVariable("ETHERSCAN_PRIVATE_KEY"),
+        },
+    },
   solidity: {
     profiles: {
       default: {
