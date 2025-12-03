@@ -1285,7 +1285,7 @@ describe("DonationTracker", function () {
     });
 
     describe("Safety Limits", function () {
-        let tracker: DonationTracker, owner: HardhatEthersSigner, donator1: HardhatEthersSigner, recipient1: HardhatEthersSigner;
+        let tracker: any, owner: any, donator1: any, recipient1: any;
 
         beforeEach(async () => {
             ({tracker, owner, donator1, recipient1} = await setUpSmartContract());
@@ -1401,5 +1401,134 @@ describe("DonationTracker", function () {
                 tracker.connect(donator1).donate({value: ethers.parseEther("1")})
             ).to.not.be.revert(ethers);
         });
+    });
+
+    describe("Emergency Withdraw", function () {
+        it("Should allow owner to withdraw all contract funds", async function () {
+            const {tracker, owner, donator1} = await setUpSmartContract();
+
+            // Make some donations to have funds in the contract
+            await tracker.connect(donator1).donate({value: parseEther("10")});
+
+            // Get initial balances
+            const contractBalanceBefore = await tracker.contractBalance();
+            const ownerBalanceBefore = await ethers.provider.getBalance(owner.address);
+
+            expect(contractBalanceBefore).to.equal(parseEther("10"));
+
+            // Execute emergency withdraw
+            const tx = await tracker.connect(owner).emergencyWithdraw();
+            const receipt = await tx.wait();
+            const gasUsed = receipt!.gasUsed * receipt!.gasPrice;
+
+            // Verify contract balance is now zero
+            const contractBalanceAfter = await tracker.contractBalance();
+            expect(contractBalanceAfter).to.equal(0);
+
+            // Verify owner received the funds (minus gas)
+            const ownerBalanceAfter = await ethers.provider.getBalance(owner.address);
+            expect(ownerBalanceAfter).to.equal(
+                ownerBalanceBefore + contractBalanceBefore - gasUsed
+            );
+        });
+
+        it("Should revert when non-owner tries to withdraw", async function () {
+            const {tracker, donator1, donator2} = await setUpSmartContract();
+
+            // Make a donation to have funds in contract
+            await tracker.connect(donator1).donate({value: parseEther("5")});
+
+            // Try to withdraw as non-owner
+            await expect(
+                tracker.connect(donator2).emergencyWithdraw()
+            ).to.be.revertedWithCustomError(tracker, "OwnableUnauthorizedAccount");
+        });
+
+        it("Should revert when contract balance is zero", async function () {
+            const {tracker, owner} = await setUpSmartContract();
+
+            // Verify contract balance is zero
+            const balance = await tracker.contractBalance();
+            expect(balance).to.equal(0);
+
+            // Try to withdraw with zero balance
+            await expect(
+                tracker.connect(owner).emergencyWithdraw()
+            ).to.be.revertedWithCustomError(tracker, "NotEnoughFunds")
+                .withArgs(0, 0);
+        });
+
+        it("Should work after donations, allocations, and payouts", async function () {
+            const {tracker, owner, recipient1, donator1, donator2} = await setUpSmartContract();
+
+            // Make donations
+            await tracker.connect(donator1).donate({value: parseEther("10")});
+            await tracker.connect(donator2).donate({value: parseEther("20")});
+
+            // Allocate first donation
+            const donation1 = await tracker.userDonationAt(donator1.address, 0);
+            const donationCopy1 = {
+                donator: donation1.donator,
+                amount: donation1.amount,
+                remaining: donation1.remaining,
+                timestamp: donation1.timestamp,
+                allocated: donation1.allocated,
+                receiptRequested: donation1.receiptRequested,
+                receiptMinted: donation1.receiptMinted,
+                index: donation1.index
+            };
+            await tracker.connect(owner).allocate(donationCopy1);
+
+            // Recipient spends some funds
+            const recipientBalance = await tracker.connect(recipient1).getRecipientTotalBalance(recipient1.address);
+            const payoutAmount = recipientBalance / 2n; // Spend 50%
+            await tracker.connect(recipient1).payout(donator1.address, "Test payout", {
+                value: payoutAmount
+            });
+
+            // Now emergency withdraw remaining funds
+            const contractBalanceBefore = await tracker.contractBalance();
+            expect(contractBalanceBefore).to.be.greaterThan(0);
+
+            const ownerBalanceBefore = await ethers.provider.getBalance(owner.address);
+
+            const tx = await tracker.connect(owner).emergencyWithdraw();
+            const receipt = await tx.wait();
+            const gasUsed = receipt!.gasUsed * receipt!.gasPrice;
+
+            // Verify contract is empty
+            const contractBalanceAfter = await tracker.contractBalance();
+            expect(contractBalanceAfter).to.equal(0);
+
+            // Verify owner received funds
+            const ownerBalanceAfter = await ethers.provider.getBalance(owner.address);
+            expect(ownerBalanceAfter).to.equal(
+                ownerBalanceBefore + contractBalanceBefore - gasUsed
+            );
+        });
+
+        it("Should withdraw the exact contract balance including dust", async function () {
+            const {tracker, owner, donator1, donator2, donator3} = await setUpSmartContract();
+
+            // Make donations with odd amounts that might create rounding dust
+            await tracker.connect(donator1).donate({value: parseEther("3.333333333333333333")});
+            await tracker.connect(donator2).donate({value: parseEther("7.777777777777777777")});
+            await tracker.connect(donator3).donate({value: parseEther("1.111111111111111111")});
+
+            const contractBalance = await tracker.contractBalance();
+            const expectedBalance = parseEther("3.333333333333333333") +
+                                   parseEther("7.777777777777777777") +
+                                   parseEther("1.111111111111111111");
+
+            expect(contractBalance).to.equal(expectedBalance);
+
+            // Withdraw everything
+            await tracker.connect(owner).emergencyWithdraw();
+
+            // Verify absolutely zero balance
+            const finalBalance = await tracker.contractBalance();
+            expect(finalBalance).to.equal(0);
+        });
+
     });
 });

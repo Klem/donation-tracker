@@ -225,6 +225,13 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         emit ReceiptMinted(msg.sender, _donator, _index, tokenId, block.timestamp);
     }
 
+    function emergencyWithdraw() external onlyOwner() {
+        require(address(this).balance > 0, NotEnoughFunds(address(this).balance,address(this).balance));
+        (bool success,) = payable(owner()).call{value: address(this).balance}("");
+
+        require(success, TransferFailed());
+    }
+
     function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {
         return donations[_donator][_index];
     }
