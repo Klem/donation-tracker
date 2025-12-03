@@ -1,5 +1,5 @@
-export const CONTRACT_ADDRESS: `0x${string}` = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-export const CONTRACT_ABI =[
+export const CONTRACT_ADDRESS: `0x${string}` = "0xbd9aB5d8F409321F16DF91F8f2f178540170E512";
+export const CONTRACT_ABI = [
     {
         "inputs": [
             {
@@ -175,6 +175,48 @@ export const CONTRACT_ABI =[
     {
         "inputs": [],
         "name": "ReentrancyGuardReentrantCall",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "current",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "max",
+                "type": "uint256"
+            }
+        ],
+        "name": "TooManyActiveDonators",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "donator",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "current",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "max",
+                "type": "uint256"
+            }
+        ],
+        "name": "TooManyDonations",
         "type": "error"
     },
     {
@@ -434,6 +476,32 @@ export const CONTRACT_ABI =[
         "type": "fallback"
     },
     {
+        "inputs": [],
+        "name": "MAX_ACTIVE_DONATORS_PER_RECIPIENT",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "MAX_DONATIONS_PER_DONATOR",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "components": [
@@ -567,6 +635,13 @@ export const CONTRACT_ABI =[
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "emergencyWithdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
