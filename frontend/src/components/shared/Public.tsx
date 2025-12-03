@@ -64,6 +64,9 @@ const Public = () => {
             if (!publicClient) return;
 
             try {
+                const current = await publicClient.getBlockNumber();
+                const from = current > 1000n ? current - 1000n : 0n;
+
                 const logs = await publicClient.getLogs({
                     address: CONTRACT_ADDRESS,
                     event: {
@@ -76,7 +79,7 @@ const Public = () => {
                             { type: 'uint256', name: 'index', indexed: false }
                         ]
                     },
-                    fromBlock: 0n,
+                    fromBlock: from,
                     toBlock: 'latest'
                 });
 

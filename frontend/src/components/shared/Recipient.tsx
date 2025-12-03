@@ -40,6 +40,8 @@ const Recipient = () => {
             if (!publicClient || !address) return;
 
             try {
+                const current = await publicClient.getBlockNumber();
+                const from = current > 1000n ? current - 1000n : 0n;
                 // Fetch FundsSpent events where recipient (from) is current address
                 const fundsSpentLogs = await publicClient.getLogs({
                     address: CONTRACT_ADDRESS,
@@ -47,7 +49,7 @@ const Recipient = () => {
                     args: {
                         from: address, // Filter by recipient address
                     },
-                    fromBlock: 0n,
+                    fromBlock: from,
                     toBlock: 'latest'
                 });
 
@@ -55,7 +57,7 @@ const Recipient = () => {
                 const spendingReasonLogs = await publicClient.getLogs({
                     address: CONTRACT_ADDRESS,
                     event: parseAbiItem('event SpendingReason(address indexed donator, uint timestamp, string message)'),
-                    fromBlock: 0n,
+                    fromBlock: from,
                     toBlock: 'latest'
                 });
 

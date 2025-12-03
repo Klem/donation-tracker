@@ -81,11 +81,14 @@ const Admin = () => {
         const fetchDonations = async () => {
             if (!publicClient) return;
 
+            const current = await publicClient.getBlockNumber();
+            const from = current > 1000n ? current - 1000n : 0n;
+
             try {
                 const logs = await publicClient.getLogs({
                     address: CONTRACT_ADDRESS,
                     event: parseAbiItem('event DonationReceived(address indexed donator, uint amount, uint indexed timestamp, uint index)'),
-                    fromBlock: 0n,
+                    fromBlock: from,
                     toBlock: 'latest'
                 });
 

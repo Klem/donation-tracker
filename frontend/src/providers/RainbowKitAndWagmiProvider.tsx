@@ -8,19 +8,19 @@ import {QueryClientProvider, QueryClient,} from "@tanstack/react-query";
 import {http} from "viem";
 import {localHardhat} from "@/utils/myLocalHardhat";
 
-// export const config = createConfig({
-//     chains: [sepolia],
-//     connectors: [injected({ target: 'metaMask' })],
-//     transports: { [sepolia.id]: http() },
-//     ssr: true
-// });
-
 export const config = createConfig({
-    chains: [localHardhat],
+    chains: [sepolia],
     connectors: [injected({ target: 'metaMask' })],
-    transports: { [localHardhat.id]: http() },
+    transports: { [sepolia.id]: http() },
     ssr: true
 });
+
+// export const config = createConfig({
+//     chains: [localHardhat],
+//     connectors: [injected({ target: 'metaMask' })],
+//     transports: { [localHardhat.id]: http() },
+//     ssr: true
+// });
 
 
 

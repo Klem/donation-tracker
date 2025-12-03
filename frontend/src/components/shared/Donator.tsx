@@ -113,6 +113,8 @@ const Donator = () => {
 
         const fetchPastDonations = async () => {
             try {
+                const current = await publicClient.getBlockNumber();
+                const from = current > 1000n ? current - 1000n : 0n;
                 const logs = await publicClient.getLogs({
                     address: CONTRACT_ADDRESS,
                     event: {
@@ -127,7 +129,7 @@ const Donator = () => {
                     args: {
                         donator: address,
                     },
-                    fromBlock: 0n,
+                    fromBlock: from,
                     toBlock: 'latest',
                 });
 
