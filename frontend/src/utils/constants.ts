@@ -1,4 +1,5 @@
-export const CONTRACT_ADDRESS: `0x${string}` = "0xbd9aB5d8F409321F16DF91F8f2f178540170E512";
+export const CONTRACT_ADDRESS: `0x${string}` = "0x9D553f103FF60a4e2F7704AE4Ed10eEf791653E2";
+export const NFT_ADDRESS: `0x${string}` = "0x3cc0512E7c133e102193b84c499725D317629f01";
 export const CONTRACT_ABI = [
     {
         "inputs": [

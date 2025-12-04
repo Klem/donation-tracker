@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
-import {CONTRACT_ABI, CONTRACT_ADDRESS} from "@/utils/constants";
+import {CONTRACT_ABI, CONTRACT_ADDRESS, NFT_ADDRESS} from "@/utils/constants";
 
 // DonationReceipt NFT contract address (for MetaMask import)
-const NFT_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
 
 interface GenerateReceiptButtonProps {
   donation: {
@@ -154,7 +154,7 @@ export function GenerateReceiptButton({
             🎫 NFT Token ID: {tokenId}
           </div>
           <div className="text-xs text-green-700 mb-2">
-            Contract: {NFT_CONTRACT_ADDRESS.slice(0, 6)}...{NFT_CONTRACT_ADDRESS.slice(-4)}
+            Contract: {NFT_ADDRESS.slice(0, 6)}...{NFT_ADDRESS.slice(-4)}
           </div>
           <div className="text-xs text-green-600">
             Pour importer dans MetaMask:
@@ -163,7 +163,7 @@ export function GenerateReceiptButton({
             <br />
             2. "Import NFTs"
             <br />
-            3. Address: {NFT_CONTRACT_ADDRESS}
+            3. Address: {NFT_ADDRESS}
             <br />
             4. Token ID: {tokenId}
           </div>

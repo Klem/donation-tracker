@@ -11,7 +11,9 @@ import {localHardhat} from "@/utils/myLocalHardhat";
 export const config = createConfig({
     chains: [sepolia],
     connectors: [injected({ target: 'metaMask' })],
-    transports: { [sepolia.id]: http() },
+    transports: {
+        [sepolia.id]: http(process.env.NEXT_PUBLIC_RPC_URL)
+    },
     ssr: true
 });
 
