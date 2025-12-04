@@ -2,20 +2,22 @@
 import React, {useState, useEffect} from 'react'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import {useAccount, useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt, usePublicClient} from "wagmi";
+import {useAccount, useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt} from "wagmi";
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from "@/utils/constants";
-import {formatEther, parseEther, parseAbiItem} from "viem";
+import {formatEther, parseEther} from "viem";
 import {useMemo} from "react";
+import { useSpendingWithReasons } from "@/hooks/usePonder";
 
 const Recipient = () => {
 
     const {address} = useAccount();
-    const publicClient = usePublicClient();
     const [payoutAmount, setPayoutAmount] = useState('');
     const [destinationAddress, setDestinationAddress] = useState('');
     const [paymentReason, setPaymentReason] = useState('');
-    const [pastSpending, setPastSpending] = useState<any[]>([]);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    // Fetch spending history from Ponder (replaces getLogs)
+    const { data: pastSpending = [], isLoading: isSpendingLoading } = useSpendingWithReasons(address);
 
     // Fonction de payout
     const {data: hash, writeContract, isPending} = useWriteContract();
@@ -33,61 +35,6 @@ const Recipient = () => {
             setRefreshTrigger(prev => prev + 1);
         }
     }, [isSuccess]);
-
-    // Fetch past spending events
-    useEffect(() => {
-        const fetchPastSpending = async () => {
-            if (!publicClient || !address) return;
-
-            try {
-                const current = await publicClient.getBlockNumber();
-                const from = current > 1000n ? current - 1000n : 0n;
-                // Fetch FundsSpent events where recipient (from) is current address
-                const fundsSpentLogs = await publicClient.getLogs({
-                    address: CONTRACT_ADDRESS,
-                    event: parseAbiItem('event FundsSpent(address indexed donator, address indexed from, address indexed to, uint amount, uint timestamp)'),
-                    args: {
-                        from: address, // Filter by recipient address
-                    },
-                    fromBlock: from,
-                    toBlock: 'latest'
-                });
-
-                // Fetch all SpendingReason events
-                const spendingReasonLogs = await publicClient.getLogs({
-                    address: CONTRACT_ADDRESS,
-                    event: parseAbiItem('event SpendingReason(address indexed donator, uint timestamp, string message)'),
-                    fromBlock: from,
-                    toBlock: 'latest'
-                });
-
-                // Combine events by matching donator and timestamp
-                const spendingHistory = fundsSpentLogs.map((fundsLog: any) => {
-                    const matchingReason = spendingReasonLogs.find((reasonLog: any) =>
-                        reasonLog.args.donator === fundsLog.args.donator &&
-                        reasonLog.args.timestamp === fundsLog.args.timestamp
-                    );
-
-                    return {
-                        donator: fundsLog.args.donator,
-                        from: fundsLog.args.from,
-                        to: fundsLog.args.to,
-                        amount: fundsLog.args.amount,
-                        timestamp: fundsLog.args.timestamp,
-                        reason: matchingReason ? matchingReason.args.message : 'No reason provided',
-                        blockNumber: fundsLog.blockNumber,
-                        transactionHash: fundsLog.transactionHash,
-                    };
-                });
-
-                setPastSpending(spendingHistory.reverse());
-            } catch (error) {
-                console.error('Error fetching past spending:', error);
-            }
-        };
-
-        fetchPastSpending();
-    }, [publicClient, address, isSuccess]); // Refresh when payout succeeds
 
     // Refetch donator data when refreshTrigger changes
     useEffect(() => {
@@ -329,11 +276,15 @@ const Recipient = () => {
                     <CardHeader>
                         <CardTitle>Historique des dépenses</CardTitle>
                         <CardDescription>
-                            {pastSpending.length} paiement{pastSpending.length !== 1 ? 's' : ''} effectué{pastSpending.length !== 1 ? 's' : ''}
+                            {pastSpending.length} paiement{pastSpending.length !== 1 ? 's' : ''} effectué{pastSpending.length !== 1 ? 's' : ''} (depuis Ponder)
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {pastSpending.length === 0 ? (
+                        {isSpendingLoading ? (
+                            <div className="text-center py-8 text-slate-500">
+                                Chargement...
+                            </div>
+                        ) : pastSpending.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
                                 Aucun historique de dépenses pour le moment
                             </div>
@@ -341,7 +292,7 @@ const Recipient = () => {
                             <div className="space-y-3">
                                 {pastSpending.map((spending, idx) => (
                                     <div
-                                        key={`${spending.transactionHash}-${idx}`}
+                                        key={spending.id}
                                         className="p-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg border border-green-200"
                                     >
                                         <div className="flex items-start justify-between mb-3">
@@ -351,11 +302,11 @@ const Recipient = () => {
                                                         PAYÉ
                                                     </span>
                                                     <span className="text-xs text-slate-500">
-                                                        {new Date(Number(spending.timestamp) * 1000).toLocaleString()}
+                                                        {new Date(spending.timestamp * 1000).toLocaleString()}
                                                     </span>
                                                 </div>
                                                 <div className="font-bold text-2xl text-green-700 mb-2">
-                                                    {parseFloat(formatEther(spending.amount)).toFixed(4)} ETH
+                                                    {parseFloat(formatEther(BigInt(spending.amount))).toFixed(4)} ETH
                                                 </div>
                                             </div>
                                         </div>

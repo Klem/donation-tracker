@@ -1,7 +1,8 @@
 'use client'
 import React, {useState, useEffect, useMemo} from 'react'
 import {useReadContract, useAccount, usePublicClient, useWriteContract, useWaitForTransactionReceipt} from "wagmi";
-import {formatEther, parseAbiItem} from "viem";
+import {formatEther} from "viem";
+import { useAllDonations } from "@/hooks/usePonder";
 import {DollarSign, TrendingUp, Users, Wallet, TrendingDown} from "lucide-react";
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from "../../utils/constants";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
@@ -18,6 +19,9 @@ const Admin = () => {
     const [refreshTrigger, setRefreshTrigger] = useState(0);
 
     const publicClient = usePublicClient();
+
+    // Fetch all donations from Ponder (replaces getLogs)
+    const { data: allDonations = [], isLoading: isDonationsLoading } = useAllDonations();
 
     // Récupération des statistiques globales
     const {data: totalDonated} = useReadContract({
@@ -76,41 +80,30 @@ const Admin = () => {
         },
     });
 
-    // Récupérer tous les événements DonationReceived
+    // Process donations from Ponder and check allocation status
     useEffect(() => {
-        const fetchDonations = async () => {
-            if (!publicClient) return;
-
-            const current = await publicClient.getBlockNumber();
-            const from = current > 1000n ? current - 1000n : 0n;
+        const processDonations = async () => {
+            if (!publicClient || allDonations.length === 0) return;
 
             try {
-                const logs = await publicClient.getLogs({
-                    address: CONTRACT_ADDRESS,
-                    event: parseAbiItem('event DonationReceived(address indexed donator, uint amount, uint indexed timestamp, uint index)'),
-                    fromBlock: from,
-                    toBlock: 'latest'
-                });
-
-                const donations = logs.map((log: any) => ({
-                    donator: log.args.donator,
-                    amount: log.args.amount,
-                    timestamp: log.args.timestamp,
-                    index: log.args.index,
-                    blockNumber: log.blockNumber
-                }));
-
-                // Récupérer les détails de chaque donation pour les séparer
+                // Récupérer les détails de chaque donation pour vérifier le statut allocated
                 const donationsWithDetails = await Promise.all(
-                    donations.map(async (d) => {
+                    allDonations.map(async (d) => {
                         try {
                             const details = await publicClient.readContract({
                                 address: CONTRACT_ADDRESS,
                                 abi: CONTRACT_ABI,
                                 functionName: 'userDonationAt',
-                                args: [d.donator as `0x${string}`, d.index],
+                                args: [d.donator as `0x${string}`, BigInt(d.index)],
                             });
-                            return { ...d, details };
+                            return {
+                                donator: d.donator,
+                                amount: BigInt(d.amount),
+                                timestamp: BigInt(d.timestamp),
+                                index: BigInt(d.index),
+                                blockNumber: d.blockNumber,
+                                details
+                            };
                         } catch (error) {
                             console.error('Error fetching donation details:', error);
                             return null;
@@ -138,12 +131,12 @@ const Admin = () => {
                 setPendingDonations(pending);
                 setAllocatedDonations(allocated);
             } catch (error) {
-                console.error('Error fetching donations:', error);
+                console.error('Error processing donations:', error);
             }
         };
 
-        fetchDonations();
-    }, [publicClient, refreshTrigger]);
+        processDonations();
+    }, [publicClient, allDonations, refreshTrigger]);
 
     // Formatage des stats
     const stats = {
@@ -230,11 +223,15 @@ const Admin = () => {
                     <CardHeader>
                         <CardTitle>Donations à allouer</CardTitle>
                         <CardDescription>
-                            {pendingDonations.length} donation{pendingDonations.length !== 1 ? 's' : ''} en attente d'allocation
+                            {pendingDonations.length} donation{pendingDonations.length !== 1 ? 's' : ''} en attente d'allocation (depuis Ponder)
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {pendingDonations.length === 0 ? (
+                        {isDonationsLoading ? (
+                            <div className="text-center py-8 text-slate-500">
+                                Chargement...
+                            </div>
+                        ) : pendingDonations.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
                                 Aucune donation à allouer
                             </div>
@@ -261,11 +258,15 @@ const Admin = () => {
                     <CardHeader>
                         <CardTitle>Historique des allocations</CardTitle>
                         <CardDescription>
-                            {allocatedDonations.length} donation{allocatedDonations.length !== 1 ? 's' : ''} déjà allouée{allocatedDonations.length !== 1 ? 's' : ''}
+                            {allocatedDonations.length} donation{allocatedDonations.length !== 1 ? 's' : ''} déjà allouée{allocatedDonations.length !== 1 ? 's' : ''} (depuis Ponder)
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {allocatedDonations.length === 0 ? (
+                        {isDonationsLoading ? (
+                            <div className="text-center py-8 text-slate-500">
+                                Chargement...
+                            </div>
+                        ) : allocatedDonations.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
                                 Aucune donation allouée pour le moment
                             </div>

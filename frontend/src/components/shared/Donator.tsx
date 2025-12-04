@@ -8,19 +8,20 @@ import {
     useReadContract,
     useReadContracts,
     useWriteContract,
-    useWaitForTransactionReceipt,
-    usePublicClient
+    useWaitForTransactionReceipt
 } from "wagmi";
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from "@/utils/constants";
 import {formatEther, parseEther} from "viem";
 import {GenerateReceiptButton} from "./GenerateReceiptButton";
+import { useDonationsByDonator } from "@/hooks/usePonder";
 
 const Donator = () => {
 
     const {address, isConnected} = useAccount();
-    const publicClient = usePublicClient();
     const [donationAmount, setDonationAmount] = useState('');
-    const [pastDonations, setPastDonations] = useState<any[]>([]);
+
+    // Fetch donations from Ponder (replaces getLogs)
+    const { data: pastDonations = [], isLoading: isPastDonationsLoading } = useDonationsByDonator(address);
 
     // Récupération des statistiques du user
     const {data: totalDonations, refetch: refetchTotalDonations} = useReadContract({
@@ -106,48 +107,6 @@ const Donator = () => {
             refetchDonations();
         }
     }, [isSuccess, refetchTotalDonations, refetchDonationCount, refetchUnspentDonations, refetchDonations]);
-
-    // Récupérer les donations passées depuis les logs
-    useEffect(() => {
-        if (!publicClient || !address) return;
-
-        const fetchPastDonations = async () => {
-            try {
-                const current = await publicClient.getBlockNumber();
-                const from = current > 1000n ? current - 1000n : 0n;
-                const logs = await publicClient.getLogs({
-                    address: CONTRACT_ADDRESS,
-                    event: {
-                        type: 'event',
-                        name: 'DonationReceived',
-                        inputs: [
-                            {type: 'address', name: 'donator', indexed: true},
-                            {type: 'uint256', name: 'amount', indexed: false},
-                            {type: 'uint256', name: 'index', indexed: false},
-                        ],
-                    },
-                    args: {
-                        donator: address,
-                    },
-                    fromBlock: from,
-                    toBlock: 'latest',
-                });
-
-                const formattedLogs = logs.map((log: any) => ({
-                    amount: parseFloat(formatEther(log.args.amount as bigint)).toFixed(4),
-                    index: Number(log.args.index),
-                    blockNumber: Number(log.blockNumber),
-                    transactionHash: log.transactionHash,
-                }));
-
-                setPastDonations(formattedLogs);
-            } catch (error) {
-                console.error('Error fetching past donations:', error);
-            }
-        };
-
-        fetchPastDonations();
-    }, [publicClient, address, isSuccess]); // Refresh when new donation succeeds
 
     // Formater les données
     const userStats = {
@@ -335,10 +294,14 @@ const Donator = () => {
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
                         <CardTitle>Dons passés</CardTitle>
-                        <CardDescription>Historique complet de tous vos dons</CardDescription>
+                        <CardDescription>Historique complet de tous vos dons (depuis Ponder)</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {pastDonations.length === 0 ? (
+                        {isPastDonationsLoading ? (
+                            <div className="text-center py-8 text-slate-500">
+                                Chargement...
+                            </div>
+                        ) : pastDonations.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
                                 Aucun don passé trouvé
                             </div>
@@ -346,7 +309,7 @@ const Donator = () => {
                             <div className="space-y-3">
                                 {pastDonations.map((donation) => (
                                     <div
-                                        key={`${donation.transactionHash}-${donation.index}`}
+                                        key={donation.id}
                                         className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200"
                                     >
                                         <div className="flex items-center gap-4 flex-1">
@@ -356,8 +319,8 @@ const Donator = () => {
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2">
-                                                    <div
-                                                        className="font-semibold text-slate-900">{donation.amount} ETH
+                                                    <div className="font-semibold text-slate-900">
+                                                        {parseFloat(formatEther(BigInt(donation.amount))).toFixed(4)} ETH
                                                     </div>
                                                     <span
                                                         className="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded-full">
