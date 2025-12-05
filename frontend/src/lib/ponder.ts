@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
 
 // Ponder GraphQL endpoint (adjust port if needed)
-const PONDER_URL = process.env.PONDER_URL || 'http://localhost:42069/graphql';
+const PONDER_URL = process.env.PONDER_URL || 'http://klem.servebeer.com:7001/graphql';
 
 export const ponderClient = new GraphQLClient(PONDER_URL);
 

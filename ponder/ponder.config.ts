@@ -3,7 +3,7 @@ import { createConfig } from "ponder";
 import { TRACKER_ABI } from "./abis/DonationTracker";
 
 export default createConfig({
-  chains: {
+    chains: {
     sepolia: {
       id: 11155111,
       rpc: "https://ethereum-sepolia-rpc.publicnode.com",
@@ -13,8 +13,8 @@ export default createConfig({
     DonationTracker: {
       chain:"sepolia",
       abi: TRACKER_ABI,
-      address: "0x9d553f103ff60a4e2f7704ae4ed10eef791653e2",
-      startBlock: 9761342,
+      address: "0xfE4a5E2582A8ea90b7C015131ceeeBAc4Ea0A62d",
+      startBlock: 9773631,
     },
   },
 });
