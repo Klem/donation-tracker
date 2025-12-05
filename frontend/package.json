@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@pinata/sdk": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@rainbow-me/rainbowkit": "^2.2.0",
@@ -24,6 +25,8 @@
     "pinata": "^2.5.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "satori": "^0.18.3",
+    "sharp": "^0.34.5",
     "tailwind-merge": "^2.6.0",
     "viem": "^2.21.53",
     "wagmi": "^2.13.6"

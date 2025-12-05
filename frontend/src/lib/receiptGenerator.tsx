@@ -1,4 +1,8 @@
-import { ImageResponse } from '@vercel/og';
+import satori from 'satori';
+import sharp from 'sharp';
+import React from 'react';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 interface ReceiptData {
   donatorAddress: string;
@@ -15,7 +19,12 @@ export async function generateReceiptImage(data: ReceiptData): Promise<Buffer> {
     day: 'numeric',
   });
 
-  const imageResponse = new ImageResponse(
+  // Load fonts from node_modules
+  const fontPath = join(process.cwd(), 'node_modules', '@fontsource', 'inter', 'files');
+  const fontRegular = await readFile(join(fontPath, 'inter-latin-400-normal.woff'));
+  const fontBold = await readFile(join(fontPath, 'inter-latin-700-normal.woff'));
+
+  const svg = await satori(
     (
       <div
         style={{
@@ -250,10 +259,27 @@ export async function generateReceiptImage(data: ReceiptData): Promise<Buffer> {
     {
       width: 800,
       height: 1000,
+      fonts: [
+        {
+          name: 'Inter',
+          data: fontRegular,
+          weight: 400,
+          style: 'normal',
+        },
+        {
+          name: 'Inter',
+          data: fontBold,
+          weight: 700,
+          style: 'normal',
+        },
+      ],
     }
   );
 
-  // Convert Response to Buffer
-  const arrayBuffer = await imageResponse.arrayBuffer();
-  return Buffer.from(arrayBuffer);
+  // Convert SVG to PNG using sharp
+  const pngBuffer = await sharp(Buffer.from(svg))
+    .png()
+    .toBuffer();
+
+  return pngBuffer;
 }
