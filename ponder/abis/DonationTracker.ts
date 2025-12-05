@@ -1,6 +1,4 @@
-export const CONTRACT_ADDRESS: `0x${string}` = "0xfE4a5E2582A8ea90b7C015131ceeeBAc4Ea0A62d";
-export const NFT_ADDRESS: `0x${string}` = "0x5958372eAe12b77F78e5ec7BA81eAa6595b75f21";
-export const CONTRACT_ABI = [
+export const TRACKER_ABI =  [
     {
         "inputs": [
             {
@@ -1036,4 +1034,4 @@ export const CONTRACT_ABI = [
         "stateMutability": "payable",
         "type": "receive"
     }
-] as const
+] as const;

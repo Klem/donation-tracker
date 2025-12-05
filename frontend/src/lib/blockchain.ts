@@ -13,8 +13,8 @@ export async function mintReceipt(
 ): Promise<{ txHash: string; tokenId: number }> {
   try {
     // Get environment variables
-    const rpcUrl = process.env.RPC_URL || process.env.NEXT_PUBLIC_RPC_URL;
-    const contractAddress = process.env.CONTRACT_ADDRESS || process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+    const rpcUrl = process.env.RPC_URL;
+    const contractAddress = process.env.CONTRACT_ADDRESS
     const privateKey = process.env.OWNER_PRIVATE_KEY;
 
     if (!rpcUrl || !contractAddress || !privateKey) {
