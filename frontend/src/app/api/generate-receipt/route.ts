@@ -18,12 +18,14 @@ export async function POST(request: NextRequest) {
 
     console.log(`📝 Generating receipt for donator: ${donatorAddress}, donation #${donationIndex}`);
 
+    const receiptId = `${donatorAddress.slice(0, 6)}_${donationIndex}_${Date.now()}`;
+
     // Step 1: Generate receipt image
     const imageBuffer = await generateReceiptImage({
       donatorAddress,
       donationAmount,
       timestamp,
-      receiptId: `${donatorAddress.slice(0, 6)}_${donationIndex}_${Date.now()}`,
+      receiptId,
     });
 
     // Step 2: Upload image and metadata to IPFS
