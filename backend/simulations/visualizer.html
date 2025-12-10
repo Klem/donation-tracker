@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Tracker Simulation Visualizer</title>
+
+    <!-- Chart.js for 2D charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Plotly.js for 3D charts -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-red: #ef4444;
+            --border: #475569;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1a2537 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+
+        .controls {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        .control-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-item {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select, input[type="file"] {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover, select:focus, input[type="file"]:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-primary);
+        }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .metadata {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .metadata-item {
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .metadata-label {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .metadata-value {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        .chart-container.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .chart-canvas {
+            position: relative;
+            height: 400px;
+        }
+
+        .chart-canvas.tall {
+            height: 500px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 1.2em;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--accent-red);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: var(--accent-red);
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .summary-card .label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #donatorSelector {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Donation Tracker Simulation Visualizer</h1>
+            <p class="subtitle">Comprehensive visualization of blockchain simulation data</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="fileInput">📁 Select Data File</label>
+                    <input type="file" id="fileInput" accept=".json">
+                </div>
+                <div class="control-item">
+                    <button onclick="loadSampleData()">Load Sample Data</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="metadata" class="metadata"></div>
+        <div id="summaryCards" class="summary-cards"></div>
+        <div id="charts" class="charts-grid"></div>
+        <div id="loading" class="loading" style="display: none;">Loading...</div>
+        <div id="error" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        let simulationData = null;
+
+        // File input handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        simulationData = JSON.parse(event.target.result);
+                        renderAll();
+                    } catch (error) {
+                        showError('Failed to parse JSON file: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function renderAll() {
+            if (!simulationData) return;
+
+            renderMetadata();
+            renderSummaryCards();
+            renderCharts();
+        }
+
+        function renderMetadata() {
+            const meta = simulationData.metadata;
+            const metadataDiv = document.getElementById('metadata');
+            metadataDiv.innerHTML = `
+                <h2 style="margin-bottom: 20px; color: var(--accent-blue);">Simulation Metadata</h2>
+                <div class="metadata-grid">
+                    <div class="metadata-item">
+                        <div class="metadata-label">Preset</div>
+                        <div class="metadata-value">${meta.presetName}</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Duration</div>
+                        <div class="metadata-value">${meta.simulationDays} days</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Total Cycles</div>
+                        <div class="metadata-value">${meta.totalCycles}</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">Start Time</div>
+                        <div class="metadata-value">${new Date(meta.startTime).toLocaleString()}</div>
+                    </div>
+                    <div class="metadata-item">
+                        <div class="metadata-label">End Time</div>
+                        <div class="metadata-value">${new Date(meta.endTime).toLocaleString()}</div>
+                    </div>
+                    <div class="metadata-item" style="grid-column: 1 / -1;">
+                        <div class="metadata-label">Description</div>
+                        <div class="metadata-value" style="font-size: 1em;">${meta.presetDescription}</div>
+                    </div>
+                </div>
+            `;
+            metadataDiv.style.display = 'block';
+        }
+
+        function renderSummaryCards() {
+            const summary = simulationData.summary;
+            const summaryDiv = document.getElementById('summaryCards');
+            summaryDiv.innerHTML = `
+                <div class="summary-card">
+                    <div class="label">Total Donations</div>
+                    <div class="value">${summary.totalDonations}</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Total Allocations</div>
+                    <div class="value">${summary.totalAllocations}</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Total Payouts</div>
+                    <div class="value">${summary.totalPayouts}</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Total Donated</div>
+                    <div class="value">${parseFloat(summary.totalDonated).toFixed(2)} ETH</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Total Allocated</div>
+                    <div class="value">${parseFloat(summary.totalAllocated).toFixed(2)} ETH</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Total Spent</div>
+                    <div class="value">${parseFloat(summary.totalSpent).toFixed(2)} ETH</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Total Gas Used</div>
+                    <div class="value">${(parseInt(summary.totalGasUsed) / 1000000).toFixed(2)}M</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Avg Gas/Tx</div>
+                    <div class="value">${(parseInt(summary.avgGasPerTransaction) / 1000).toFixed(0)}K</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Est. Gas Cost</div>
+                    <div class="value">${parseFloat(summary.gasCostInETH).toFixed(4)} ETH</div>
+                </div>
+            `;
+        }
+
+        function renderCharts() {
+            const chartsDiv = document.getElementById('charts');
+            chartsDiv.innerHTML = `
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">📊 Transaction Timeline</h3>
+                    <div class="chart-canvas tall" id="timelineChart"></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">💰 Transaction Distribution</h3>
+                    <div class="chart-canvas"><canvas id="transactionPie"></canvas></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">⛽ Gas Usage by Type</h3>
+                    <div class="chart-canvas"><canvas id="gasPie"></canvas></div>
+                </div>
+
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">📈 Balance Evolution</h3>
+                    <div class="chart-canvas tall" id="balanceChart"></div>
+                </div>
+
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">💸 Cumulative Flow (3D Surface)</h3>
+                    <div class="chart-canvas tall" id="flow3D"></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">⚡ Gas Usage Statistics</h3>
+                    <div class="chart-canvas"><canvas id="gasBar"></canvas></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">🔥 Activity Heatmap</h3>
+                    <div class="chart-canvas" id="heatmap"></div>
+                </div>
+
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">👤 Donator Activity Timeline</h3>
+                    <select id="donatorSelector" onchange="renderDonatorTimeline()">
+                        <option value="">Select a donator...</option>
+                        ${simulationData.donatorActivities.map(d =>
+                            `<option value="${d.address}">${d.address.slice(0, 10)}... (${d.donations.length} donations, ${parseFloat(d.totalDonated).toFixed(4)} ETH)</option>`
+                        ).join('')}
+                    </select>
+                    <div class="chart-canvas" id="donatorTimeline"></div>
+                </div>
+
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">⛽ 3D Gas Usage Surface</h3>
+                    <div class="chart-canvas tall" id="gas3DSurface"></div>
+                </div>
+
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">📊 3D Transaction Gas Scatter</h3>
+                    <div class="chart-canvas tall" id="gasScatter3D"></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">⚡ Cumulative Gas Over Time</h3>
+                    <div class="chart-canvas" id="cumulativeGas"></div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 class="chart-title">🔥 Gas Rate (Gas/Hour)</h3>
+                    <div class="chart-canvas" id="gasRate"></div>
+                </div>
+
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">💸 Donation Flow: Donators → Recipients → Payout Reasons</h3>
+                    <div class="chart-canvas tall" id="sankeyChart"></div>
+                </div>
+            `;
+
+            renderTimelineChart();
+            renderTransactionPieChart();
+            renderGasPieChart();
+            renderBalanceChart();
+            render3DFlowChart();
+            renderGasBarChart();
+            renderHeatmap();
+            render3DGasSurface();
+            renderGasScatter3D();
+            renderCumulativeGas();
+            renderGasRate();
+            renderSankey();
+        }
+
+        function renderTimelineChart() {
+            const events = simulationData.events;
+
+            const donations = events.filter(e => e.type === 'donation');
+            const allocations = events.filter(e => e.type === 'allocation');
+            const payouts = events.filter(e => e.type === 'payout');
+
+            const trace1 = {
+                x: donations.map(e => e.cycle),
+                y: donations.map(e => parseFloat(e.amount)),
+                mode: 'markers',
+                type: 'scatter',
+                name: 'Donations',
+                marker: {
+                    size: 8,
+                    color: '#10b981',
+                    line: { color: '#064e3b', width: 1 }
+                }
+            };
+
+            const trace2 = {
+                x: allocations.map(e => e.cycle),
+                y: allocations.map(e => parseFloat(e.amount)),
+                mode: 'markers',
+                type: 'scatter',
+                name: 'Allocations',
+                marker: {
+                    size: 8,
+                    color: '#3b82f6',
+                    line: { color: '#1e3a8a', width: 1 }
+                }
+            };
+
+            const trace3 = {
+                x: payouts.map(e => e.cycle),
+                y: payouts.map(e => parseFloat(e.amount)),
+                mode: 'markers',
+                type: 'scatter',
+                name: 'Payouts',
+                marker: {
+                    size: 8,
+                    color: '#f59e0b',
+                    line: { color: '#78350f', width: 1 }
+                }
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                xaxis: {
+                    title: 'Cycle (Hours)',
+                    gridcolor: '#475569'
+                },
+                yaxis: {
+                    title: 'Amount (ETH)',
+                    gridcolor: '#475569'
+                },
+                hovermode: 'closest',
+                showlegend: true,
+                legend: {
+                    x: 1,
+                    xanchor: 'right',
+                    y: 1
+                }
+            };
+
+            Plotly.newPlot('timelineChart', [trace1, trace2, trace3], layout, {responsive: true});
+        }
+
+        function renderTransactionPieChart() {
+            const summary = simulationData.summary;
+            const ctx = document.getElementById('transactionPie').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Donations', 'Allocations', 'Payouts'],
+                    datasets: [{
+                        data: [summary.totalDonations, summary.totalAllocations, summary.totalPayouts],
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b'],
+                        borderColor: ['#064e3b', '#1e3a8a', '#78350f'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#f1f5f9', font: { size: 14 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderGasPieChart() {
+            const gas = simulationData.gasStats;
+            const ctx = document.getElementById('gasPie').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Donations', 'Allocations', 'Payouts'],
+                    datasets: [{
+                        data: [
+                            parseInt(gas.donations.total),
+                            parseInt(gas.allocations.total),
+                            parseInt(gas.payouts.total)
+                        ],
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b'],
+                        borderColor: ['#064e3b', '#1e3a8a', '#78350f'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#f1f5f9', font: { size: 14 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    return label + ': ' + (value / 1000000).toFixed(2) + 'M gas';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderBalanceChart() {
+            const snapshots = simulationData.balanceSnapshots;
+
+            const trace1 = {
+                x: snapshots.map(s => s.cycle),
+                y: snapshots.map(s => parseFloat(s.contractBalance)),
+                mode: 'lines',
+                name: 'Contract Balance',
+                fill: 'tozeroy',
+                line: { color: '#3b82f6', width: 3 }
+            };
+
+            const trace2 = {
+                x: snapshots.map(s => s.cycle),
+                y: snapshots.map(s => parseFloat(s.totalDonated)),
+                mode: 'lines',
+                name: 'Total Donated',
+                line: { color: '#10b981', width: 2 }
+            };
+
+            const trace3 = {
+                x: snapshots.map(s => s.cycle),
+                y: snapshots.map(s => parseFloat(s.totalAllocated)),
+                mode: 'lines',
+                name: 'Total Allocated',
+                line: { color: '#8b5cf6', width: 2 }
+            };
+
+            const trace4 = {
+                x: snapshots.map(s => s.cycle),
+                y: snapshots.map(s => parseFloat(s.totalSpent)),
+                mode: 'lines',
+                name: 'Total Spent',
+                line: { color: '#f59e0b', width: 2 }
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                xaxis: {
+                    title: 'Cycle (Hours)',
+                    gridcolor: '#475569'
+                },
+                yaxis: {
+                    title: 'Amount (ETH)',
+                    gridcolor: '#475569'
+                },
+                showlegend: true,
+                legend: {
+                    x: 0,
+                    y: 1
+                }
+            };
+
+            Plotly.newPlot('balanceChart', [trace1, trace2, trace3, trace4], layout, {responsive: true});
+        }
+
+        function render3DFlowChart() {
+            const snapshots = simulationData.balanceSnapshots;
+            const recipients = Object.keys(snapshots[0]?.recipientBalances || {});
+
+            const z = [];
+            const x = [];
+            const y = [];
+
+            recipients.forEach((recipient, recipientIndex) => {
+                const row = [];
+                snapshots.forEach(snapshot => {
+                    const balance = parseFloat(snapshot.recipientBalances[recipient] || 0);
+                    row.push(balance);
+                });
+                z.push(row);
+            });
+
+            // Create x (cycles) and y (recipient indices) arrays
+            for (let i = 0; i < snapshots.length; i++) {
+                x.push(snapshots[i].cycle);
+            }
+            for (let i = 0; i < recipients.length; i++) {
+                y.push(i);
+            }
+
+            const data = [{
+                type: 'surface',
+                x: x,
+                y: y,
+                z: z,
+                colorscale: 'Viridis',
+                showscale: true
+            }];
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                scene: {
+                    xaxis: { title: 'Cycle', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    yaxis: { title: 'Recipient Index', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    zaxis: { title: 'Balance (ETH)', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    bgcolor: '#1e293b'
+                }
+            };
+
+            Plotly.newPlot('flow3D', data, layout, {responsive: true});
+        }
+
+        function renderGasBarChart() {
+            const gas = simulationData.gasStats;
+            const ctx = document.getElementById('gasBar').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Donations', 'Allocations', 'Payouts'],
+                    datasets: [
+                        {
+                            label: 'Min Gas',
+                            data: [
+                                parseInt(gas.donations.min),
+                                parseInt(gas.allocations.min),
+                                parseInt(gas.payouts.min)
+                            ],
+                            backgroundColor: '#10b981'
+                        },
+                        {
+                            label: 'Avg Gas',
+                            data: [
+                                parseInt(gas.donations.avg),
+                                parseInt(gas.allocations.avg),
+                                parseInt(gas.payouts.avg)
+                            ],
+                            backgroundColor: '#3b82f6'
+                        },
+                        {
+                            label: 'Max Gas',
+                            data: [
+                                parseInt(gas.donations.max),
+                                parseInt(gas.allocations.max),
+                                parseInt(gas.payouts.max)
+                            ],
+                            backgroundColor: '#f59e0b'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: { color: '#f1f5f9' },
+                            grid: { color: '#475569' }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#f1f5f9',
+                                callback: function(value) {
+                                    return (value / 1000).toFixed(0) + 'K';
+                                }
+                            },
+                            grid: { color: '#475569' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#f1f5f9' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderHeatmap() {
+            const events = simulationData.events;
+            const days = Math.max(...events.map(e => e.day)) + 1;
+            const hours = 24;
+
+            // Create 2D array for heatmap
+            const heatmapData = Array(days).fill(0).map(() => Array(hours).fill(0));
+
+            events.forEach(e => {
+                if (e.day < days && e.hour < hours) {
+                    heatmapData[e.day][e.hour]++;
+                }
+            });
+
+            const data = [{
+                z: heatmapData,
+                type: 'heatmap',
+                colorscale: 'Hot',
+                showscale: true
+            }];
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                xaxis: {
+                    title: 'Hour of Day',
+                    gridcolor: '#475569'
+                },
+                yaxis: {
+                    title: 'Day',
+                    gridcolor: '#475569'
+                }
+            };
+
+            Plotly.newPlot('heatmap', data, layout, {responsive: true});
+        }
+
+        function renderDonatorTimeline() {
+            const donatorAddress = document.getElementById('donatorSelector').value;
+            if (!donatorAddress) {
+                document.getElementById('donatorTimeline').innerHTML = '<p style="text-align: center; color: #cbd5e1; padding: 40px;">Please select a donator to view their activity timeline.</p>';
+                return;
+            }
+
+            const donator = simulationData.donatorActivities.find(d => d.address === donatorAddress);
+            if (!donator) return;
+
+            const donations = donator.donations;
+
+            const trace = {
+                x: donations.map(d => d.cycle),
+                y: donations.map(d => parseFloat(d.amount)),
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Donation Amount',
+                line: { color: '#10b981', width: 3 },
+                marker: {
+                    size: 10,
+                    color: '#10b981',
+                    line: { color: '#064e3b', width: 2 }
+                },
+                fill: 'tozeroy'
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                title: {
+                    text: `Donator: ${donatorAddress}<br>Total Donated: ${parseFloat(donator.totalDonated).toFixed(4)} ETH`,
+                    font: { size: 14, color: '#cbd5e1' }
+                },
+                xaxis: {
+                    title: 'Cycle (Hours)',
+                    gridcolor: '#475569'
+                },
+                yaxis: {
+                    title: 'Donation Amount (ETH)',
+                    gridcolor: '#475569'
+                },
+                showlegend: false
+            };
+
+            Plotly.newPlot('donatorTimeline', [trace], layout, {responsive: true});
+        }
+
+        // Load sample data function (for testing)
+        function loadSampleData() {
+            alert('Please select a data file from your logs directory using the file input above.');
+        }
+
+        function render3DGasSurface() {
+            const gasTimeSeries = simulationData.gasTimeSeries;
+            if (!gasTimeSeries || gasTimeSeries.length === 0) return;
+
+            // Create 3D surface data: X=cycle, Y=operation type (0=donations, 1=allocations, 2=payouts), Z=cumulative gas
+            const cycles = gasTimeSeries.map(g => g.cycle);
+            const donations = gasTimeSeries.map(g => parseInt(g.donationGas));
+            const allocations = gasTimeSeries.map(g => parseInt(g.allocationGas));
+            const payouts = gasTimeSeries.map(g => parseInt(g.payoutGas));
+
+            const z = [donations, allocations, payouts];
+            const y = [0, 1, 2]; // Operation types
+
+            const data = [{
+                type: 'surface',
+                x: cycles,
+                y: y,
+                z: z,
+                colorscale: 'Viridis',
+                showscale: true,
+                hovertemplate: 'Cycle: %{x}<br>Type: %{y}<br>Gas: %{z:,}<extra></extra>'
+            }];
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                scene: {
+                    xaxis: { title: 'Cycle (Hours)', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    yaxis: {
+                        title: 'Operation Type',
+                        ticktext: ['Donations', 'Allocations', 'Payouts'],
+                        tickvals: [0, 1, 2],
+                        gridcolor: '#475569',
+                        backgroundcolor: '#1e293b'
+                    },
+                    zaxis: { title: 'Cumulative Gas', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    bgcolor: '#1e293b',
+                    camera: {
+                        eye: { x: 1.5, y: 1.5, z: 1.3 }
+                    }
+                }
+            };
+
+            Plotly.newPlot('gas3DSurface', data, layout, {responsive: true});
+        }
+
+        function renderGasScatter3D() {
+            const events = simulationData.events;
+            if (!events || events.length === 0) return;
+
+            // Create 3D scatter: X=cycle, Y=amount, Z=gas, color=type
+            const donations = events.filter(e => e.type === 'donation' && e.gasUsed);
+            const allocations = events.filter(e => e.type === 'allocation' && e.gasUsed);
+            const payouts = events.filter(e => e.type === 'payout' && e.gasUsed);
+
+            const trace1 = {
+                type: 'scatter3d',
+                mode: 'markers',
+                name: 'Donations',
+                x: donations.map(e => e.cycle),
+                y: donations.map(e => parseFloat(e.amount)),
+                z: donations.map(e => parseInt(e.gasUsed)),
+                marker: {
+                    size: 5,
+                    color: '#10b981',
+                    line: { color: '#064e3b', width: 0.5 }
+                },
+                hovertemplate: 'Cycle: %{x}<br>Amount: %{y:.4f} ETH<br>Gas: %{z:,}<extra></extra>'
+            };
+
+            const trace2 = {
+                type: 'scatter3d',
+                mode: 'markers',
+                name: 'Allocations',
+                x: allocations.map(e => e.cycle),
+                y: allocations.map(e => parseFloat(e.amount)),
+                z: allocations.map(e => parseInt(e.gasUsed)),
+                marker: {
+                    size: 5,
+                    color: '#3b82f6',
+                    line: { color: '#1e3a8a', width: 0.5 }
+                },
+                hovertemplate: 'Cycle: %{x}<br>Amount: %{y:.4f} ETH<br>Gas: %{z:,}<extra></extra>'
+            };
+
+            const trace3 = {
+                type: 'scatter3d',
+                mode: 'markers',
+                name: 'Payouts',
+                x: payouts.map(e => e.cycle),
+                y: payouts.map(e => parseFloat(e.amount)),
+                z: payouts.map(e => parseInt(e.gasUsed)),
+                marker: {
+                    size: 5,
+                    color: '#f59e0b',
+                    line: { color: '#78350f', width: 0.5 }
+                },
+                hovertemplate: 'Cycle: %{x}<br>Amount: %{y:.4f} ETH<br>Gas: %{z:,}<extra></extra>'
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                scene: {
+                    xaxis: { title: 'Cycle (Hours)', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    yaxis: { title: 'Transaction Amount (ETH)', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    zaxis: { title: 'Gas Used', gridcolor: '#475569', backgroundcolor: '#1e293b' },
+                    bgcolor: '#1e293b',
+                    camera: {
+                        eye: { x: 1.7, y: 1.7, z: 1.3 }
+                    }
+                },
+                showlegend: true,
+                legend: { x: 0, y: 1 }
+            };
+
+            Plotly.newPlot('gasScatter3D', [trace1, trace2, trace3], layout, {responsive: true});
+        }
+
+        function renderCumulativeGas() {
+            const gasTimeSeries = simulationData.gasTimeSeries;
+            if (!gasTimeSeries || gasTimeSeries.length === 0) return;
+
+            const trace1 = {
+                x: gasTimeSeries.map(g => g.cycle),
+                y: gasTimeSeries.map(g => parseInt(g.donationGas)),
+                mode: 'lines',
+                name: 'Donations',
+                stackgroup: 'one',
+                line: { color: '#10b981', width: 2 },
+                fillcolor: 'rgba(16, 185, 129, 0.3)'
+            };
+
+            const trace2 = {
+                x: gasTimeSeries.map(g => g.cycle),
+                y: gasTimeSeries.map(g => parseInt(g.allocationGas)),
+                mode: 'lines',
+                name: 'Allocations',
+                stackgroup: 'one',
+                line: { color: '#3b82f6', width: 2 },
+                fillcolor: 'rgba(59, 130, 246, 0.3)'
+            };
+
+            const trace3 = {
+                x: gasTimeSeries.map(g => g.cycle),
+                y: gasTimeSeries.map(g => parseInt(g.payoutGas)),
+                mode: 'lines',
+                name: 'Payouts',
+                stackgroup: 'one',
+                line: { color: '#f59e0b', width: 2 },
+                fillcolor: 'rgba(245, 158, 11, 0.3)'
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                xaxis: {
+                    title: 'Cycle (Hours)',
+                    gridcolor: '#475569'
+                },
+                yaxis: {
+                    title: 'Cumulative Gas',
+                    gridcolor: '#475569',
+                    tickformat: ',.0f'
+                },
+                showlegend: true,
+                legend: { x: 0, y: 1 },
+                hovermode: 'x unified'
+            };
+
+            Plotly.newPlot('cumulativeGas', [trace1, trace2, trace3], layout, {responsive: true});
+        }
+
+        function renderGasRate() {
+            const gasTimeSeries = simulationData.gasTimeSeries;
+            if (!gasTimeSeries || gasTimeSeries.length === 0) return;
+
+            const trace = {
+                x: gasTimeSeries.map(g => g.cycle),
+                y: gasTimeSeries.map(g => parseInt(g.gasRate)),
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Gas Rate',
+                line: { color: '#8b5cf6', width: 3 },
+                marker: {
+                    size: 6,
+                    color: '#8b5cf6',
+                    line: { color: '#4c1d95', width: 1 }
+                },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(139, 92, 246, 0.2)'
+            };
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9' },
+                xaxis: {
+                    title: 'Cycle (Hours)',
+                    gridcolor: '#475569'
+                },
+                yaxis: {
+                    title: 'Gas Per Hour',
+                    gridcolor: '#475569',
+                    tickformat: ',.0f'
+                },
+                showlegend: false
+            };
+
+            Plotly.newPlot('gasRate', [trace], layout, {responsive: true});
+        }
+
+        // Sankey Diagram (Three-level: Donators → Recipients → Reasons/Destinations)
+        function renderSankey() {
+            // Build nodes and links
+            const donatorAddresses = [...new Set(simulationData.events
+                .filter(e => e.type === 'donation' && e.donator)
+                .map(e => e.donator))];
+
+            const recipientAddresses = [
+                '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+                '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
+                '0x90F79bf6EB2c4f870365E785982E1f101E93b906',
+                '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65'
+            ];
+
+            const recipientNames = ['Colin (10%)', 'Alex (20%)', 'Julian (35%)', 'Klem (35%)'];
+
+            // Extract unique payout reasons and create reason-destination combinations
+            const payoutEvents = simulationData.events.filter(e => e.type === 'payout' && e.recipient && e.reason);
+            const reasonDestinations = new Map(); // Map<"Reason", Set<destination>>
+
+            payoutEvents.forEach(e => {
+                if (!reasonDestinations.has(e.reason)) {
+                    reasonDestinations.set(e.reason, new Set());
+                }
+                if (e.destination) {
+                    reasonDestinations.get(e.reason).add(e.destination);
+                }
+            });
+
+            // Create unique reason nodes (combine destinations by reason)
+            const reasons = Array.from(reasonDestinations.keys());
+
+            // Build nodes: [Donators] + [Recipients] + [Reasons]
+            const nodes = [
+                ...donatorAddresses.map(a => a.slice(0, 10) + '...'),
+                ...recipientNames,
+                ...reasons
+            ];
+
+            const links = {
+                source: [],
+                target: [],
+                value: []
+            };
+
+            // Level 1: Donators → Recipients
+            const donatorTotals = new Map();
+            simulationData.events
+                .filter(e => e.type === 'donation' && e.donator)
+                .forEach(e => {
+                    const current = donatorTotals.get(e.donator) || 0;
+                    donatorTotals.set(e.donator, current + parseFloat(e.amount || 0));
+                });
+
+            const percentages = [0.10, 0.20, 0.35, 0.35];
+            donatorAddresses.forEach((donator, donatorIdx) => {
+                const totalDonated = donatorTotals.get(donator) || 0;
+                recipientAddresses.forEach((recipient, recipientIdx) => {
+                    const amount = totalDonated * percentages[recipientIdx];
+                    if (amount > 0) {
+                        links.source.push(donatorIdx);
+                        links.target.push(donatorAddresses.length + recipientIdx);
+                        links.value.push(amount);
+                    }
+                });
+            });
+
+            // Level 2: Recipients → Reasons (grouped)
+            const recipientReasonFlows = new Map(); // Map<"recipient:reason", amount>
+
+            payoutEvents.forEach(e => {
+                const recipientIdx = recipientAddresses.indexOf(e.recipient);
+                if (recipientIdx !== -1 && e.reason) {
+                    const key = `${recipientIdx}:${e.reason}`;
+                    const current = recipientReasonFlows.get(key) || 0;
+                    recipientReasonFlows.set(key, current + parseFloat(e.amount || 0));
+                }
+            });
+
+            // Add links from recipients to reasons
+            recipientReasonFlows.forEach((amount, key) => {
+                const [recipientIdxStr, reason] = key.split(':');
+                const recipientIdx = parseInt(recipientIdxStr);
+                const reasonIdx = reasons.indexOf(reason);
+
+                if (reasonIdx !== -1 && amount > 0) {
+                    links.source.push(donatorAddresses.length + recipientIdx);
+                    links.target.push(donatorAddresses.length + recipientNames.length + reasonIdx);
+                    links.value.push(amount);
+                }
+            });
+
+            // Generate colors
+            const donatorColors = Array(donatorAddresses.length).fill('#10b981');
+            const recipientColors = ['#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
+            const reasonColors = Array(reasons.length).fill('#a855f7');
+
+            const data = [{
+                type: 'sankey',
+                node: {
+                    pad: 15,
+                    thickness: 20,
+                    line: { color: '#475569', width: 0.5 },
+                    label: nodes,
+                    color: [...donatorColors, ...recipientColors, ...reasonColors]
+                },
+                link: links
+            }];
+
+            const layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: '#1e293b',
+                font: { color: '#f1f5f9', size: 10 },
+                height: 800
+            };
+
+            Plotly.newPlot('sankeyChart', data, layout, {responsive: true});
+        }
+    </script>
+</body>
+</html>

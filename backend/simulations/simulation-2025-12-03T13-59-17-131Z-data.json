@@ -1,0 +1,5958 @@
+{
+  "metadata": {
+    "preset": "stress-test",
+    "presetName": "Maximum Stress Test",
+    "presetDescription": "Push the system to its limits with maximum activity",
+    "simulationDays": 3,
+    "startTime": "2025-12-03T13:59:17.538Z",
+    "endTime": "2025-12-03T14:00:34.466Z",
+    "contractAddress": "0xB45885969EAFf3dF56C43E5BEBCE40CDd932FC43",
+    "totalCycles": 72
+  },
+  "summary": {
+    "totalDonations": 125,
+    "totalAllocations": 125,
+    "totalPayouts": 55,
+    "totalErrors": 0,
+    "totalGasUsed": "71172166",
+    "totalDonated": "1199.224193054184736085",
+    "totalAllocated": "1199.224193054184736083",
+    "totalSpent": "968.408213620573127896",
+    "avgGasPerTransaction": "233351",
+    "gasCostInETH": "1.42344332"
+  },
+  "events": [
+    {
+      "cycle": 0,
+      "day": 1,
+      "hour": 0,
+      "timestamp": 1788713232,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "16.77156703706809",
+      "gasUsed": "231951",
+      "txHash": "0xafeb8033de54d7397e440b2b237849b49fc30b2376fe98fe88c20fb636ee4705",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 0,
+      "day": 1,
+      "hour": 0,
+      "timestamp": 1788713233,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "16.77156703706809",
+      "gasUsed": "513512",
+      "txHash": "0x6d90a861f82e81b41b88672d34078c3a3a159fdfac3193ac30edb842ed6f024d"
+    },
+    {
+      "cycle": 0,
+      "day": 1,
+      "hour": 0,
+      "timestamp": 1788713234,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "1.5094410333361281",
+      "destination": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "reason": "Partnership agreement payment",
+      "gasUsed": "109094",
+      "txHash": "0x602af53f5fccce45a2dda773c219afd607e89372a63411a24e3af8157c9ad603"
+    },
+    {
+      "cycle": 1,
+      "day": 1,
+      "hour": 1,
+      "timestamp": 1788716835,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "14.443070458227648",
+      "gasUsed": "197751",
+      "txHash": "0x03fd19b42faa942813306edb40d7ad3373fa681634607576a94d74084752fcf8",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 1,
+      "day": 1,
+      "hour": 1,
+      "timestamp": 1788716836,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.114522187578327",
+      "gasUsed": "197751",
+      "txHash": "0x2d0dd9710a37d889ba827f9eee751e1d2ae31d3221ef6758c523ac5a09cf78ee",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 1,
+      "day": 1,
+      "hour": 1,
+      "timestamp": 1788716837,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "14.443070458227648",
+      "gasUsed": "359588",
+      "txHash": "0xb2df943680672cbf6e515ca64a5322f98837b322d59aea6f4b53f1a01d9a7e11"
+    },
+    {
+      "cycle": 1,
+      "day": 1,
+      "hour": 1,
+      "timestamp": 1788716838,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.114522187578327",
+      "gasUsed": "359612",
+      "txHash": "0xe0341373275a19c640d9ad34c2eadebdd335cfb20fc93b0b64344574726ef005"
+    },
+    {
+      "cycle": 1,
+      "day": 1,
+      "hour": 1,
+      "timestamp": 1788716839,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "2.319128824460829185",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Emergency fund allocation",
+      "gasUsed": "139972",
+      "txHash": "0xa77533d5584ea38effe78e6829af84ab27028ea1af18afdad474febdda056ca0"
+    },
+    {
+      "cycle": 2,
+      "day": 1,
+      "hour": 2,
+      "timestamp": 1788720440,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "4.210930556531559",
+      "gasUsed": "197751",
+      "txHash": "0x021a1c63082bb084051bf608cb70c3eb0fd65ccaa0476d7bbbc0f6f47da681ec",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 2,
+      "day": 1,
+      "hour": 2,
+      "timestamp": 1788720441,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "2.4376644685556768",
+      "gasUsed": "197751",
+      "txHash": "0x06918198f03fdd597fbd459b923db754746e6fd14488b947e8dc8acf583feefe",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 2,
+      "day": 1,
+      "hour": 2,
+      "timestamp": 1788720442,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "2.4376644685556768",
+      "gasUsed": "359600",
+      "txHash": "0xe28ba64743986fa896ea20175afa4984394153fb274ddfa8afb47859e65c713b"
+    },
+    {
+      "cycle": 2,
+      "day": 1,
+      "hour": 2,
+      "timestamp": 1788720443,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "4.210930556531559",
+      "gasUsed": "359612",
+      "txHash": "0x96b4d0bb54727a95651d014def2a0fd9e6a1b021969f43566b41db8e7f7c95ba"
+    },
+    {
+      "cycle": 2,
+      "day": 1,
+      "hour": 2,
+      "timestamp": 1788720444,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "7.556885659114582112",
+      "destination": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "reason": "Research and development costs",
+      "gasUsed": "181260",
+      "txHash": "0x84702bf7ed21f17488906fee216731dfe20a4f72d2979b413c92e1be0ee962ca"
+    },
+    {
+      "cycle": 3,
+      "day": 1,
+      "hour": 3,
+      "timestamp": 1788724045,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "14.523565554494333",
+      "gasUsed": "178297",
+      "txHash": "0x42915419f25ba5dd98b4f01c114be13a43bf1062a780846d5b3bd7a7c6ada5e4",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 3,
+      "day": 1,
+      "hour": 3,
+      "timestamp": 1788724046,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "14.523565554494333",
+      "gasUsed": "269802",
+      "txHash": "0xe78b59aa0fa0bafb367e4adcf07f5c2eb3bf34897021c97fde1db5d3ca282aae"
+    },
+    {
+      "cycle": 3,
+      "day": 1,
+      "hour": 3,
+      "timestamp": 1788724047,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "3.119529522221529046",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Translation services",
+      "gasUsed": "152537",
+      "txHash": "0x49cfd473c37fb33980acaf32218ca0a14559f3b45c9f6c6487ba0ef21ed69d43"
+    },
+    {
+      "cycle": 4,
+      "day": 1,
+      "hour": 4,
+      "timestamp": 1788727648,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "16.212858185155167",
+      "gasUsed": "197751",
+      "txHash": "0x91a51eb735a5b67f68bfbf12a30efebf881787842444ad54a80ad5e3a5597039",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 4,
+      "day": 1,
+      "hour": 4,
+      "timestamp": 1788727649,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "16.212858185155167",
+      "gasUsed": "359612",
+      "txHash": "0x279d9f7acf1fab55a311031eea41580029003af4484473a6c6f2a34da9c88149"
+    },
+    {
+      "cycle": 4,
+      "day": 1,
+      "hour": 4,
+      "timestamp": 1788727650,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "4.363915873325363898",
+      "destination": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "reason": "Travel expenses for conference",
+      "gasUsed": "201955",
+      "txHash": "0x2378f6103e39c73bb905fa88d54dbd7d15fb0f9e93304ccf302d0569e4401222"
+    },
+    {
+      "cycle": 5,
+      "day": 1,
+      "hour": 5,
+      "timestamp": 1788731251,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "5.0386753060469305",
+      "gasUsed": "178297",
+      "txHash": "0x6674fd5235dbc7fd279c0b168fe3b91b9530f654c1d224d7dbbd48c2c9598c9e",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 5,
+      "day": 1,
+      "hour": 5,
+      "timestamp": 1788731252,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "4.94550885211404",
+      "gasUsed": "161197",
+      "txHash": "0x5f6524e4a3e3e3ddd85fb31b614a5100e861d9edfd5fc64588f6acdc835fd2c3",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 5,
+      "day": 1,
+      "hour": 5,
+      "timestamp": 1788731253,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "5.0386753060469305",
+      "gasUsed": "184780",
+      "txHash": "0x50de5d73635e10853cab5f4ddd374c1143201c567e88ca594834ebaefe4063cb"
+    },
+    {
+      "cycle": 5,
+      "day": 1,
+      "hour": 5,
+      "timestamp": 1788731254,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "4.94550885211404",
+      "gasUsed": "179980",
+      "txHash": "0xd1d837f15b7b02c47859e1ee83c48465cb8d2d7ecfb73138dbf57b3cf67d5d38"
+    },
+    {
+      "cycle": 5,
+      "day": 1,
+      "hour": 5,
+      "timestamp": 1788731255,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "3.074804197530029616",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Software licenses and tools",
+      "gasUsed": "227457",
+      "txHash": "0x0b9685349261e360024979ab320f9ba93c8c8baa848cfdc353dc67e256657f91"
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734856,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "17.792292383207176",
+      "gasUsed": "197751",
+      "txHash": "0xb3a00c86c1dd7554952193c95f80368786880685c928ae09bb2d8e9113ccbb4e",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734857,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "0.025407180385337975",
+      "gasUsed": "197751",
+      "txHash": "0x34679ea5430776048705c10e4014d4df87b192b6a7c648a7d340897db491aa83",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734858,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "6.56037547977177",
+      "gasUsed": "178297",
+      "txHash": "0x6f79c719854f82d7dfbd60db607342d9197fe1118e685a3a9b06b89f34aacd01",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734859,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "17.792292383207176",
+      "gasUsed": "359612",
+      "txHash": "0x5d293ca34f1d68569959c75f85ad56db539705225083062495ab372bc6856c3d"
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734860,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "6.56037547977177",
+      "gasUsed": "179980",
+      "txHash": "0x36637ff505681fa1e0fc01e0a2d9cc5bb0d644bb301eacbd9cdc144f7b6c1873"
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734861,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "0.025407180385337975",
+      "gasUsed": "386699",
+      "txHash": "0x8fb5cb7052e1063fc6fcb582ef5d24f2d2e25053d58a28a39e6e489ef6a00447"
+    },
+    {
+      "cycle": 6,
+      "day": 1,
+      "hour": 6,
+      "timestamp": 1788734862,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "5.060920203281867415",
+      "destination": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "reason": "Infrastructure costs - server hosting",
+      "gasUsed": "258647",
+      "txHash": "0x9a00769b50186a2096e05838c2a76f5c27d469fb64b41c2a97f53929cd015462"
+    },
+    {
+      "cycle": 7,
+      "day": 1,
+      "hour": 7,
+      "timestamp": 1788738463,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "15.61885511367941",
+      "gasUsed": "178297",
+      "txHash": "0xf2a14b50af4b2c1c3a4f9ec7cea2b66e0e3ab51826d40818c431ec93791090db",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 7,
+      "day": 1,
+      "hour": 7,
+      "timestamp": 1788738464,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "16.19733386136166",
+      "gasUsed": "178297",
+      "txHash": "0x8f92f33af5831dd55ae263ecd172eda735763e9f9dcfa7290860c221e84748b6",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 8,
+      "day": 1,
+      "hour": 8,
+      "timestamp": 1788742065,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "4.381525435128376",
+      "gasUsed": "197751",
+      "txHash": "0x3cf759315e9a57a2b526cd4be9d176f111f3fdef7a67f76c3a0ff669fb0ccf5b",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 8,
+      "day": 1,
+      "hour": 8,
+      "timestamp": 1788742066,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "15.61885511367941",
+      "gasUsed": "269802",
+      "txHash": "0x13278cdc7831897aea0c8f2ac4b73014acb6461aeac9f0e6aff3335113ab28b8"
+    },
+    {
+      "cycle": 8,
+      "day": 1,
+      "hour": 8,
+      "timestamp": 1788742067,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "16.19733386136166",
+      "gasUsed": "179980",
+      "txHash": "0x9d259f6cd130614868721da8f1ee5eb02dcdb0706eb24a04170a1fe6623bbe04"
+    },
+    {
+      "cycle": 8,
+      "day": 1,
+      "hour": 8,
+      "timestamp": 1788742068,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "4.381525435128376",
+      "gasUsed": "359612",
+      "txHash": "0x2b3289de4916a143c30e48572e23e1eb785cac454c44c5b1cc5760a31fbde330"
+    },
+    {
+      "cycle": 8,
+      "day": 1,
+      "hour": 8,
+      "timestamp": 1788742069,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "8.151892983113538816",
+      "destination": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "reason": "Educational workshop materials",
+      "gasUsed": "252587",
+      "txHash": "0xe15a2bd227011dc94a8fb21c40db921be0d9ae5d58779c58eedc1ea0052257c7"
+    },
+    {
+      "cycle": 9,
+      "day": 1,
+      "hour": 9,
+      "timestamp": 1788745670,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "2.589989256520903",
+      "gasUsed": "178297",
+      "txHash": "0xfee33d24b55e97c9c785e50bef59941f3ba6638a7d9408506de3935de9cbce26",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 9,
+      "day": 1,
+      "hour": 9,
+      "timestamp": 1788745671,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "12.946613368786085",
+      "gasUsed": "178297",
+      "txHash": "0x4ea79658ed3aa89137edff527683d3cb6d896a8b29578253fc18edc5c2045197",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 9,
+      "day": 1,
+      "hour": 9,
+      "timestamp": 1788745672,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "2.589989256520903",
+      "gasUsed": "179980",
+      "txHash": "0xb94bbb0f9d1af284fe3080258b2a996d1bd9a09a872a7c0768358b8d321eed2e"
+    },
+    {
+      "cycle": 9,
+      "day": 1,
+      "hour": 9,
+      "timestamp": 1788745673,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "12.946613368786085",
+      "gasUsed": "224891",
+      "txHash": "0x493af966f99ebb0227fc1d5da176619f0f0cd35af56d228c9d94ccc426754099"
+    },
+    {
+      "cycle": 9,
+      "day": 1,
+      "hour": 9,
+      "timestamp": 1788745674,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "4.557985554123452149",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Travel expenses for conference",
+      "gasUsed": "284369",
+      "txHash": "0x1b477a5d0e3b5b908f87b58c8ed14ffb0edaa1ad112420301fb5c4ff63e5d90d"
+    },
+    {
+      "cycle": 10,
+      "day": 1,
+      "hour": 10,
+      "timestamp": 1788749275,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "14.370926221145385",
+      "gasUsed": "178297",
+      "txHash": "0x9c88bbb30abab82850b2e2171415a27963a46b9c785a1c7a6388cdb2d76eabf4",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 10,
+      "day": 1,
+      "hour": 10,
+      "timestamp": 1788749276,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "5.121712931938257",
+      "gasUsed": "161197",
+      "txHash": "0x286a7fbc0deeeff3986fe19f0b4842ae60c48bd56b5f2518462259d7232edc96",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 10,
+      "day": 1,
+      "hour": 10,
+      "timestamp": 1788749277,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "14.370926221145385",
+      "gasUsed": "179980",
+      "txHash": "0x6c1a4f48d2c2797f82ed075214d5580447dd84735421f7d1bc313abcdcb18392"
+    },
+    {
+      "cycle": 10,
+      "day": 1,
+      "hour": 10,
+      "timestamp": 1788749278,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "5.121712931938257",
+      "gasUsed": "184780",
+      "txHash": "0x57d9f071ae5e910c6a99e553e06a44d53a50b530c5873eb16814b90cb0eb9efa"
+    },
+    {
+      "cycle": 10,
+      "day": 1,
+      "hour": 10,
+      "timestamp": 1788749279,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "15.351519848365301225",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Insurance premium payment",
+      "gasUsed": "338914",
+      "txHash": "0x423b2038eb3387e7c4d038578668dff78d61371be879b94f73ab24bead1a2fbe"
+    },
+    {
+      "cycle": 11,
+      "day": 1,
+      "hour": 11,
+      "timestamp": 1788752880,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "3.3572364556656695",
+      "gasUsed": "178297",
+      "txHash": "0xd8070920067af9894f3a1615d7763bae10083d5bda21b5395da154b3be99946c",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 11,
+      "day": 1,
+      "hour": 11,
+      "timestamp": 1788752881,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "16.20839062601215",
+      "gasUsed": "178297",
+      "txHash": "0x53e9e79986af1b984b77efb1d1b99a1b2b798c26f39ecfbfccfdad50e0fb84d9",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 11,
+      "day": 1,
+      "hour": 11,
+      "timestamp": 1788752882,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "3.3572364556656695",
+      "gasUsed": "269802",
+      "txHash": "0x4a24e6461cb03b2eacf84dfe1a307c29bdcc8ffecfe2432c6a3ede42c83f9a70"
+    },
+    {
+      "cycle": 11,
+      "day": 1,
+      "hour": 11,
+      "timestamp": 1788752883,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "16.20839062601215",
+      "gasUsed": "179980",
+      "txHash": "0x4b8ddc89737fba9528194ffbbaaa0923c3c0f1febc578f4540344a328e71cb38"
+    },
+    {
+      "cycle": 11,
+      "day": 1,
+      "hour": 11,
+      "timestamp": 1788752884,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "4.771440227412938557",
+      "destination": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "reason": "Travel expenses for conference",
+      "gasUsed": "287849",
+      "txHash": "0x0a49bec5dbb23ab042ac5b8d420e3cac933c93ccffb99d73a73c2bfda340fb20"
+    },
+    {
+      "cycle": 12,
+      "day": 1,
+      "hour": 12,
+      "timestamp": 1788756485,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "0.990150805873698",
+      "gasUsed": "197751",
+      "txHash": "0x91ceb39019544ae2d230018fcd314cf2472f1edc4d2f5d316ca37a6a67e5410c",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 12,
+      "day": 1,
+      "hour": 12,
+      "timestamp": 1788756486,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "0.990150805873698",
+      "gasUsed": "359612",
+      "txHash": "0xd404d1f1ab7cd7802bc1ac739a45a0edab2a1fbff8b2a56deed4936a623f5a0c"
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760087,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "14.854590918050665",
+      "gasUsed": "178297",
+      "txHash": "0xf1167e458b9e75a0e4b4a7f09bc22be63bdb09b154272949e1ddd341ed320965",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760088,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "0.7321133651131886",
+      "gasUsed": "178297",
+      "txHash": "0x5fa4abb1492e63c350737dce872628c37c5c7a99a36fcdb5d1de924ff4bf499b",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760089,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "9.721270985169905",
+      "gasUsed": "178297",
+      "txHash": "0x73003144298814316e42d5a00e3e7ddfd995da012d58260549cf1bdb6d19f146",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760090,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "14.854590918050665",
+      "gasUsed": "224891",
+      "txHash": "0x863997db22ec86607af9ed30447d3331284cff2a4dcfe78bb6fbcfadf78fa533"
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760091,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "0.7321133651131886",
+      "gasUsed": "269802",
+      "txHash": "0x0a74a72db69002fb0ef65923d24991edc9ab4a9e327d6d6609e37cd94c44cf73"
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760092,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "9.721270985169905",
+      "gasUsed": "314701",
+      "txHash": "0x3a31a2af1665e4764d184e198d9d38d2cb258558c2a799d36aa00d96d0689122"
+    },
+    {
+      "cycle": 13,
+      "day": 1,
+      "hour": 13,
+      "timestamp": 1788760093,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "22.351982539391986129",
+      "destination": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "reason": "Security audit payment",
+      "gasUsed": "408271",
+      "txHash": "0xd4949d091a2c57a2237bf8010b3d516db567dca6163de5f19de3cbc8a64f38d3"
+    },
+    {
+      "cycle": 14,
+      "day": 1,
+      "hour": 14,
+      "timestamp": 1788763694,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "10.254279760341399",
+      "gasUsed": "178297",
+      "txHash": "0x796d07f2b5ad7a9b459a4977afce46f09de891a0a29e12ac8b6c6a5fdbca487d",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 14,
+      "day": 1,
+      "hour": 14,
+      "timestamp": 1788763695,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "10.585166755329947",
+      "gasUsed": "178297",
+      "txHash": "0xb34c8fb3f3c63d9524ed42cc067b96d72648493ded3d6cb732b40ac5d16593ab",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 14,
+      "day": 1,
+      "hour": 14,
+      "timestamp": 1788763696,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "10.585166755329947",
+      "gasUsed": "224891",
+      "txHash": "0x59cc125390c673e900d0501c2e4c682b0403e6197c150c54bf008f45a46ff05c"
+    },
+    {
+      "cycle": 14,
+      "day": 1,
+      "hour": 14,
+      "timestamp": 1788763697,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "10.254279760341399",
+      "gasUsed": "179980",
+      "txHash": "0x39a8ad5abed6117d57e7b0af79cea9b6f41aaa206d7b899a1411084b4ecc612b"
+    },
+    {
+      "cycle": 14,
+      "day": 1,
+      "hour": 14,
+      "timestamp": 1788763698,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "17.83452966171988162",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Software licenses and tools",
+      "gasUsed": "385845",
+      "txHash": "0xbabd0a37ba08076c3ef1ee08c7fb3641fdd1c922e711d88a60ea66275dd372e2"
+    },
+    {
+      "cycle": 15,
+      "day": 1,
+      "hour": 15,
+      "timestamp": 1788767299,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "7.367389585107548",
+      "gasUsed": "178297",
+      "txHash": "0x3a036a0a94b417205b2219f75a572c0cf9d92b1e403929273cbc14ea22cf4b08",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 15,
+      "day": 1,
+      "hour": 15,
+      "timestamp": 1788767300,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "7.367389585107548",
+      "gasUsed": "179980",
+      "txHash": "0x6945c028410e55c6fac7a042c9e7e310a27b3d97557f7742b77cdee4a901c215"
+    },
+    {
+      "cycle": 15,
+      "day": 1,
+      "hour": 15,
+      "timestamp": 1788767301,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "15.308773799781269272",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Travel expenses for conference",
+      "gasUsed": "337920",
+      "txHash": "0x910e0e0cdb6256c9ceda4a041b5638454e80e9b733129d346de4715c2d6581cf"
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770902,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "2.8208606796462643",
+      "gasUsed": "178297",
+      "txHash": "0x189f119906b5de620af198d959def0671701efb56e64bdb1ca76f9b032890383",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770903,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "0.971653446944637",
+      "gasUsed": "178297",
+      "txHash": "0xf505bc5aebbf8eba690c6177c73ae4409301e454f80700af770afcfe57af75eb",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770904,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "10.800641420798913",
+      "gasUsed": "161197",
+      "txHash": "0xe2a4657e51144e144966a250bda1e53eafc37f8c11c0c747db0e1b56dd5ebee7",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770905,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "0.971653446944637",
+      "gasUsed": "224891",
+      "txHash": "0x0ee310df1c7a7d1f8791e8b599de53d9e6060e0caa28ad2fd4e261639f1e74ae"
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770906,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "10.800641420798913",
+      "gasUsed": "184780",
+      "txHash": "0x57a48fe4b1b64fe4650a27277a7d2fd807da0b3706a3d42f7c4d9243a852b055"
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770907,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "2.8208606796462643",
+      "gasUsed": "269802",
+      "txHash": "0x5c26d169a67a764613d600c11b7efb05c1bbb0ee0938231a726866b88268057e"
+    },
+    {
+      "cycle": 16,
+      "day": 1,
+      "hour": 16,
+      "timestamp": 1788770908,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "6.032720902225403513",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Infrastructure costs - server hosting",
+      "gasUsed": "398136",
+      "txHash": "0x0dd1afeea48e88a33ba048785cb431a906b124ccb5f6f71ae5174d735a3ca129"
+    },
+    {
+      "cycle": 17,
+      "day": 1,
+      "hour": 17,
+      "timestamp": 1788774509,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "8.086415284144175",
+      "gasUsed": "161197",
+      "txHash": "0xe41c7256262503a1111f86ed9df20d6d4b656497de9dafb03bcf24c13fee9b79",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 17,
+      "day": 1,
+      "hour": 17,
+      "timestamp": 1788774510,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "15.857872407581834",
+      "gasUsed": "178297",
+      "txHash": "0xbe4f7f93f1e43210ce920ebf1ed499e2ab57102abc1c20dcb5995ab49981a824",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 17,
+      "day": 1,
+      "hour": 17,
+      "timestamp": 1788774511,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "15.857872407581834",
+      "gasUsed": "224891",
+      "txHash": "0x3e4d2b8315ec6efebaa7398423187b78f4efd791a1ba97762857d00f22ad3880"
+    },
+    {
+      "cycle": 17,
+      "day": 1,
+      "hour": 17,
+      "timestamp": 1788774512,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "8.086415284144175",
+      "gasUsed": "229691",
+      "txHash": "0x73763e314059b972b2b241e8f5386153ee45c93bbdd9c755cb03f02a17f9d9a6"
+    },
+    {
+      "cycle": 18,
+      "day": 1,
+      "hour": 18,
+      "timestamp": 1788778113,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "4.114157585966697",
+      "gasUsed": "178297",
+      "txHash": "0x517ab6d95d1815928b250959b6d4fb5d7fa94b258f3f9a69e7fa9212b85fa409",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 18,
+      "day": 1,
+      "hour": 18,
+      "timestamp": 1788778114,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "12.948829929566465",
+      "gasUsed": "178297",
+      "txHash": "0xcc15b1fe3e4155930605bdd19ea468d89cd8ae8dcfd5b46ea8485af5a72aa017",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 18,
+      "day": 1,
+      "hour": 18,
+      "timestamp": 1788778115,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "12.948829929566465",
+      "gasUsed": "179980",
+      "txHash": "0x86c348ef33c58ab35e77c23c0a14f95b9ace84aef62368bf70eba2107d9f0d35"
+    },
+    {
+      "cycle": 18,
+      "day": 1,
+      "hour": 18,
+      "timestamp": 1788778116,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "4.114157585966697",
+      "gasUsed": "179980",
+      "txHash": "0x2cc7d9fc1e01e284bef3877a06e27eb5256ec631725cff83529bcc0fc7ac90d8"
+    },
+    {
+      "cycle": 18,
+      "day": 1,
+      "hour": 18,
+      "timestamp": 1788778117,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "6.306296087604245",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Office rent payment",
+      "gasUsed": "399984",
+      "txHash": "0x34d6980d13c0b9074c299373d0dec03eef6443f620117cbc66d01d36275fb8ff"
+    },
+    {
+      "cycle": 19,
+      "day": 1,
+      "hour": 19,
+      "timestamp": 1788781718,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "10.106472432049232",
+      "gasUsed": "178297",
+      "txHash": "0x6a1fee7bbeb6eca811f8db3eeb35141dd99a2f8600f3eeb7164c6489fe80bdbc",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 19,
+      "day": 1,
+      "hour": 19,
+      "timestamp": 1788781719,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "10.106472432049232",
+      "gasUsed": "224891",
+      "txHash": "0xe555d4763357c070d6030c461e9c4f404b046e16ef0b119bed78741fee414784"
+    },
+    {
+      "cycle": 19,
+      "day": 1,
+      "hour": 19,
+      "timestamp": 1788781720,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "33.399470629149498672",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Insurance premium payment",
+      "gasUsed": "453455",
+      "txHash": "0x306df2313f56beb8a31b52e32cef760bb90f72a00ee4c9792e6aea264bd66044"
+    },
+    {
+      "cycle": 20,
+      "day": 1,
+      "hour": 20,
+      "timestamp": 1788785321,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "14.114777225264286",
+      "gasUsed": "178297",
+      "txHash": "0x7f92e97e7759768b6aaca8704656e2e4eb109b77597671ce10f8775b5bf5c9d8",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 20,
+      "day": 1,
+      "hour": 20,
+      "timestamp": 1788785322,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "14.114777225264286",
+      "gasUsed": "224891",
+      "txHash": "0xed02409eb7ebd69084cdcb533ef493243afa972a83507755e7e0febbf3e4adf1"
+    },
+    {
+      "cycle": 20,
+      "day": 1,
+      "hour": 20,
+      "timestamp": 1788785323,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "15.147316179027390764",
+      "destination": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "reason": "Partnership agreement payment",
+      "gasUsed": "330693",
+      "txHash": "0x005a749e22db52e7f545997e1af81fb1a6a5b82d94986a79f8c2fa55279e9b88"
+    },
+    {
+      "cycle": 21,
+      "day": 1,
+      "hour": 21,
+      "timestamp": 1788788924,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "2.783420933059944",
+      "gasUsed": "178297",
+      "txHash": "0x70172167453cd20bb87523243d009aecc5a7fdf8679a5323f924f991a4c7c4ec",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 21,
+      "day": 1,
+      "hour": 21,
+      "timestamp": 1788788925,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "2.783420933059944",
+      "gasUsed": "224879",
+      "txHash": "0x3a972c2e4bb5623091aec51f2f1f518c7cecf7763c95de1565df8e90cf891646"
+    },
+    {
+      "cycle": 21,
+      "day": 1,
+      "hour": 21,
+      "timestamp": 1788788926,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "5.196657872243032422",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Travel expenses for conference",
+      "gasUsed": "338021",
+      "txHash": "0x13bf1a339cfc4832362231cd40485c191fd84ad4611f218abfa69f3221659d9a"
+    },
+    {
+      "cycle": 22,
+      "day": 1,
+      "hour": 22,
+      "timestamp": 1788792527,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "16.54920154786893",
+      "gasUsed": "178297",
+      "txHash": "0x84a344cecfa11d7ecae67ec59d1e00c7f150473d6616e2bf2d6bc00ffb08833e",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 22,
+      "day": 1,
+      "hour": 22,
+      "timestamp": 1788792528,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "15.209946372343254",
+      "gasUsed": "178297",
+      "txHash": "0xc5db539c1946529c4f60008494f87c25f7e22d524469c8d4a731c95ec0abf8d9",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 22,
+      "day": 1,
+      "hour": 22,
+      "timestamp": 1788792529,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "16.54920154786893",
+      "gasUsed": "179968",
+      "txHash": "0xd45b36e39fff4730194e116fde082c6df9338f311c95b650546697c16ff3fe9b"
+    },
+    {
+      "cycle": 22,
+      "day": 1,
+      "hour": 22,
+      "timestamp": 1788792530,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "15.209946372343254",
+      "gasUsed": "224891",
+      "txHash": "0x6e015ec55c57a9ee8b3c0ea04b9342c1772211ee6129fc6867f226551112d2cd"
+    },
+    {
+      "cycle": 22,
+      "day": 1,
+      "hour": 22,
+      "timestamp": 1788792531,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "26.24761078579006306",
+      "destination": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "reason": "Contractor payment for design work",
+      "gasUsed": "369247",
+      "txHash": "0x5e73af0ce49ab4bf5ae11aa5d636d875596edf4d4115698065c6fc13c4cae755"
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796132,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "15.473238024376117",
+      "gasUsed": "161197",
+      "txHash": "0x47471505a7c2b90ed94192b668d212142e40c4c25a0752f53aa7a783cfb4ef84",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796133,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "19.04831310692491",
+      "gasUsed": "178297",
+      "txHash": "0x3d6ab4fcc61fcf1ccdc9c59bb1dd47bea2d3b23a426e77c0e0aa9ec20fb9d6cb",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796134,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "8.607017595379553",
+      "gasUsed": "178297",
+      "txHash": "0xcd12e1dcf1bd8c17bd2ae8404d6c343b100badd406a4fb0e9bcebcf269260cdc",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796135,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "15.473238024376117",
+      "gasUsed": "184756",
+      "txHash": "0x3e834807f22ed22588b86cbd66a05178abc9339abaafa36632a60ceda70d51e2"
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796136,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "8.607017595379553",
+      "gasUsed": "179980",
+      "txHash": "0x2e1a013f554abf0161a52e0aea21335e1b67a4c09b6ecb73c309a1b5e53f2b92"
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796137,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "19.04831310692491",
+      "gasUsed": "224915",
+      "txHash": "0x0b9b35c37193222825de59f26d37bd77161412771840d1a2fbe1a372494ff0c4"
+    },
+    {
+      "cycle": 23,
+      "day": 1,
+      "hour": 23,
+      "timestamp": 1788796138,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "13.248670793532401868",
+      "destination": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "reason": "Healthcare benefits payment",
+      "gasUsed": "385053",
+      "txHash": "0x852b902a66cd1c729990066176dd829ff5f12ad8bce7fd0c23f0a5fab5805c15"
+    },
+    {
+      "cycle": 24,
+      "day": 2,
+      "hour": 0,
+      "timestamp": 1788799740,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "5.511194583754735",
+      "gasUsed": "161197",
+      "txHash": "0x5cd603e31b7141a4aef46b6acc24cc82a76adaabe67c3b13345c6e292c400460",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 24,
+      "day": 2,
+      "hour": 0,
+      "timestamp": 1788799741,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "18.460212363298176",
+      "gasUsed": "178297",
+      "txHash": "0xa32acf7e09671d63f75bbe64fefa3c2b9c1dea466efde167c41ab7e141a92e03",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 24,
+      "day": 2,
+      "hour": 0,
+      "timestamp": 1788799742,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "18.460212363298176",
+      "gasUsed": "179944",
+      "txHash": "0x156046c0f251bed6721bb6a890149576781d55e7821698d640993bc6973040a8"
+    },
+    {
+      "cycle": 24,
+      "day": 2,
+      "hour": 0,
+      "timestamp": 1788799743,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "5.511194583754735",
+      "gasUsed": "229691",
+      "txHash": "0xcb9c061761dc71596025c2723d0c0788b5dae4add155f17f4ce2b41f710a7a05"
+    },
+    {
+      "cycle": 24,
+      "day": 2,
+      "hour": 0,
+      "timestamp": 1788799744,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "20.508530184914421428",
+      "destination": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "reason": "Translation services",
+      "gasUsed": "414590",
+      "txHash": "0xbba6fcf7354e36354808129308ad24f37efb7661728389956c3fd804b632a8a9"
+    },
+    {
+      "cycle": 25,
+      "day": 2,
+      "hour": 1,
+      "timestamp": 1788803345,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "14.000296539018025",
+      "gasUsed": "178297",
+      "txHash": "0x8a6033b4d5f954892b18f7c8621183c49f4d36fa040088985d695aee4fa3d1ce",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 25,
+      "day": 2,
+      "hour": 1,
+      "timestamp": 1788803346,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "3.1444542386037204",
+      "gasUsed": "178297",
+      "txHash": "0xcb1f623dad88c1a95e68fe53743e61bf527b1266212be8456a3f751febf71c00",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 25,
+      "day": 2,
+      "hour": 1,
+      "timestamp": 1788803347,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "3.1444542386037204",
+      "gasUsed": "179968",
+      "txHash": "0xd8c4cad62544185231b3af143a2569d9aea7d90de5feea4902110226ef0e4eb6"
+    },
+    {
+      "cycle": 25,
+      "day": 2,
+      "hour": 1,
+      "timestamp": 1788803348,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "14.000296539018025",
+      "gasUsed": "179980",
+      "txHash": "0xf6dd00d22d532a55e491c40dd832373b72318937bd20c042a62ccbb735223d69"
+    },
+    {
+      "cycle": 25,
+      "day": 2,
+      "hour": 1,
+      "timestamp": 1788803349,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "13.015926618262145781",
+      "destination": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "reason": "Marketing campaign expenses",
+      "gasUsed": "298819",
+      "txHash": "0x188300269a9b48ef614b593307b83aa77e826b65979dd4aef65d6f90867b5cd9"
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806950,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "17.689443784668253",
+      "gasUsed": "178297",
+      "txHash": "0xd535eece279baca5aa023020c8ae7d7c1f341740249f7ab6194e400e9c8175cd",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806951,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "15.766780190386871",
+      "gasUsed": "161197",
+      "txHash": "0xa51c7bf6ad86a7fd085ba40ba05856ad316407d8916e5a1a5430b93d3581f60e",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806952,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "18.93907126284126",
+      "gasUsed": "161197",
+      "txHash": "0x5ce2ba4fd9123d1a46a0d2f3214a135fb9497985217fd0c05293bc64a656a95c",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806953,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "15.766780190386871",
+      "gasUsed": "229691",
+      "txHash": "0x4fd2b1a2541602001abeb4b8d0a83fc632458b502bbf909f5f91df1ddce96691"
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806954,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "18.93907126284126",
+      "gasUsed": "184804",
+      "txHash": "0xa8fce8b1f36359d0c1c2b70c7192c6ce5d7ca9b228e38dc62ca80adf344c82d2"
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806955,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "17.689443784668253",
+      "gasUsed": "179980",
+      "txHash": "0x3429f5c741e7d6034131fe80344e3d3f30d7d00523f1ffe7f50467dcbe214420"
+    },
+    {
+      "cycle": 26,
+      "day": 2,
+      "hour": 2,
+      "timestamp": 1788806956,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "31.911941053526709301",
+      "destination": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "reason": "Educational workshop materials",
+      "gasUsed": "410317",
+      "txHash": "0x85a5d3db7251124c0d7c2e30aebcdbc0f89b4b0a4081eec922060ac302d5ae60"
+    },
+    {
+      "cycle": 27,
+      "day": 2,
+      "hour": 3,
+      "timestamp": 1788810557,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "15.84582668000163",
+      "gasUsed": "178297",
+      "txHash": "0x8d6413192626dbf4bf074c1e35d0872412927b831e4744b6f5183d424b49c003",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 27,
+      "day": 2,
+      "hour": 3,
+      "timestamp": 1788810558,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "18.645279601929015",
+      "gasUsed": "178297",
+      "txHash": "0xf2eb34f2128bfd358d80719fe70ee0e22c218d0495cd8b6fccdff902cdf1dc77",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 27,
+      "day": 2,
+      "hour": 3,
+      "timestamp": 1788810559,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "17.610750963413548",
+      "gasUsed": "178297",
+      "txHash": "0xe21674e422661483ca8b76558efaf5b75c56b9cd7a0b13982226d723e75f07c0",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 27,
+      "day": 2,
+      "hour": 3,
+      "timestamp": 1788810560,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "17.610750963413548",
+      "gasUsed": "314713",
+      "txHash": "0xb9a0eee09ac60330a9ab85a08452ee3cd8c003d747b508fe2ae79c5beff59c85"
+    },
+    {
+      "cycle": 27,
+      "day": 2,
+      "hour": 3,
+      "timestamp": 1788810561,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "15.84582668000163",
+      "gasUsed": "179980",
+      "txHash": "0x849fa9f1d9c55aae55dbcf8d38eaa497159ddcb79d26fac7a1573c492959ccee"
+    },
+    {
+      "cycle": 27,
+      "day": 2,
+      "hour": 3,
+      "timestamp": 1788810562,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "18.645279601929015",
+      "gasUsed": "180004",
+      "txHash": "0x66a066f98678d7230133add903258dccc2da337b6112392a80ef0d085d219d5d"
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814163,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "18.086206522365",
+      "gasUsed": "178297",
+      "txHash": "0xc6abd201bab0a71f7168c246a7b2c6a0f4bbd0e03d4c7d8fb6fc413b37a38d77",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814164,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "0.0837349229504337",
+      "gasUsed": "178297",
+      "txHash": "0x6153a9a1e3f97d455d486347d0557126cb4f2c61ced2e887b70ab9addac6f27d",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814165,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "9.512683123456224",
+      "gasUsed": "178297",
+      "txHash": "0x7257a295476e97c033175c65e368ac7d5533b68c1cd03082defa31bf95a27336",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814166,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "18.086206522365",
+      "gasUsed": "179980",
+      "txHash": "0xde1bcef5430e3083fc3a40a2b1533335a655890fc6b9c64bcfb14688e7ad224b"
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814167,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "9.512683123456224",
+      "gasUsed": "224867",
+      "txHash": "0xdcb029425793379d102130669dd6c4acdcf985faf5a8bc281f8165e083d95d39"
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814168,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "0.0837349229504337",
+      "gasUsed": "179980",
+      "txHash": "0x78969c0917b446e3213889b21fec5087e0e2571f77692bf177c1f00fed989aff"
+    },
+    {
+      "cycle": 28,
+      "day": 2,
+      "hour": 4,
+      "timestamp": 1788814169,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "44.334233489587370763",
+      "destination": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "reason": "Healthcare benefits payment",
+      "gasUsed": "488983",
+      "txHash": "0x4e08cc7aaa12a027d6e6ca987b7cd63e2315f09ac99678274e82489a41ed4ddc"
+    },
+    {
+      "cycle": 29,
+      "day": 2,
+      "hour": 5,
+      "timestamp": 1788817770,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "2.7946962122389163",
+      "gasUsed": "178297",
+      "txHash": "0xc179a6e81fa2552d34ea24805d8b01b213805aef31e9cd88b96e2a0dd52a7e86",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 29,
+      "day": 2,
+      "hour": 5,
+      "timestamp": 1788817771,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "11.566449732988655",
+      "gasUsed": "161197",
+      "txHash": "0x492129b7107a703c4e54c31f4eccd612fe39a5494c206b56b7f0569080d30f19",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 29,
+      "day": 2,
+      "hour": 5,
+      "timestamp": 1788817772,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "2.7946962122389163",
+      "gasUsed": "179980",
+      "txHash": "0xbfe3ba64e673588a30f2196b0f80d54c212c43e9ce5938cf6fb3a19d84144326"
+    },
+    {
+      "cycle": 29,
+      "day": 2,
+      "hour": 5,
+      "timestamp": 1788817773,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "11.566449732988655",
+      "gasUsed": "229691",
+      "txHash": "0x98ac50abeb9a2ddbeff325d6a2c233d28c37b9b83006f0e886c482a7c2068bd9"
+    },
+    {
+      "cycle": 29,
+      "day": 2,
+      "hour": 5,
+      "timestamp": 1788817774,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "14.574970602714305155",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Translation services",
+      "gasUsed": "312131",
+      "txHash": "0x31fa08566831e76bfb2b9648ab06483325a4d2ad7ffc196c52b6be2b0c9813aa"
+    },
+    {
+      "cycle": 30,
+      "day": 2,
+      "hour": 6,
+      "timestamp": 1788821375,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "0.36584476128937693",
+      "gasUsed": "178297",
+      "txHash": "0xb7bc5e70330c2a9dca02d0d8eaa9cfe43dfb17b212795704800e1276c75e9fd6",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 30,
+      "day": 2,
+      "hour": 6,
+      "timestamp": 1788821376,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "0.36584476128937693",
+      "gasUsed": "234902",
+      "txHash": "0x453894fefaf1344c612f9b6c093d0d93b4369fd032d8e794f1949487444f03c1"
+    },
+    {
+      "cycle": 30,
+      "day": 2,
+      "hour": 6,
+      "timestamp": 1788821377,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "12.950735359927772778",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Infrastructure costs - server hosting",
+      "gasUsed": "389393",
+      "txHash": "0x37a3423c6c4f7a708cdf27bb1d77015f13265027b28e50d2e644c0df2c0bf25b"
+    },
+    {
+      "cycle": 31,
+      "day": 2,
+      "hour": 7,
+      "timestamp": 1788824978,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "3.1916597403248157",
+      "gasUsed": "178297",
+      "txHash": "0x4de96c1c46a4bde1481182d7771ec97978cd226daa8a8b044ebecddcd789ef83",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 31,
+      "day": 2,
+      "hour": 7,
+      "timestamp": 1788824979,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "3.1916597403248157",
+      "gasUsed": "314713",
+      "txHash": "0x84473c1e7fffc0b96f383f687f3fb26c1a6c4f6510174632b59cf4ddea5a253f"
+    },
+    {
+      "cycle": 31,
+      "day": 2,
+      "hour": 7,
+      "timestamp": 1788824980,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "14.667217072647109574",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Healthcare benefits payment",
+      "gasUsed": "353473",
+      "txHash": "0x3ee5c6a0217a76802a6ccbefd3bd9852d4df3e235db75cefe09739ee8ad2e8a8"
+    },
+    {
+      "cycle": 32,
+      "day": 2,
+      "hour": 8,
+      "timestamp": 1788828581,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "18.578416836183848",
+      "gasUsed": "178297",
+      "txHash": "0xa3055f3dadf409ac2355f7ac36d2fc541b2674f0cfbadfd47646574ea78c23b6",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 32,
+      "day": 2,
+      "hour": 8,
+      "timestamp": 1788828582,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "6.74733964492896",
+      "gasUsed": "161197",
+      "txHash": "0x70cd15df8fad8c95d91e2c6bc63a9c68b2418e360cb93cb1cf1c87d77aa5f38c",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 32,
+      "day": 2,
+      "hour": 8,
+      "timestamp": 1788828583,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "18.578416836183848",
+      "gasUsed": "184804",
+      "txHash": "0xde6ead8e6db7664cfe7a4ce43931f9eb0c4cc3e0b16eb3be7b80d576ec543085"
+    },
+    {
+      "cycle": 32,
+      "day": 2,
+      "hour": 8,
+      "timestamp": 1788828584,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "6.74733964492896",
+      "gasUsed": "179956",
+      "txHash": "0x30ae02da6ec48c8b2e52ef36a7c3d9eb512ce42563b61b7c01ff5535b5f0e6e2"
+    },
+    {
+      "cycle": 33,
+      "day": 2,
+      "hour": 9,
+      "timestamp": 1788832185,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "19.628700489239",
+      "gasUsed": "178297",
+      "txHash": "0xa0233ae037cd4d9af584abe3e2e865a17ba47048becf6685c1846a762e6fc26f",
+      "donationIndex": 6
+    },
+    {
+      "cycle": 33,
+      "day": 2,
+      "hour": 9,
+      "timestamp": 1788832186,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "19.628700489239",
+      "gasUsed": "180004",
+      "txHash": "0x7c5e0c53938f213ec980c54759f787a39d30b5a1db311bfa32832bc872727708"
+    },
+    {
+      "cycle": 34,
+      "day": 2,
+      "hour": 10,
+      "timestamp": 1788835787,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "0.03951675786819144",
+      "gasUsed": "178297",
+      "txHash": "0x28ace2e6729d59e3aa7ae13c5f6a795a57fb4df67e266197b27345c63891b13f",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 34,
+      "day": 2,
+      "hour": 10,
+      "timestamp": 1788835788,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "17.152338254922313",
+      "gasUsed": "178297",
+      "txHash": "0xa848b946a1f30f2ff5bfde5821e9da8d2d718995055b65ebce0d629768f2b3b3",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 34,
+      "day": 2,
+      "hour": 10,
+      "timestamp": 1788835789,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "6.958872528822285",
+      "gasUsed": "178297",
+      "txHash": "0x0643671af90ed60b5d25e7b685c30eaf59c126e27bdc3fb0b5005e2ade985261",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 34,
+      "day": 2,
+      "hour": 10,
+      "timestamp": 1788835790,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "17.152338254922313",
+      "gasUsed": "224891",
+      "txHash": "0x66e596a8b1cad0f3a5bcdc2c60987f6f87b67d30509f539c9f67b1492c51c94a"
+    },
+    {
+      "cycle": 34,
+      "day": 2,
+      "hour": 10,
+      "timestamp": 1788835791,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "0.03951675786819144",
+      "gasUsed": "224855",
+      "txHash": "0x08d1c5a919c6d5b1d332c73922bd5e020342474bd5e171665e620363395f8cce"
+    },
+    {
+      "cycle": 34,
+      "day": 2,
+      "hour": 10,
+      "timestamp": 1788835792,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "6.958872528822285",
+      "gasUsed": "269802",
+      "txHash": "0x67ba1069b35402297501efebf8ec0dbef6ddba324137566f42c48346b7d58122"
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839393,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "2.105474880671826",
+      "gasUsed": "180651",
+      "txHash": "0xc173e62a2e5f90087533fecaba11f282baff1263c30318b319d6b4d74a89d82d",
+      "donationIndex": 0
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839394,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.671262683172216",
+      "gasUsed": "178297",
+      "txHash": "0xcc06ef3494a9426c2c6f80d985f6f9cf7c5901f1c908f97114abce8501086a7d",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839395,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "4.158386374266768",
+      "gasUsed": "161197",
+      "txHash": "0x869ff85736f39f04728e80418be678ed84ce73235b0a3170287f0f963a7ea4a3",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839396,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "2.105474880671826",
+      "gasUsed": "364412",
+      "txHash": "0x837bf5c8797f6bd9d1635bac3bb5148d7c4b79b1b4875063502a7653c201cac4"
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839397,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "4.158386374266768",
+      "gasUsed": "179980",
+      "txHash": "0x5e5bcebfdf85fef332b451f70f7d7b844bfdc5d599ff3088989449ebd89c8fdc"
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839398,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.671262683172216",
+      "gasUsed": "179980",
+      "txHash": "0x41bc24f075d2d2c8c088a1f40c1bf083741202be40437f675d198f5e99d42ba0"
+    },
+    {
+      "cycle": 35,
+      "day": 2,
+      "hour": 11,
+      "timestamp": 1788839399,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "23.820520332319720823",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Infrastructure costs - server hosting",
+      "gasUsed": "419618",
+      "txHash": "0x62e03eeb820cc31dc5471426a95a90724244c3d2a4789fc5f93e30e0b5cc3085"
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843000,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "18.177794580930822",
+      "gasUsed": "178297",
+      "txHash": "0x92ef3a46b56b5de888fcf4aa855c232f30fb44ce46e68dfe25da846077d9dd29",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843001,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "9.853385896499255",
+      "gasUsed": "178297",
+      "txHash": "0xf06b14537cdf5db52498656a86bdbbfbe4300a40ce720576c9b08bc0a241eae6",
+      "donationIndex": 7
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843002,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "12.432848706361822",
+      "gasUsed": "161197",
+      "txHash": "0xea4dcfa3b161e1c2cdc01e5dfa9c44e5cbffdf039ba1cc857986ddbccb223bdb",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843003,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "9.853385896499255",
+      "gasUsed": "179980",
+      "txHash": "0x1273dd8d6da8972c296c48688c46e9618df40748fc4d6848bb73e8f16ee043ec"
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843004,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "18.177794580930822",
+      "gasUsed": "184780",
+      "txHash": "0xd039afca6d1a9331bfe225f47290c186069a0bcbd91cebd63a433150e98b3c43"
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843005,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "12.432848706361822",
+      "gasUsed": "179980",
+      "txHash": "0xe4b8b762b9f6d21a4085ad2c0ce08e3a6e8509f50b22544e6d1fdf320d08c5e7"
+    },
+    {
+      "cycle": 36,
+      "day": 2,
+      "hour": 12,
+      "timestamp": 1788843006,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "68.214876512090459394",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Community event sponsorship",
+      "gasUsed": "643816",
+      "txHash": "0x2ce3eddf9be6ad9cd362d43e46732f6f6961015aab0ff91dd2627b5e4c035b5e"
+    },
+    {
+      "cycle": 37,
+      "day": 2,
+      "hour": 13,
+      "timestamp": 1788846607,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "1.0589002455162155",
+      "gasUsed": "178297",
+      "txHash": "0xbda11f3d0a9d4e1ba49a4810ef9bb864739fa8c18d83593033bbe0ac2a3746f6",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 37,
+      "day": 2,
+      "hour": 13,
+      "timestamp": 1788846608,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "0.8268625154291392",
+      "gasUsed": "178297",
+      "txHash": "0x9379446810008eae80433a2a9b38ac274e9835b6f7798b92d7a03cb33bd51c65",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 37,
+      "day": 2,
+      "hour": 13,
+      "timestamp": 1788846609,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "0.8268625154291392",
+      "gasUsed": "179956",
+      "txHash": "0x74413fe13fae924d58936ac2a473158a3a52e06baeff9c2ec9cb4c1ce1f01426"
+    },
+    {
+      "cycle": 37,
+      "day": 2,
+      "hour": 13,
+      "timestamp": 1788846610,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "1.0589002455162155",
+      "gasUsed": "269802",
+      "txHash": "0x8f016a9d78e469596bafb9943c784a46c2e61fa3b35c7f0be8234c034ee3e496"
+    },
+    {
+      "cycle": 37,
+      "day": 2,
+      "hour": 13,
+      "timestamp": 1788846611,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "21.869737677247864707",
+      "destination": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "reason": "Research and development costs",
+      "gasUsed": "341701",
+      "txHash": "0x099e81f61108c32050673043396fa801116292e1bd834531daa2b21e974c09be"
+    },
+    {
+      "cycle": 38,
+      "day": 2,
+      "hour": 14,
+      "timestamp": 1788850212,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "9.202590791064452",
+      "gasUsed": "161197",
+      "txHash": "0xdad5f0c61d290e904ecc1f72f87b1b34230e020095eaf4b6867f7683813cb2d6",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 38,
+      "day": 2,
+      "hour": 14,
+      "timestamp": 1788850213,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "2.7779367659401526",
+      "gasUsed": "178297",
+      "txHash": "0x7c00db49810b302abefd82e6e824876eba57662297db74a4b997b7743777c09c",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 38,
+      "day": 2,
+      "hour": 14,
+      "timestamp": 1788850214,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "2.7779367659401526",
+      "gasUsed": "179980",
+      "txHash": "0xb3f8deba57766509c974cea2625ba46d467cc69ba588bbf4f46987a6ef4c8554"
+    },
+    {
+      "cycle": 38,
+      "day": 2,
+      "hour": 14,
+      "timestamp": 1788850215,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "9.202590791064452",
+      "gasUsed": "229691",
+      "txHash": "0xb089fb1009a5907f2fc5a111fe56862fafacd8e7727937f39cabd75db584d57d"
+    },
+    {
+      "cycle": 40,
+      "day": 2,
+      "hour": 16,
+      "timestamp": 1788857417,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "17.164449146857283",
+      "gasUsed": "178297",
+      "txHash": "0x62fb86b3c70fdbe634ad5efb0daf68b7a8538b7e21621330f352c354cd1eb3de",
+      "donationIndex": 8
+    },
+    {
+      "cycle": 40,
+      "day": 2,
+      "hour": 16,
+      "timestamp": 1788857418,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "17.164449146857283",
+      "gasUsed": "179980",
+      "txHash": "0x8027688c3dbf77176e78ba84f01d7a1e887827ed52edd503764ff7148b2109c5"
+    },
+    {
+      "cycle": 41,
+      "day": 2,
+      "hour": 17,
+      "timestamp": 1788861020,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "0.6555759039762493",
+      "gasUsed": "178297",
+      "txHash": "0x11e7b83f829073753464a344c1b2ad5964d465664fff30d1f71e6d1feec97f99",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 41,
+      "day": 2,
+      "hour": 17,
+      "timestamp": 1788861021,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "5.943591509288504",
+      "gasUsed": "161197",
+      "txHash": "0xa943b511d6ed2f5ca65dbc82483feb20b323525d887d925cde9861f30d8fe5d8",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 41,
+      "day": 2,
+      "hour": 17,
+      "timestamp": 1788861022,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "0.6555759039762493",
+      "gasUsed": "179980",
+      "txHash": "0x82ed4ba5d48fd28074744404738b277dd3760a27a7f302acf7385aa51b76d4df"
+    },
+    {
+      "cycle": 41,
+      "day": 2,
+      "hour": 17,
+      "timestamp": 1788861023,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "5.943591509288504",
+      "gasUsed": "184780",
+      "txHash": "0x8c859311609314015556256fbca303885acb35d22ebab19a2bbf5460d9076578"
+    },
+    {
+      "cycle": 41,
+      "day": 2,
+      "hour": 17,
+      "timestamp": 1788861024,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "7.987890534445536277",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Community event sponsorship",
+      "gasUsed": "418579",
+      "txHash": "0xde167af9cde5153ada0a96d8054a93e0195c6366c55d7098ac2c5ab838e957f3"
+    },
+    {
+      "cycle": 42,
+      "day": 2,
+      "hour": 18,
+      "timestamp": 1788864625,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "6.107637862892713",
+      "gasUsed": "178297",
+      "txHash": "0x75b29822b0ffa820199d9c315d7271d1424a92b0aca3a28f935f0ea3141a3696",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 42,
+      "day": 2,
+      "hour": 18,
+      "timestamp": 1788864626,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "6.107637862892713",
+      "gasUsed": "224891",
+      "txHash": "0x1f998748791c648d0e06536d84c18691f2396c8fb00bff28d3904f4fed13f3dd"
+    },
+    {
+      "cycle": 42,
+      "day": 2,
+      "hour": 18,
+      "timestamp": 1788864627,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "20.84812265514288501",
+      "destination": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "reason": "Infrastructure costs - server hosting",
+      "gasUsed": "446009",
+      "txHash": "0xd8cecf6d24d8a79a4e22546cee466c88d86004877f8f0972029f64ca287ac94a"
+    },
+    {
+      "cycle": 43,
+      "day": 2,
+      "hour": 19,
+      "timestamp": 1788868228,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "14.135256482556008",
+      "gasUsed": "178297",
+      "txHash": "0x606471f34e9d99e82ca826482a17746bdd3fdf4fcb52bd441afb695920004133",
+      "donationIndex": 9
+    },
+    {
+      "cycle": 43,
+      "day": 2,
+      "hour": 19,
+      "timestamp": 1788868229,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "14.135256482556008",
+      "gasUsed": "179980",
+      "txHash": "0x1eaee0037556078b771837aedd71e2c272c7c92f3cfd1b732740a80182c6fe7e"
+    },
+    {
+      "cycle": 44,
+      "day": 2,
+      "hour": 20,
+      "timestamp": 1788871830,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "3.7162284266680454",
+      "gasUsed": "178297",
+      "txHash": "0x8905205cabad452509c91db8b87e50e631b1ec004d8e5154411365dd2be1b0de",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 44,
+      "day": 2,
+      "hour": 20,
+      "timestamp": 1788871831,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "3.7162284266680454",
+      "gasUsed": "224879",
+      "txHash": "0xa033209f009eea1e05a02fae271351ab163edc95372a4948918531c65793c476"
+    },
+    {
+      "cycle": 45,
+      "day": 2,
+      "hour": 21,
+      "timestamp": 1788875432,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "14.962170592164838",
+      "gasUsed": "178297",
+      "txHash": "0x0f0a1b92bc7d0306408ce24600b0ca709fc91d0612b4e9cf638d85cf490e5101",
+      "donationIndex": 10
+    },
+    {
+      "cycle": 45,
+      "day": 2,
+      "hour": 21,
+      "timestamp": 1788875433,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "9.638641481912263",
+      "gasUsed": "178297",
+      "txHash": "0x6e5a410c1f738f35adaccdce14e60647a09e91a63503c6e2311dbe8c11302ee9",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 45,
+      "day": 2,
+      "hour": 21,
+      "timestamp": 1788875434,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "14.962170592164838",
+      "gasUsed": "179980",
+      "txHash": "0xff1e6b5397873ee600a8d9a72acb552b0889f5bbefd879c151e5e32d6273476b"
+    },
+    {
+      "cycle": 45,
+      "day": 2,
+      "hour": 21,
+      "timestamp": 1788875435,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "9.638641481912263",
+      "gasUsed": "269802",
+      "txHash": "0x1b59ad791eb960b0868aef5f0217a710356e88747b93688d7c28a1c78978e74f"
+    },
+    {
+      "cycle": 45,
+      "day": 2,
+      "hour": 21,
+      "timestamp": 1788875436,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "9.080503647360448515",
+      "destination": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "reason": "Salary payment for development team",
+      "gasUsed": "419376",
+      "txHash": "0xe2af80945334a4348f75a025a5d76eb93668a20729d4968b525dc75291ca4ad1"
+    },
+    {
+      "cycle": 46,
+      "day": 2,
+      "hour": 22,
+      "timestamp": 1788879037,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "0.7966604661276229",
+      "gasUsed": "178297",
+      "txHash": "0xca6d00314235efd315d84ebdfb722e4ef08bd77b72ed7aa53bd9a94da77b0258",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 46,
+      "day": 2,
+      "hour": 22,
+      "timestamp": 1788879038,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "10.738396012619644",
+      "gasUsed": "178297",
+      "txHash": "0x6571a5ffbb0c65a5257644835da162590a8cf1ff8011239d293aecdba8d7ce14",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 46,
+      "day": 2,
+      "hour": 22,
+      "timestamp": 1788879039,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "0.7966604661276229",
+      "gasUsed": "179980",
+      "txHash": "0x4b7af694bf84ba2edc07c34b27e7dc1ee6ba9b7003818b58e055f69d41943be9"
+    },
+    {
+      "cycle": 46,
+      "day": 2,
+      "hour": 22,
+      "timestamp": 1788879040,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "10.738396012619644",
+      "gasUsed": "179980",
+      "txHash": "0x2d5cf4e3baa99622f70a71f1d008a1993f86db7cada74aa035914d6ae907e3ac"
+    },
+    {
+      "cycle": 46,
+      "day": 2,
+      "hour": 22,
+      "timestamp": 1788879041,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "34.703518652763560404",
+      "destination": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "reason": "Contractor payment for design work",
+      "gasUsed": "542485",
+      "txHash": "0x952d002d3a465a79d4adf8f37ac869a954ad7bac71bb610e6ef7f121dca3a53c"
+    },
+    {
+      "cycle": 47,
+      "day": 2,
+      "hour": 23,
+      "timestamp": 1788882642,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "0.08315278051552052",
+      "gasUsed": "178297",
+      "txHash": "0x5b43f0f08492c9600332168e26e82642d90d3062513f82bcd060fc4eac9dda58",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 47,
+      "day": 2,
+      "hour": 23,
+      "timestamp": 1788882643,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "11.352338788116167",
+      "gasUsed": "178297",
+      "txHash": "0xb02924b55d17504edcd8e9dc8e6cde7b751c98736c255bb430c92827a1ec02a8",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 47,
+      "day": 2,
+      "hour": 23,
+      "timestamp": 1788882644,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "11.352338788116167",
+      "gasUsed": "179980",
+      "txHash": "0xc421b2bd0d4435a25a3fc6ebc600cd9982ba49689c862afd7ac4862e0bff650b"
+    },
+    {
+      "cycle": 47,
+      "day": 2,
+      "hour": 23,
+      "timestamp": 1788882645,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "0.08315278051552052",
+      "gasUsed": "179980",
+      "txHash": "0x645f4691cff1adbb8590ab201f0b66688648cebfb2157a474ecb004126561172"
+    },
+    {
+      "cycle": 47,
+      "day": 2,
+      "hour": 23,
+      "timestamp": 1788882646,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "32.234054799522088434",
+      "destination": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "reason": "Legal and compliance fees",
+      "gasUsed": "462067",
+      "txHash": "0x916c27a7fba72ca8d09d4a2788207b6604e3e7cc17a06f89f72babcf4c553ba0"
+    },
+    {
+      "cycle": 48,
+      "day": 3,
+      "hour": 0,
+      "timestamp": 1788886247,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "17.21797926273307",
+      "gasUsed": "161197",
+      "txHash": "0xda206cf9fa0681e0107646f638398a2911be824d0f0f4129365f51cc4b2a51d3",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 48,
+      "day": 3,
+      "hour": 0,
+      "timestamp": 1788886248,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "17.21797926273307",
+      "gasUsed": "229691",
+      "txHash": "0xe657ad1e96ee4c8eb8ef15562e0efce7ef6f580fdbf158572dd8bf9162dc9e13"
+    },
+    {
+      "cycle": 48,
+      "day": 3,
+      "hour": 0,
+      "timestamp": 1788886249,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "20.121387981554073354",
+      "destination": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "reason": "Contractor payment for design work",
+      "gasUsed": "449150",
+      "txHash": "0xa277997dd6de6de26156e862ec6c9e6d937d224d553d748c9510462bfa8553a2"
+    },
+    {
+      "cycle": 49,
+      "day": 3,
+      "hour": 1,
+      "timestamp": 1788889850,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "14.647175151119392",
+      "gasUsed": "178297",
+      "txHash": "0x167cb1df7ae4b0f30f50c2ef451ab64dd50ad06d046f69f34074f5f033befc3a",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 49,
+      "day": 3,
+      "hour": 1,
+      "timestamp": 1788889851,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "14.647175151119392",
+      "gasUsed": "179956",
+      "txHash": "0x66be71ec463277d7c043b17cacac7439556c6fd6480fbb61a468b56f89615ff2"
+    },
+    {
+      "cycle": 49,
+      "day": 3,
+      "hour": 1,
+      "timestamp": 1788889852,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "5.363367056178782475",
+      "destination": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "reason": "Office rent payment",
+      "gasUsed": "249234",
+      "txHash": "0xbb4b1f68199b1e9df7674b8910d8d1a966cae2a385092468d3c744cd70228013"
+    },
+    {
+      "cycle": 50,
+      "day": 3,
+      "hour": 2,
+      "timestamp": 1788893452,
+      "type": "donation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "15.865084893518297",
+      "gasUsed": "178297",
+      "txHash": "0xd5bdaac924c423b7dfdbb0a6c078a53d2c21ff405be4ca4b9fe200d03d561103",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 50,
+      "day": 3,
+      "hour": 2,
+      "timestamp": 1788893453,
+      "type": "allocation",
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "amount": "15.865084893518297",
+      "gasUsed": "224891",
+      "txHash": "0xa00d938f1af23c12d5245d76f07f0f32e4770220c7ec464d12c5bba6d71c3cd0"
+    },
+    {
+      "cycle": 50,
+      "day": 3,
+      "hour": 2,
+      "timestamp": 1788893454,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "38.460794338944454907",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Legal and compliance fees",
+      "gasUsed": "712491",
+      "txHash": "0xadf41ce684c116c9f6ec776de32476e50920854311e6a667c98a0bf5354359a4"
+    },
+    {
+      "cycle": 51,
+      "day": 3,
+      "hour": 3,
+      "timestamp": 1788897055,
+      "type": "donation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "7.840680850172513",
+      "gasUsed": "161197",
+      "txHash": "0xc2938ba9e9b98f52c9fad8c40b25193ea2cb48e27209964344b17ee6036bf5f4",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 51,
+      "day": 3,
+      "hour": 3,
+      "timestamp": 1788897056,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "12.195803385157182",
+      "gasUsed": "161197",
+      "txHash": "0x27a74bfd64e15e8cf49cd53991c4c315083dfc2c67bb631b535c5593bf01e8f0",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 51,
+      "day": 3,
+      "hour": 3,
+      "timestamp": 1788897057,
+      "type": "allocation",
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "amount": "7.840680850172513",
+      "gasUsed": "274602",
+      "txHash": "0x95a70f96f59d276d81f31e02285642d9766d29b9b64d5a06c159208d46eb3a87"
+    },
+    {
+      "cycle": 51,
+      "day": 3,
+      "hour": 3,
+      "timestamp": 1788897058,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "12.195803385157182",
+      "gasUsed": "184780",
+      "txHash": "0xbd35501c27145106ea21a2cae3a22000b9f7450b1422c6c076df3d7f00555be9"
+    },
+    {
+      "cycle": 52,
+      "day": 3,
+      "hour": 4,
+      "timestamp": 1788900659,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "14.116483721575062",
+      "gasUsed": "178297",
+      "txHash": "0x05a8a0a2b9e4bde5a55deac4b659895b9c04612e3651a9d0a535bfb00f4ea4b4",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 52,
+      "day": 3,
+      "hour": 4,
+      "timestamp": 1788900660,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "14.116483721575062",
+      "gasUsed": "224891",
+      "txHash": "0xe39606bcf1cf417940c418e1141662498c5db32e89fa12c0d7a86f5aa1a7805c"
+    },
+    {
+      "cycle": 52,
+      "day": 3,
+      "hour": 4,
+      "timestamp": 1788900661,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "5.276592231106027977",
+      "destination": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "reason": "Marketing campaign expenses",
+      "gasUsed": "292944",
+      "txHash": "0x702998b64cf15c5e566d35e69eb5617247489b2de60be04e5ded607836dabab7"
+    },
+    {
+      "cycle": 53,
+      "day": 3,
+      "hour": 5,
+      "timestamp": 1788904262,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "1.8657606822042163",
+      "gasUsed": "161197",
+      "txHash": "0x5f21e136b00af23d1ac3eb50dc887f2c6033e96ee935cbf9a168cb0ffbdda355",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 53,
+      "day": 3,
+      "hour": 5,
+      "timestamp": 1788904263,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "1.8657606822042163",
+      "gasUsed": "184780",
+      "txHash": "0x2480757fad2e81fb3a2fb965677f3f75bdaf3defc3324caf33c9ea1836cbf5a6"
+    },
+    {
+      "cycle": 53,
+      "day": 3,
+      "hour": 5,
+      "timestamp": 1788904264,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "4.223946200014044223",
+      "destination": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "reason": "Insurance premium payment",
+      "gasUsed": "456306",
+      "txHash": "0xd6f7eb3212a0ee1e3cbb185c91664fcc4361090498d19570e330bc1a810d4e70"
+    },
+    {
+      "cycle": 55,
+      "day": 3,
+      "hour": 7,
+      "timestamp": 1788911466,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "5.329984927554953",
+      "gasUsed": "178297",
+      "txHash": "0x10592791be3e341deeb37e9cc97073782be87bd16ca4406339de88e1e9c13454",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 55,
+      "day": 3,
+      "hour": 7,
+      "timestamp": 1788911467,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.120061489688496",
+      "gasUsed": "178297",
+      "txHash": "0x94752d10cdde1fdba1730b04e586b3ae6d50aacd95eeba518bafb12fcc6eaab9",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 55,
+      "day": 3,
+      "hour": 7,
+      "timestamp": 1788911468,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.120061489688496",
+      "gasUsed": "314713",
+      "txHash": "0xa9857844a25c2aa0bf43470d2d3d3e3173cd7188a9770776ca92af983cd88d84"
+    },
+    {
+      "cycle": 55,
+      "day": 3,
+      "hour": 7,
+      "timestamp": 1788911469,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "5.329984927554953",
+      "gasUsed": "269802",
+      "txHash": "0x62d243d935c107414e65bafe5376094d08bbee141b0322e8493aaa14b6b3196c"
+    },
+    {
+      "cycle": 55,
+      "day": 3,
+      "hour": 7,
+      "timestamp": 1788911470,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "21.054293772005591825",
+      "destination": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "reason": "Legal and compliance fees",
+      "gasUsed": "380611",
+      "txHash": "0xcc3ace7ba348c2c808d91a288f015a9763415cc5dabd0f51dd86d393c14a20ba"
+    },
+    {
+      "cycle": 56,
+      "day": 3,
+      "hour": 8,
+      "timestamp": 1788915071,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "0.22802180519114962",
+      "gasUsed": "178297",
+      "txHash": "0x8001ec0cce8fa60aa57d75ccb4b5ccf4a3a58e10171440277720b43a4c7bd28f",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 56,
+      "day": 3,
+      "hour": 8,
+      "timestamp": 1788915072,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "12.929262567894598",
+      "gasUsed": "178297",
+      "txHash": "0x68586cf307273bade22de070b07407c3024163cef16f4a7c961aa439f96a9d60",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 56,
+      "day": 3,
+      "hour": 8,
+      "timestamp": 1788915073,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "12.929262567894598",
+      "gasUsed": "269790",
+      "txHash": "0x539b9536fddb8e5f3dc456fcc3fb3ad0e06a99a3e4fa35416356a145601d3039"
+    },
+    {
+      "cycle": 56,
+      "day": 3,
+      "hour": 8,
+      "timestamp": 1788915074,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "0.22802180519114962",
+      "gasUsed": "179980",
+      "txHash": "0x7739180a3d699c20935e89371b166d18f275c00cfd77b61c95ef420d8369ef4c"
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918675,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "15.312171174581755",
+      "gasUsed": "178297",
+      "txHash": "0x707bb2ac5ea777d46b8b9b556571fd7eea79a691b751c9bd35c5ebcfdf8bb89e",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918676,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "5.07668546008341",
+      "gasUsed": "178297",
+      "txHash": "0xd64986a5c64c4f68037f3ed7dbc63dc45998a6c9c075d22e30116e42373c768a",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918677,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "3.1380311845864135",
+      "gasUsed": "161197",
+      "txHash": "0x20c024d1a56770ff722190fa22e698bf8639b1dcbb5618b7988129d2348136ab",
+      "donationIndex": 6
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918678,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "15.312171174581755",
+      "gasUsed": "179980",
+      "txHash": "0xd3384044363cafa2ee833588d6376aaea2a16378ed6091bfdb63e17b34d1733a"
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918679,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "5.07668546008341",
+      "gasUsed": "179968",
+      "txHash": "0xe0e73cb35873364046e2fa2ea32d360ed45fd163c271d49eda6363cd8da6af2e"
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918680,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "3.1380311845864135",
+      "gasUsed": "184780",
+      "txHash": "0x70f96cedb159c4c5443947e92e7e8a47a656eae350e7ef7ff1cd0b9fc1bcfe22"
+    },
+    {
+      "cycle": 57,
+      "day": 3,
+      "hour": 9,
+      "timestamp": 1788918681,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "38.767062697583403859",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Salary payment for development team",
+      "gasUsed": "505604",
+      "txHash": "0x59f6e30cffec0ab65c9a0ed4160a5447fceaa7c709ba93d6267a8298667b48c3"
+    },
+    {
+      "cycle": 58,
+      "day": 3,
+      "hour": 10,
+      "timestamp": 1788922282,
+      "type": "donation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "9.765935984669579",
+      "gasUsed": "178297",
+      "txHash": "0x9046b325134bf600e424f64698d7e8125c4d79fd0702fc455f68a31b54ae1b86",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 58,
+      "day": 3,
+      "hour": 10,
+      "timestamp": 1788922283,
+      "type": "allocation",
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "amount": "9.765935984669579",
+      "gasUsed": "179980",
+      "txHash": "0x239e8d0e28dbb363c178495d7b21d1210f5735a2a61f6f855a5bb9fb84298052"
+    },
+    {
+      "cycle": 58,
+      "day": 3,
+      "hour": 10,
+      "timestamp": 1788922284,
+      "type": "payout",
+      "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": "39.566736829107498978",
+      "destination": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "reason": "Emergency fund allocation",
+      "gasUsed": "532895",
+      "txHash": "0x9724be3683089d27aa11a632d250b08f43629697fb23cd385f3e71e47c28996e"
+    },
+    {
+      "cycle": 59,
+      "day": 3,
+      "hour": 11,
+      "timestamp": 1788925885,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "4.070148403781779",
+      "gasUsed": "161197",
+      "txHash": "0x6ea71515149ed94e2cc17e5407d20848381406022bcfe4bf159387df9b8ab28f",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 59,
+      "day": 3,
+      "hour": 11,
+      "timestamp": 1788925886,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "5.23006350309828",
+      "gasUsed": "178297",
+      "txHash": "0xfa9eec4b2e9471fdd0a59b4b353ddb5a6820e951e25e43bccef03177ae8b4f9d",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 59,
+      "day": 3,
+      "hour": 11,
+      "timestamp": 1788925887,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "4.070148403781779",
+      "gasUsed": "229691",
+      "txHash": "0x14c29a24fec8431d977c15b3ae9f9db4e0a43b6f6c4da8595af0ff85a59ff004"
+    },
+    {
+      "cycle": 59,
+      "day": 3,
+      "hour": 11,
+      "timestamp": 1788925888,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "5.23006350309828",
+      "gasUsed": "179980",
+      "txHash": "0x6cf75b016d7ef0fa68a7ffee9b6b0af68d4821e7449b18f15b9623e3008159a1"
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929489,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "3.81550642187847",
+      "gasUsed": "178297",
+      "txHash": "0x0879df830909abb2f6d6ea8a978cbae1c34b3b537c79a9f3f0e893a514d46e24",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929490,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "1.2767907373805805",
+      "gasUsed": "161197",
+      "txHash": "0xccdfbd5ce1cfad145e9cf9192d7cd0ebd157bfba3bafb9842a0db0c3ce3b6707",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929491,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "9.019786899813356",
+      "gasUsed": "178297",
+      "txHash": "0x4866217754c0028e35a79be22c8451509a0e9fa0fce81f09615c669ababc4926",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929492,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "3.81550642187847",
+      "gasUsed": "184780",
+      "txHash": "0xd910b45de67ead96d7a3af5ddaada005b8d19dfa93331f0225cb0000c77a730b"
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929493,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "1.2767907373805805",
+      "gasUsed": "179980",
+      "txHash": "0x02991db75b50c35b467de1554245ec97063678518befce1469faa0008c7d4ebc"
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929494,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "9.019786899813356",
+      "gasUsed": "179968",
+      "txHash": "0xd3093cbe30570820e6c40871d7a9a6a7e503a07df69e1595315c6297b6040988"
+    },
+    {
+      "cycle": 60,
+      "day": 3,
+      "hour": 12,
+      "timestamp": 1788929495,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "22.027321748409834994",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Partnership agreement payment",
+      "gasUsed": "458672",
+      "txHash": "0x8153bf95c1bb52f5ed4fb9fc3e60c0933ec20e916f0cbe68178e6b0c52e07f6b"
+    },
+    {
+      "cycle": 61,
+      "day": 3,
+      "hour": 13,
+      "timestamp": 1788933096,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.06499101635382",
+      "gasUsed": "178297",
+      "txHash": "0x449f51079e9d03514b675c737e7f2b9a61a0cab1a4ee3b8cb2c592a061b91093",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 61,
+      "day": 3,
+      "hour": 13,
+      "timestamp": 1788933097,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "16.06499101635382",
+      "gasUsed": "179980",
+      "txHash": "0x829bb39a13fa1425a94bcf31864eeb057b34c3966b976fc8add06187a705e2f9"
+    },
+    {
+      "cycle": 61,
+      "day": 3,
+      "hour": 13,
+      "timestamp": 1788933098,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "17.009609249803364167",
+      "destination": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "reason": "Community event sponsorship",
+      "gasUsed": "379216",
+      "txHash": "0xcf4406f2db800b0fed9a7484ef2507e33c295eea6824625382d172aa6b897281"
+    },
+    {
+      "cycle": 62,
+      "day": 3,
+      "hour": 14,
+      "timestamp": 1788936699,
+      "type": "donation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "7.0688947099586725",
+      "gasUsed": "178297",
+      "txHash": "0x1274f94adea0bec81d81736ee1385d2af0d274699f70ad58820467c29f7a40d2",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 62,
+      "day": 3,
+      "hour": 14,
+      "timestamp": 1788936700,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "16.343559205597774",
+      "gasUsed": "178297",
+      "txHash": "0x959230824c41bcc68bb7b373404308e8915e491207920058200e4febe35c35da",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 62,
+      "day": 3,
+      "hour": 14,
+      "timestamp": 1788936701,
+      "type": "allocation",
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "amount": "7.0688947099586725",
+      "gasUsed": "314713",
+      "txHash": "0xdd6c8e6955da9ee9b1ffcf37f803942ff86de860658d750babf590790442d83a"
+    },
+    {
+      "cycle": 62,
+      "day": 3,
+      "hour": 14,
+      "timestamp": 1788936702,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "16.343559205597774",
+      "gasUsed": "179980",
+      "txHash": "0x6bd29932b0cb7a6a4762a632f334db829994632a6104c60cc2c5eff169045b39"
+    },
+    {
+      "cycle": 62,
+      "day": 3,
+      "hour": 14,
+      "timestamp": 1788936703,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "41.645281569837091699",
+      "destination": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "reason": "Bug bounty reward payment",
+      "gasUsed": "639876",
+      "txHash": "0x6a654d2a948f80e602139dfd7e87bfad11c0430f794bf19c89b8eb24ee99dbaf"
+    },
+    {
+      "cycle": 63,
+      "day": 3,
+      "hour": 15,
+      "timestamp": 1788940304,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "4.447218566532698",
+      "gasUsed": "178297",
+      "txHash": "0x0b1d6b3d7e3e1807e3f967651879f2af0b59ccdbeadc3d4dad63e78a8534793d",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 63,
+      "day": 3,
+      "hour": 15,
+      "timestamp": 1788940305,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "4.447218566532698",
+      "gasUsed": "224891",
+      "txHash": "0x7178813275b0be47606a3cdb5c0339d703ddab87a8ff66eb44df46bd46c9f3d0"
+    },
+    {
+      "cycle": 63,
+      "day": 3,
+      "hour": 15,
+      "timestamp": 1788940306,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "5.239110001181342216",
+      "destination": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "reason": "Utility bills for office",
+      "gasUsed": "396791",
+      "txHash": "0x0aa36f5f1c149531be1412415802c1092ddeccbf7af8b7d61052984335667df9"
+    },
+    {
+      "cycle": 64,
+      "day": 3,
+      "hour": 16,
+      "timestamp": 1788943907,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "17.40985314083212",
+      "gasUsed": "178297",
+      "txHash": "0xfca012053bf1c60ffa4d213374d4a30f11849586a21a7f2206587c877975be5a",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 64,
+      "day": 3,
+      "hour": 16,
+      "timestamp": 1788943908,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "6.956359980582761",
+      "gasUsed": "178297",
+      "txHash": "0x9f29868ff5b7648fe1ccce3a751a4faaf3d2b16e0b2fdfd28dd5831022bf27d6",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 64,
+      "day": 3,
+      "hour": 16,
+      "timestamp": 1788943909,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "17.40985314083212",
+      "gasUsed": "179980",
+      "txHash": "0xc2b58f825f24732f25bd4d3bbfa5dcc231c9cdc9a710034cd0bdce6d8d738847"
+    },
+    {
+      "cycle": 64,
+      "day": 3,
+      "hour": 16,
+      "timestamp": 1788943910,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "6.956359980582761",
+      "gasUsed": "179968",
+      "txHash": "0x03a46d69c442f8129950e89c1f8c357f52bba6611295b1f2121ae8b90f35be7c"
+    },
+    {
+      "cycle": 65,
+      "day": 3,
+      "hour": 17,
+      "timestamp": 1788947511,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "12.84487526176107",
+      "gasUsed": "178297",
+      "txHash": "0x3c6c2a7d8e01ce323c2d7f6ef4337ed0060d3b4d7e35423baceb9d29b082dae3",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 65,
+      "day": 3,
+      "hour": 17,
+      "timestamp": 1788947512,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "12.84487526176107",
+      "gasUsed": "224891",
+      "txHash": "0x7c26921349f34e3f855eec93d84537c0153b05ccb1f0d333aea08457c6511ea0"
+    },
+    {
+      "cycle": 65,
+      "day": 3,
+      "hour": 17,
+      "timestamp": 1788947513,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "29.58058691930417948",
+      "destination": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "reason": "Travel expenses for conference",
+      "gasUsed": "625863",
+      "txHash": "0x61a7e379b7a86ee2a867aebbef493814b6b90a1ccc7649053346d31106f26331"
+    },
+    {
+      "cycle": 66,
+      "day": 3,
+      "hour": 18,
+      "timestamp": 1788951114,
+      "type": "donation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "10.50402931946446",
+      "gasUsed": "178297",
+      "txHash": "0x5d0aceaa4ac63d60ac7648d44214bb87df7282821bfb0927545d79d32309cb58",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 66,
+      "day": 3,
+      "hour": 18,
+      "timestamp": 1788951115,
+      "type": "allocation",
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "amount": "10.50402931946446",
+      "gasUsed": "179980",
+      "txHash": "0x4bc705ff3b2f6bea48c5e68e37f6faa4b399140faead7c631182dae2bb31b76a"
+    },
+    {
+      "cycle": 66,
+      "day": 3,
+      "hour": 18,
+      "timestamp": 1788951116,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "12.349416851994916783",
+      "destination": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "reason": "Insurance premium payment",
+      "gasUsed": "559405",
+      "txHash": "0x5a7204ef5965ee103f2db204cf6b3f937dae77329f6bf0f759524635b1d748de"
+    },
+    {
+      "cycle": 67,
+      "day": 3,
+      "hour": 19,
+      "timestamp": 1788954717,
+      "type": "donation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "9.18848222413101",
+      "gasUsed": "178297",
+      "txHash": "0x53e700fe772df2f9002dcbc9f365a924afd10ed679e85e9ab0df65a4f7e9057a",
+      "donationIndex": 3
+    },
+    {
+      "cycle": 67,
+      "day": 3,
+      "hour": 19,
+      "timestamp": 1788954718,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "15.422537028847572",
+      "gasUsed": "161197",
+      "txHash": "0xf1824f0e81047010899cca714058eb9e1d0411dfd971037ecb217aa6ef302899",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 67,
+      "day": 3,
+      "hour": 19,
+      "timestamp": 1788954719,
+      "type": "allocation",
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "amount": "9.18848222413101",
+      "gasUsed": "269802",
+      "txHash": "0xce7fe2b7587296c985b51933492b799d6628e30bf43a05b7406207b41994025a"
+    },
+    {
+      "cycle": 67,
+      "day": 3,
+      "hour": 19,
+      "timestamp": 1788954720,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "15.422537028847572",
+      "gasUsed": "229691",
+      "txHash": "0xfff7b156784f7a65edc608233317956d6542aaa55396a61c56af273663ae4a97"
+    },
+    {
+      "cycle": 67,
+      "day": 3,
+      "hour": 19,
+      "timestamp": 1788954721,
+      "type": "payout",
+      "recipient": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "amount": "28.908443436900267556",
+      "destination": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "reason": "Community event sponsorship",
+      "gasUsed": "300277",
+      "txHash": "0x4833fa78c0e9e0213d1e6e2eb02c8aa37add8287597d338e42420174b60e7ff8"
+    },
+    {
+      "cycle": 68,
+      "day": 3,
+      "hour": 20,
+      "timestamp": 1788958322,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "7.439202538084698",
+      "gasUsed": "178297",
+      "txHash": "0x836d3ac84b9a89d25cbf9d92d4fe874242e7fff827928a2825400513e590f05c",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 68,
+      "day": 3,
+      "hour": 20,
+      "timestamp": 1788958323,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "7.85606847573559",
+      "gasUsed": "161197",
+      "txHash": "0x17831dd93bb343e0be413eb33b86d47f1ffae0b3af3679130f3856c7d98706cb",
+      "donationIndex": 1
+    },
+    {
+      "cycle": 68,
+      "day": 3,
+      "hour": 20,
+      "timestamp": 1788958324,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "7.85606847573559",
+      "gasUsed": "229691",
+      "txHash": "0x28d5551b28a7b7438865516490607094e46d300c5b4bbd3f0d50665720d9b20b"
+    },
+    {
+      "cycle": 68,
+      "day": 3,
+      "hour": 20,
+      "timestamp": 1788958325,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "7.439202538084698",
+      "gasUsed": "224891",
+      "txHash": "0xd5f579b41d4573214fb5e8912b876e6c3ecb9142a0b6715135b250c198048d8e"
+    },
+    {
+      "cycle": 68,
+      "day": 3,
+      "hour": 20,
+      "timestamp": 1788958326,
+      "type": "payout",
+      "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": "5.210749184902314054",
+      "destination": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "reason": "Equipment purchase for office",
+      "gasUsed": "329839",
+      "txHash": "0x4563487bff6b386222703c44e0f53841c978e6156ba9029ad055141296c92e74"
+    },
+    {
+      "cycle": 69,
+      "day": 3,
+      "hour": 21,
+      "timestamp": 1788961927,
+      "type": "donation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "7.379858680920779",
+      "gasUsed": "178297",
+      "txHash": "0x71d4e132e811edbbaf130a749969ce13d072c69e0f1b65bb4b2da289dbcbb080",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 69,
+      "day": 3,
+      "hour": 21,
+      "timestamp": 1788961928,
+      "type": "allocation",
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "amount": "7.379858680920779",
+      "gasUsed": "179980",
+      "txHash": "0x11c7397f824f99d90d9769a915c4e634ce554f5517ae415f558f844f44874dcd"
+    },
+    {
+      "cycle": 69,
+      "day": 3,
+      "hour": 21,
+      "timestamp": 1788961929,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "26.23190277934299101",
+      "destination": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "reason": "Community event sponsorship",
+      "gasUsed": "524844",
+      "txHash": "0xc66868975908b3ed093c0b57d16df144c6351fd754425caf2d04ebfbcbe5fcb9"
+    },
+    {
+      "cycle": 70,
+      "day": 3,
+      "hour": 22,
+      "timestamp": 1788965530,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "10.487662403822913",
+      "gasUsed": "178297",
+      "txHash": "0xbde823508368e6c0680b209e585a76a011c8a2ca7bf046ad90e5722a71171f98",
+      "donationIndex": 4
+    },
+    {
+      "cycle": 70,
+      "day": 3,
+      "hour": 22,
+      "timestamp": 1788965531,
+      "type": "donation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "0.8033448025018081",
+      "gasUsed": "178297",
+      "txHash": "0x8748ff2d30faa32c396b78ca7779507615816221d7aef31ebe7dbaa8519d2c5e",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 70,
+      "day": 3,
+      "hour": 22,
+      "timestamp": 1788965532,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "10.487662403822913",
+      "gasUsed": "224879",
+      "txHash": "0xa2ce18338ec279050a34ea045af97fed22031c6201a654b22e7aa3c6681ab25d"
+    },
+    {
+      "cycle": 70,
+      "day": 3,
+      "hour": 22,
+      "timestamp": 1788965533,
+      "type": "allocation",
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "amount": "0.8033448025018081",
+      "gasUsed": "224891",
+      "txHash": "0x53eaed2bfa79c832aa7723eda33d85bb0cb8e631c436f7229c57f6342f44a141"
+    },
+    {
+      "cycle": 70,
+      "day": 3,
+      "hour": 22,
+      "timestamp": 1788965534,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "8.868238238990662091",
+      "destination": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "reason": "Healthcare benefits payment",
+      "gasUsed": "331785",
+      "txHash": "0x184a3668b38936552cd2864d637478e3e5b6d9b5e946726bd754c77049e320d9"
+    },
+    {
+      "cycle": 71,
+      "day": 3,
+      "hour": 23,
+      "timestamp": 1788969136,
+      "type": "donation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "7.215017791590068",
+      "gasUsed": "178297",
+      "txHash": "0x3b23d7b33fb0a0f44fa660746139b2f82ae9869d56fe74ddcb385b237fc13e39",
+      "donationIndex": 5
+    },
+    {
+      "cycle": 71,
+      "day": 3,
+      "hour": 23,
+      "timestamp": 1788969137,
+      "type": "donation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "11.984705685468079",
+      "gasUsed": "161197",
+      "txHash": "0x54d700f96ac68022338102bdf6c93effcd967b294930bdba6024d818e4325da8",
+      "donationIndex": 2
+    },
+    {
+      "cycle": 71,
+      "day": 3,
+      "hour": 23,
+      "timestamp": 1788969138,
+      "type": "allocation",
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "amount": "7.215017791590068",
+      "gasUsed": "179968",
+      "txHash": "0x4e22efbe66b6093e012e357496810367579fb09628e5311968d24049a4136e55"
+    },
+    {
+      "cycle": 71,
+      "day": 3,
+      "hour": 23,
+      "timestamp": 1788969139,
+      "type": "allocation",
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "amount": "11.984705685468079",
+      "gasUsed": "229691",
+      "txHash": "0x57befb2026f54d62563026f7f2046b987b6edb6e97425864e1f31a901db92144"
+    },
+    {
+      "cycle": 71,
+      "day": 3,
+      "hour": 23,
+      "timestamp": 1788969140,
+      "type": "payout",
+      "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": "6.869100164189155465",
+      "destination": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "reason": "Bug bounty reward payment",
+      "gasUsed": "322919",
+      "txHash": "0x6db78ed4f22a84fd2d7e3c7ec6a32c5dbaf680382c1a7a111b53382ac72a62a5"
+    }
+  ],
+  "balanceSnapshots": [
+    {
+      "cycle": 0,
+      "timestamp": 1788713234,
+      "contractBalance": "0.0",
+      "totalDonated": "16.77156703706809",
+      "totalAllocated": "16.77156703706809",
+      "totalSpent": "1.5094410333361281",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1.677156703706809",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "1.8448723740774899",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "5.8700484629738315",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "5.8700484629738315"
+      }
+    },
+    {
+      "cycle": 6,
+      "timestamp": 1788734862,
+      "contractBalance": "0.000000000000000001",
+      "totalDonated": "119.076437649136055275",
+      "totalAllocated": "119.076437649136055274",
+      "totalSpent": "27.004625313270329372",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "6.513710742922746726",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "22.305846496491082955",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "41.676753177197619346",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "21.575501919254276875"
+      }
+    },
+    {
+      "cycle": 12,
+      "timestamp": 1788756486,
+      "contractBalance": "0.000000000000000001",
+      "totalDonated": "210.859171725247648775",
+      "totalAllocated": "210.859171725247648774",
+      "totalSpent": "59.837463926285560119",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "11.133998596410453927",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "20.539433235935161873",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "65.648817120723138255",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "53.6994588458933346"
+      }
+    },
+    {
+      "cycle": 18,
+      "timestamp": 1788778117,
+      "contractBalance": "0.000000000000000001",
+      "totalDonated": "319.974413849009286675",
+      "totalAllocated": "319.974413849009286674",
+      "totalSpent": "127.671766917008345653",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "22.045522808786617717",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "14.714690871076571668",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "63.652639662927843771",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "91.889793589209907865"
+      }
+    },
+    {
+      "cycle": 24,
+      "timestamp": 1788799744,
+      "contractBalance": "0.000000000000000001",
+      "totalDonated": "445.838208033328423675",
+      "totalAllocated": "445.838208033328423674",
+      "totalSpent": "241.420023361665153867",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "16.186573561443097127",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "39.887449707940399068",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "66.310040662622087897",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "82.034120739657685715"
+      }
+    },
+    {
+      "cycle": 30,
+      "timestamp": 1788821377,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "609.889726569479352005",
+      "totalAllocated": "609.889726569479352003",
+      "totalSpent": "358.207830485683457645",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "32.59172541505818996",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "72.697753415170584734",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "38.852206079783318335",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "107.540211173783801329"
+      }
+    },
+    {
+      "cycle": 36,
+      "timestamp": 1788843006,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "745.585723943671474145",
+      "totalAllocated": "745.585723943671474143",
+      "totalSpent": "464.910444402740747436",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "46.161325152477402174",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "85.169735817361899588",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "62.525284828430840261",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "86.818933742660584684"
+      }
+    },
+    {
+      "cycle": 42,
+      "timestamp": 1788864627,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "789.323268684636182745",
+      "totalAllocated": "789.323268684636182743",
+      "totalSpent": "515.61619526957703343",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "21.699066436985451747",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "93.917244765554841308",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "77.833425487768488271",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "80.257336724750367987"
+      }
+    },
+    {
+      "cycle": 48,
+      "timestamp": 1788886249,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "871.964092978049361565",
+      "totalAllocated": "871.964092978049361563",
+      "totalSpent": "611.755660350777204137",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "20.882645218966321114",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "110.445409624237477072",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "54.40227120938693907",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "74.47810657468142017"
+      }
+    },
+    {
+      "cycle": 54,
+      "timestamp": 1788907864,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "938.495081661796023865",
+      "totalAllocated": "938.495081661796023863",
+      "totalSpent": "665.080360177020513719",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "12.671838600042132669",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "85.290813022042354625",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "77.688117248698270875",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "97.763952613992751975"
+      }
+    },
+    {
+      "cycle": 60,
+      "timestamp": 1788929495,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "1029.807532221998843485",
+      "totalAllocated": "1029.807532221998843483",
+      "totalSpent": "786.495775224126843375",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "21.803083656062414631",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "42.758918688089679696",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "70.080738115661758764",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "108.669016538058147017"
+      }
+    },
+    {
+      "cycle": 66,
+      "timestamp": 1788951116,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "1121.447313423082218985",
+      "totalAllocated": "1121.447313423082218983",
+      "totalSpent": "892.31977981624773772",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "13.378534922994493182",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "44.077265678502990629",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "102.154661536040940189",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "69.517071469296057263"
+      }
+    },
+    {
+      "cycle": 72,
+      "timestamp": 1788969140,
+      "contractBalance": "0.000000000000000002",
+      "totalDonated": "1199.224193054184736085",
+      "totalAllocated": "1199.224193054184736083",
+      "totalSpent": "968.408213620573127896",
+      "recipientBalances": {
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "15.945473701202430838",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "17.663400422200685483",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "129.376569406926821174",
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": "67.830535903281670692"
+      }
+    }
+  ],
+  "donatorActivities": [
+    {
+      "address": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "donations": [
+        {
+          "cycle": 0,
+          "timestamp": 1788713232,
+          "amount": "16.77156703706809",
+          "gasUsed": "231951",
+          "index": 0,
+          "allocated": false,
+          "remaining": "16.77156703706809"
+        },
+        {
+          "cycle": 3,
+          "timestamp": 1788724045,
+          "amount": "14.523565554494333",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "14.523565554494333"
+        },
+        {
+          "cycle": 5,
+          "timestamp": 1788731251,
+          "amount": "5.0386753060469305",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "5.0386753060469305"
+        },
+        {
+          "cycle": 5,
+          "timestamp": 1788731252,
+          "amount": "4.94550885211404",
+          "gasUsed": "161197",
+          "index": 3,
+          "allocated": false,
+          "remaining": "4.94550885211404"
+        },
+        {
+          "cycle": 13,
+          "timestamp": 1788760088,
+          "amount": "0.7321133651131886",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "0.7321133651131886"
+        },
+        {
+          "cycle": 19,
+          "timestamp": 1788781718,
+          "amount": "10.106472432049232",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "10.106472432049232"
+        },
+        {
+          "cycle": 28,
+          "timestamp": 1788814165,
+          "amount": "9.512683123456224",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "9.512683123456224"
+        },
+        {
+          "cycle": 42,
+          "timestamp": 1788864625,
+          "amount": "6.107637862892713",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "6.107637862892713"
+        },
+        {
+          "cycle": 55,
+          "timestamp": 1788911466,
+          "amount": "5.329984927554953",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "5.329984927554953"
+        },
+        {
+          "cycle": 60,
+          "timestamp": 1788929489,
+          "amount": "3.81550642187847",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "3.81550642187847"
+        },
+        {
+          "cycle": 60,
+          "timestamp": 1788929490,
+          "amount": "1.2767907373805805",
+          "gasUsed": "161197",
+          "index": 4,
+          "allocated": false,
+          "remaining": "1.2767907373805805"
+        },
+        {
+          "cycle": 65,
+          "timestamp": 1788947511,
+          "amount": "12.84487526176107",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "12.84487526176107"
+        },
+        {
+          "cycle": 69,
+          "timestamp": 1788961927,
+          "amount": "7.379858680920779",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "7.379858680920779"
+        }
+      ],
+      "totalDonated": "98.38523956273059",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "donations": [
+        {
+          "cycle": 1,
+          "timestamp": 1788716835,
+          "amount": "14.443070458227648",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "14.443070458227648"
+        },
+        {
+          "cycle": 7,
+          "timestamp": 1788738463,
+          "amount": "15.61885511367941",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "15.61885511367941"
+        },
+        {
+          "cycle": 13,
+          "timestamp": 1788760087,
+          "amount": "14.854590918050665",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "14.854590918050665"
+        },
+        {
+          "cycle": 35,
+          "timestamp": 1788839393,
+          "amount": "2.105474880671826",
+          "gasUsed": "180651",
+          "index": 0,
+          "allocated": false,
+          "remaining": "2.105474880671826"
+        },
+        {
+          "cycle": 35,
+          "timestamp": 1788839395,
+          "amount": "4.158386374266768",
+          "gasUsed": "161197",
+          "index": 1,
+          "allocated": false,
+          "remaining": "4.158386374266768"
+        },
+        {
+          "cycle": 46,
+          "timestamp": 1788879037,
+          "amount": "0.7966604661276229",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "0.7966604661276229"
+        },
+        {
+          "cycle": 47,
+          "timestamp": 1788882643,
+          "amount": "11.352338788116167",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "11.352338788116167"
+        },
+        {
+          "cycle": 58,
+          "timestamp": 1788922282,
+          "amount": "9.765935984669579",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "9.765935984669579"
+        }
+      ],
+      "totalDonated": "73.0953129838097",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "donations": [
+        {
+          "cycle": 1,
+          "timestamp": 1788716836,
+          "amount": "16.114522187578327",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "16.114522187578327"
+        },
+        {
+          "cycle": 11,
+          "timestamp": 1788752880,
+          "amount": "3.3572364556656695",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "3.3572364556656695"
+        },
+        {
+          "cycle": 14,
+          "timestamp": 1788763695,
+          "amount": "10.585166755329947",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "10.585166755329947"
+        },
+        {
+          "cycle": 20,
+          "timestamp": 1788785321,
+          "amount": "14.114777225264286",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "14.114777225264286"
+        },
+        {
+          "cycle": 34,
+          "timestamp": 1788835788,
+          "amount": "17.152338254922313",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "17.152338254922313"
+        },
+        {
+          "cycle": 35,
+          "timestamp": 1788839394,
+          "amount": "16.671262683172216",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "16.671262683172216"
+        },
+        {
+          "cycle": 55,
+          "timestamp": 1788911467,
+          "amount": "16.120061489688496",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "16.120061489688496"
+        },
+        {
+          "cycle": 61,
+          "timestamp": 1788933096,
+          "amount": "16.06499101635382",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "16.06499101635382"
+        },
+        {
+          "cycle": 64,
+          "timestamp": 1788943907,
+          "amount": "17.40985314083212",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "17.40985314083212"
+        },
+        {
+          "cycle": 66,
+          "timestamp": 1788951114,
+          "amount": "10.50402931946446",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "10.50402931946446"
+        }
+      ],
+      "totalDonated": "138.09423852827163",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donations": [
+        {
+          "cycle": 2,
+          "timestamp": 1788720440,
+          "amount": "4.210930556531559",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "4.210930556531559"
+        },
+        {
+          "cycle": 9,
+          "timestamp": 1788745671,
+          "amount": "12.946613368786085",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "12.946613368786085"
+        },
+        {
+          "cycle": 16,
+          "timestamp": 1788770902,
+          "amount": "2.8208606796462643",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "2.8208606796462643"
+        },
+        {
+          "cycle": 22,
+          "timestamp": 1788792528,
+          "amount": "15.209946372343254",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "15.209946372343254"
+        },
+        {
+          "cycle": 23,
+          "timestamp": 1788796134,
+          "amount": "8.607017595379553",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "8.607017595379553"
+        },
+        {
+          "cycle": 25,
+          "timestamp": 1788803345,
+          "amount": "14.000296539018025",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "14.000296539018025"
+        },
+        {
+          "cycle": 28,
+          "timestamp": 1788814164,
+          "amount": "0.0837349229504337",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "0.0837349229504337"
+        },
+        {
+          "cycle": 37,
+          "timestamp": 1788846607,
+          "amount": "1.0589002455162155",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "1.0589002455162155"
+        },
+        {
+          "cycle": 38,
+          "timestamp": 1788850213,
+          "amount": "2.7779367659401526",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "2.7779367659401526"
+        },
+        {
+          "cycle": 41,
+          "timestamp": 1788861020,
+          "amount": "0.6555759039762493",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "0.6555759039762493"
+        },
+        {
+          "cycle": 50,
+          "timestamp": 1788893452,
+          "amount": "15.865084893518297",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "15.865084893518297"
+        }
+      ],
+      "totalDonated": "78.23689784360609",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donations": [
+        {
+          "cycle": 2,
+          "timestamp": 1788720441,
+          "amount": "2.4376644685556768",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "2.4376644685556768"
+        },
+        {
+          "cycle": 13,
+          "timestamp": 1788760089,
+          "amount": "9.721270985169905",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "9.721270985169905"
+        },
+        {
+          "cycle": 21,
+          "timestamp": 1788788924,
+          "amount": "2.783420933059944",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "2.783420933059944"
+        },
+        {
+          "cycle": 22,
+          "timestamp": 1788792527,
+          "amount": "16.54920154786893",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "16.54920154786893"
+        },
+        {
+          "cycle": 24,
+          "timestamp": 1788799741,
+          "amount": "18.460212363298176",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "18.460212363298176"
+        },
+        {
+          "cycle": 25,
+          "timestamp": 1788803346,
+          "amount": "3.1444542386037204",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "3.1444542386037204"
+        },
+        {
+          "cycle": 34,
+          "timestamp": 1788835787,
+          "amount": "0.03951675786819144",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "0.03951675786819144"
+        },
+        {
+          "cycle": 44,
+          "timestamp": 1788871830,
+          "amount": "3.7162284266680454",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "3.7162284266680454"
+        },
+        {
+          "cycle": 56,
+          "timestamp": 1788915072,
+          "amount": "12.929262567894598",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "12.929262567894598"
+        },
+        {
+          "cycle": 57,
+          "timestamp": 1788918676,
+          "amount": "5.07668546008341",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "5.07668546008341"
+        },
+        {
+          "cycle": 60,
+          "timestamp": 1788929491,
+          "amount": "9.019786899813356",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "9.019786899813356"
+        },
+        {
+          "cycle": 64,
+          "timestamp": 1788943908,
+          "amount": "6.956359980582761",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "6.956359980582761"
+        },
+        {
+          "cycle": 70,
+          "timestamp": 1788965530,
+          "amount": "10.487662403822913",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "10.487662403822913"
+        },
+        {
+          "cycle": 71,
+          "timestamp": 1788969136,
+          "amount": "7.215017791590068",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "7.215017791590068"
+        }
+      ],
+      "totalDonated": "108.5367448248797",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donations": [
+        {
+          "cycle": 4,
+          "timestamp": 1788727648,
+          "amount": "16.212858185155167",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "16.212858185155167"
+        },
+        {
+          "cycle": 6,
+          "timestamp": 1788734858,
+          "amount": "6.56037547977177",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "6.56037547977177"
+        },
+        {
+          "cycle": 7,
+          "timestamp": 1788738464,
+          "amount": "16.19733386136166",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "16.19733386136166"
+        },
+        {
+          "cycle": 16,
+          "timestamp": 1788770903,
+          "amount": "0.971653446944637",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "0.971653446944637"
+        },
+        {
+          "cycle": 31,
+          "timestamp": 1788824978,
+          "amount": "3.1916597403248157",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "3.1916597403248157"
+        },
+        {
+          "cycle": 36,
+          "timestamp": 1788843000,
+          "amount": "18.177794580930822",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "18.177794580930822"
+        },
+        {
+          "cycle": 36,
+          "timestamp": 1788843002,
+          "amount": "12.432848706361822",
+          "gasUsed": "161197",
+          "index": 3,
+          "allocated": false,
+          "remaining": "12.432848706361822"
+        },
+        {
+          "cycle": 37,
+          "timestamp": 1788846608,
+          "amount": "0.8268625154291392",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "0.8268625154291392"
+        },
+        {
+          "cycle": 47,
+          "timestamp": 1788882642,
+          "amount": "0.08315278051552052",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "0.08315278051552052"
+        },
+        {
+          "cycle": 52,
+          "timestamp": 1788900659,
+          "amount": "14.116483721575062",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "14.116483721575062"
+        },
+        {
+          "cycle": 57,
+          "timestamp": 1788918675,
+          "amount": "15.312171174581755",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "15.312171174581755"
+        },
+        {
+          "cycle": 63,
+          "timestamp": 1788940304,
+          "amount": "4.447218566532698",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "4.447218566532698"
+        },
+        {
+          "cycle": 67,
+          "timestamp": 1788954717,
+          "amount": "9.18848222413101",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "9.18848222413101"
+        }
+      ],
+      "totalDonated": "117.71889498361587",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donations": [
+        {
+          "cycle": 6,
+          "timestamp": 1788734856,
+          "amount": "17.792292383207176",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "17.792292383207176"
+        },
+        {
+          "cycle": 9,
+          "timestamp": 1788745670,
+          "amount": "2.589989256520903",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "2.589989256520903"
+        },
+        {
+          "cycle": 10,
+          "timestamp": 1788749275,
+          "amount": "14.370926221145385",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "14.370926221145385"
+        },
+        {
+          "cycle": 15,
+          "timestamp": 1788767299,
+          "amount": "7.367389585107548",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "7.367389585107548"
+        },
+        {
+          "cycle": 17,
+          "timestamp": 1788774510,
+          "amount": "15.857872407581834",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "15.857872407581834"
+        },
+        {
+          "cycle": 27,
+          "timestamp": 1788810559,
+          "amount": "17.610750963413548",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "17.610750963413548"
+        },
+        {
+          "cycle": 28,
+          "timestamp": 1788814163,
+          "amount": "18.086206522365",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "18.086206522365"
+        },
+        {
+          "cycle": 29,
+          "timestamp": 1788817770,
+          "amount": "2.7946962122389163",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "2.7946962122389163"
+        },
+        {
+          "cycle": 32,
+          "timestamp": 1788828581,
+          "amount": "18.578416836183848",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "18.578416836183848"
+        },
+        {
+          "cycle": 32,
+          "timestamp": 1788828582,
+          "amount": "6.74733964492896",
+          "gasUsed": "161197",
+          "index": 5,
+          "allocated": false,
+          "remaining": "6.74733964492896"
+        },
+        {
+          "cycle": 33,
+          "timestamp": 1788832185,
+          "amount": "19.628700489239",
+          "gasUsed": "178297",
+          "index": 6,
+          "allocated": false,
+          "remaining": "19.628700489239"
+        },
+        {
+          "cycle": 36,
+          "timestamp": 1788843001,
+          "amount": "9.853385896499255",
+          "gasUsed": "178297",
+          "index": 7,
+          "allocated": false,
+          "remaining": "9.853385896499255"
+        },
+        {
+          "cycle": 40,
+          "timestamp": 1788857417,
+          "amount": "17.164449146857283",
+          "gasUsed": "178297",
+          "index": 8,
+          "allocated": false,
+          "remaining": "17.164449146857283"
+        },
+        {
+          "cycle": 43,
+          "timestamp": 1788868228,
+          "amount": "14.135256482556008",
+          "gasUsed": "178297",
+          "index": 9,
+          "allocated": false,
+          "remaining": "14.135256482556008"
+        },
+        {
+          "cycle": 45,
+          "timestamp": 1788875432,
+          "amount": "14.962170592164838",
+          "gasUsed": "178297",
+          "index": 10,
+          "allocated": false,
+          "remaining": "14.962170592164838"
+        },
+        {
+          "cycle": 62,
+          "timestamp": 1788936699,
+          "amount": "7.0688947099586725",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "7.0688947099586725"
+        }
+      ],
+      "totalDonated": "204.60873734996818",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "donations": [
+        {
+          "cycle": 6,
+          "timestamp": 1788734857,
+          "amount": "0.025407180385337975",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "0.025407180385337975"
+        },
+        {
+          "cycle": 10,
+          "timestamp": 1788749276,
+          "amount": "5.121712931938257",
+          "gasUsed": "161197",
+          "index": 1,
+          "allocated": false,
+          "remaining": "5.121712931938257"
+        },
+        {
+          "cycle": 16,
+          "timestamp": 1788770904,
+          "amount": "10.800641420798913",
+          "gasUsed": "161197",
+          "index": 2,
+          "allocated": false,
+          "remaining": "10.800641420798913"
+        },
+        {
+          "cycle": 17,
+          "timestamp": 1788774509,
+          "amount": "8.086415284144175",
+          "gasUsed": "161197",
+          "index": 2,
+          "allocated": false,
+          "remaining": "8.086415284144175"
+        },
+        {
+          "cycle": 23,
+          "timestamp": 1788796132,
+          "amount": "15.473238024376117",
+          "gasUsed": "161197",
+          "index": 3,
+          "allocated": false,
+          "remaining": "15.473238024376117"
+        },
+        {
+          "cycle": 24,
+          "timestamp": 1788799740,
+          "amount": "5.511194583754735",
+          "gasUsed": "161197",
+          "index": 4,
+          "allocated": false,
+          "remaining": "5.511194583754735"
+        },
+        {
+          "cycle": 26,
+          "timestamp": 1788806951,
+          "amount": "15.766780190386871",
+          "gasUsed": "161197",
+          "index": 3,
+          "allocated": false,
+          "remaining": "15.766780190386871"
+        },
+        {
+          "cycle": 26,
+          "timestamp": 1788806952,
+          "amount": "18.93907126284126",
+          "gasUsed": "161197",
+          "index": 4,
+          "allocated": false,
+          "remaining": "18.93907126284126"
+        },
+        {
+          "cycle": 29,
+          "timestamp": 1788817771,
+          "amount": "11.566449732988655",
+          "gasUsed": "161197",
+          "index": 2,
+          "allocated": false,
+          "remaining": "11.566449732988655"
+        },
+        {
+          "cycle": 51,
+          "timestamp": 1788897055,
+          "amount": "7.840680850172513",
+          "gasUsed": "161197",
+          "index": 2,
+          "allocated": false,
+          "remaining": "7.840680850172513"
+        }
+      ],
+      "totalDonated": "99.13159146178685",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donations": [
+        {
+          "cycle": 8,
+          "timestamp": 1788742065,
+          "amount": "4.381525435128376",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "4.381525435128376"
+        },
+        {
+          "cycle": 11,
+          "timestamp": 1788752881,
+          "amount": "16.20839062601215",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "16.20839062601215"
+        },
+        {
+          "cycle": 18,
+          "timestamp": 1788778114,
+          "amount": "12.948829929566465",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "12.948829929566465"
+        },
+        {
+          "cycle": 23,
+          "timestamp": 1788796133,
+          "amount": "19.04831310692491",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "19.04831310692491"
+        },
+        {
+          "cycle": 27,
+          "timestamp": 1788810557,
+          "amount": "15.84582668000163",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "15.84582668000163"
+        },
+        {
+          "cycle": 30,
+          "timestamp": 1788821375,
+          "amount": "0.36584476128937693",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "0.36584476128937693"
+        },
+        {
+          "cycle": 38,
+          "timestamp": 1788850212,
+          "amount": "9.202590791064452",
+          "gasUsed": "161197",
+          "index": 2,
+          "allocated": false,
+          "remaining": "9.202590791064452"
+        },
+        {
+          "cycle": 41,
+          "timestamp": 1788861021,
+          "amount": "5.943591509288504",
+          "gasUsed": "161197",
+          "index": 3,
+          "allocated": false,
+          "remaining": "5.943591509288504"
+        },
+        {
+          "cycle": 48,
+          "timestamp": 1788886247,
+          "amount": "17.21797926273307",
+          "gasUsed": "161197",
+          "index": 3,
+          "allocated": false,
+          "remaining": "17.21797926273307"
+        },
+        {
+          "cycle": 51,
+          "timestamp": 1788897056,
+          "amount": "12.195803385157182",
+          "gasUsed": "161197",
+          "index": 4,
+          "allocated": false,
+          "remaining": "12.195803385157182"
+        },
+        {
+          "cycle": 53,
+          "timestamp": 1788904262,
+          "amount": "1.8657606822042163",
+          "gasUsed": "161197",
+          "index": 5,
+          "allocated": false,
+          "remaining": "1.8657606822042163"
+        },
+        {
+          "cycle": 57,
+          "timestamp": 1788918677,
+          "amount": "3.1380311845864135",
+          "gasUsed": "161197",
+          "index": 6,
+          "allocated": false,
+          "remaining": "3.1380311845864135"
+        },
+        {
+          "cycle": 59,
+          "timestamp": 1788925885,
+          "amount": "4.070148403781779",
+          "gasUsed": "161197",
+          "index": 5,
+          "allocated": false,
+          "remaining": "4.070148403781779"
+        },
+        {
+          "cycle": 67,
+          "timestamp": 1788954718,
+          "amount": "15.422537028847572",
+          "gasUsed": "161197",
+          "index": 1,
+          "allocated": false,
+          "remaining": "15.422537028847572"
+        },
+        {
+          "cycle": 68,
+          "timestamp": 1788958323,
+          "amount": "7.85606847573559",
+          "gasUsed": "161197",
+          "index": 1,
+          "allocated": false,
+          "remaining": "7.85606847573559"
+        },
+        {
+          "cycle": 71,
+          "timestamp": 1788969137,
+          "amount": "11.984705685468079",
+          "gasUsed": "161197",
+          "index": 2,
+          "allocated": false,
+          "remaining": "11.984705685468079"
+        }
+      ],
+      "totalDonated": "157.69594694778974",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    },
+    {
+      "address": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donations": [
+        {
+          "cycle": 12,
+          "timestamp": 1788756485,
+          "amount": "0.990150805873698",
+          "gasUsed": "197751",
+          "index": 0,
+          "allocated": false,
+          "remaining": "0.990150805873698"
+        },
+        {
+          "cycle": 14,
+          "timestamp": 1788763694,
+          "amount": "10.254279760341399",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "10.254279760341399"
+        },
+        {
+          "cycle": 18,
+          "timestamp": 1788778113,
+          "amount": "4.114157585966697",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "4.114157585966697"
+        },
+        {
+          "cycle": 26,
+          "timestamp": 1788806950,
+          "amount": "17.689443784668253",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "17.689443784668253"
+        },
+        {
+          "cycle": 27,
+          "timestamp": 1788810558,
+          "amount": "18.645279601929015",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "18.645279601929015"
+        },
+        {
+          "cycle": 34,
+          "timestamp": 1788835789,
+          "amount": "6.958872528822285",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "6.958872528822285"
+        },
+        {
+          "cycle": 45,
+          "timestamp": 1788875433,
+          "amount": "9.638641481912263",
+          "gasUsed": "178297",
+          "index": 1,
+          "allocated": false,
+          "remaining": "9.638641481912263"
+        },
+        {
+          "cycle": 46,
+          "timestamp": 1788879038,
+          "amount": "10.738396012619644",
+          "gasUsed": "178297",
+          "index": 2,
+          "allocated": false,
+          "remaining": "10.738396012619644"
+        },
+        {
+          "cycle": 49,
+          "timestamp": 1788889850,
+          "amount": "14.647175151119392",
+          "gasUsed": "178297",
+          "index": 3,
+          "allocated": false,
+          "remaining": "14.647175151119392"
+        },
+        {
+          "cycle": 56,
+          "timestamp": 1788915071,
+          "amount": "0.22802180519114962",
+          "gasUsed": "178297",
+          "index": 4,
+          "allocated": false,
+          "remaining": "0.22802180519114962"
+        },
+        {
+          "cycle": 59,
+          "timestamp": 1788925886,
+          "amount": "5.23006350309828",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "5.23006350309828"
+        },
+        {
+          "cycle": 62,
+          "timestamp": 1788936700,
+          "amount": "16.343559205597774",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "16.343559205597774"
+        },
+        {
+          "cycle": 68,
+          "timestamp": 1788958322,
+          "amount": "7.439202538084698",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "7.439202538084698"
+        },
+        {
+          "cycle": 70,
+          "timestamp": 1788965531,
+          "amount": "0.8033448025018081",
+          "gasUsed": "178297",
+          "index": 5,
+          "allocated": false,
+          "remaining": "0.8033448025018081"
+        }
+      ],
+      "totalDonated": "123.72058856772635",
+      "totalAllocated": "0",
+      "totalSpent": "0"
+    }
+  ],
+  "recipientBalanceHistories": [],
+  "donationJourneys": [
+    {
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "donationIndex": 0,
+      "amount": "16.77156703706809",
+      "timeline": [
+        {
+          "cycle": 0,
+          "timestamp": 1788713232,
+          "event": "created",
+          "remaining": "16.77156703706809"
+        }
+      ]
+    },
+    {
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "donationIndex": 0,
+      "amount": "2.105474880671826",
+      "timeline": [
+        {
+          "cycle": 35,
+          "timestamp": 1788839393,
+          "event": "created",
+          "remaining": "2.105474880671826"
+        }
+      ]
+    },
+    {
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "donationIndex": 0,
+      "amount": "16.114522187578327",
+      "timeline": [
+        {
+          "cycle": 1,
+          "timestamp": 1788716836,
+          "event": "created",
+          "remaining": "16.114522187578327"
+        }
+      ]
+    },
+    {
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donationIndex": 0,
+      "amount": "4.210930556531559",
+      "timeline": [
+        {
+          "cycle": 2,
+          "timestamp": 1788720440,
+          "event": "created",
+          "remaining": "4.210930556531559"
+        }
+      ]
+    },
+    {
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donationIndex": 0,
+      "amount": "2.4376644685556768",
+      "timeline": [
+        {
+          "cycle": 2,
+          "timestamp": 1788720441,
+          "event": "created",
+          "remaining": "2.4376644685556768"
+        }
+      ]
+    },
+    {
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "donationIndex": 1,
+      "amount": "6.107637862892713",
+      "timeline": [
+        {
+          "cycle": 42,
+          "timestamp": 1788864625,
+          "event": "created",
+          "remaining": "6.107637862892713"
+        }
+      ]
+    },
+    {
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donationIndex": 0,
+      "amount": "16.212858185155167",
+      "timeline": [
+        {
+          "cycle": 4,
+          "timestamp": 1788727648,
+          "event": "created",
+          "remaining": "16.212858185155167"
+        }
+      ]
+    },
+    {
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "donationIndex": 2,
+      "amount": "5.329984927554953",
+      "timeline": [
+        {
+          "cycle": 55,
+          "timestamp": 1788911466,
+          "event": "created",
+          "remaining": "5.329984927554953"
+        }
+      ]
+    },
+    {
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "donationIndex": 3,
+      "amount": "12.84487526176107",
+      "timeline": [
+        {
+          "cycle": 65,
+          "timestamp": 1788947511,
+          "event": "created",
+          "remaining": "12.84487526176107"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 0,
+      "amount": "17.792292383207176",
+      "timeline": [
+        {
+          "cycle": 6,
+          "timestamp": 1788734856,
+          "event": "created",
+          "remaining": "17.792292383207176"
+        }
+      ]
+    },
+    {
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "donationIndex": 0,
+      "amount": "0.025407180385337975",
+      "timeline": [
+        {
+          "cycle": 6,
+          "timestamp": 1788734857,
+          "event": "created",
+          "remaining": "0.025407180385337975"
+        }
+      ]
+    },
+    {
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donationIndex": 1,
+      "amount": "3.1916597403248157",
+      "timeline": [
+        {
+          "cycle": 31,
+          "timestamp": 1788824978,
+          "event": "created",
+          "remaining": "3.1916597403248157"
+        }
+      ]
+    },
+    {
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "donationIndex": 1,
+      "amount": "4.158386374266768",
+      "timeline": [
+        {
+          "cycle": 35,
+          "timestamp": 1788839395,
+          "event": "created",
+          "remaining": "4.158386374266768"
+        }
+      ]
+    },
+    {
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donationIndex": 2,
+      "amount": "4.447218566532698",
+      "timeline": [
+        {
+          "cycle": 63,
+          "timestamp": 1788940304,
+          "event": "created",
+          "remaining": "4.447218566532698"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 0,
+      "amount": "4.381525435128376",
+      "timeline": [
+        {
+          "cycle": 8,
+          "timestamp": 1788742065,
+          "event": "created",
+          "remaining": "4.381525435128376"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 1,
+      "amount": "17.610750963413548",
+      "timeline": [
+        {
+          "cycle": 27,
+          "timestamp": 1788810559,
+          "event": "created",
+          "remaining": "17.610750963413548"
+        }
+      ]
+    },
+    {
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donationIndex": 1,
+      "amount": "2.8208606796462643",
+      "timeline": [
+        {
+          "cycle": 16,
+          "timestamp": 1788770902,
+          "event": "created",
+          "remaining": "2.8208606796462643"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 2,
+      "amount": "7.0688947099586725",
+      "timeline": [
+        {
+          "cycle": 62,
+          "timestamp": 1788936699,
+          "event": "created",
+          "remaining": "7.0688947099586725"
+        }
+      ]
+    },
+    {
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "donationIndex": 1,
+      "amount": "5.121712931938257",
+      "timeline": [
+        {
+          "cycle": 10,
+          "timestamp": 1788749276,
+          "event": "created",
+          "remaining": "5.121712931938257"
+        }
+      ]
+    },
+    {
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "donationIndex": 1,
+      "amount": "16.120061489688496",
+      "timeline": [
+        {
+          "cycle": 55,
+          "timestamp": 1788911467,
+          "event": "created",
+          "remaining": "16.120061489688496"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 1,
+      "amount": "7.85606847573559",
+      "timeline": [
+        {
+          "cycle": 68,
+          "timestamp": 1788958323,
+          "event": "created",
+          "remaining": "7.85606847573559"
+        }
+      ]
+    },
+    {
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donationIndex": 0,
+      "amount": "0.990150805873698",
+      "timeline": [
+        {
+          "cycle": 12,
+          "timestamp": 1788756485,
+          "event": "created",
+          "remaining": "0.990150805873698"
+        }
+      ]
+    },
+    {
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "donationIndex": 2,
+      "amount": "0.7966604661276229",
+      "timeline": [
+        {
+          "cycle": 46,
+          "timestamp": 1788879037,
+          "event": "created",
+          "remaining": "0.7966604661276229"
+        }
+      ]
+    },
+    {
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donationIndex": 1,
+      "amount": "12.929262567894598",
+      "timeline": [
+        {
+          "cycle": 56,
+          "timestamp": 1788915072,
+          "event": "created",
+          "remaining": "12.929262567894598"
+        }
+      ]
+    },
+    {
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donationIndex": 1,
+      "amount": "9.638641481912263",
+      "timeline": [
+        {
+          "cycle": 45,
+          "timestamp": 1788875433,
+          "event": "created",
+          "remaining": "9.638641481912263"
+        }
+      ]
+    },
+    {
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "donationIndex": 2,
+      "amount": "16.06499101635382",
+      "timeline": [
+        {
+          "cycle": 61,
+          "timestamp": 1788933096,
+          "event": "created",
+          "remaining": "16.06499101635382"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 3,
+      "amount": "2.7946962122389163",
+      "timeline": [
+        {
+          "cycle": 29,
+          "timestamp": 1788817770,
+          "event": "created",
+          "remaining": "2.7946962122389163"
+        }
+      ]
+    },
+    {
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donationIndex": 3,
+      "amount": "9.18848222413101",
+      "timeline": [
+        {
+          "cycle": 67,
+          "timestamp": 1788954717,
+          "event": "created",
+          "remaining": "9.18848222413101"
+        }
+      ]
+    },
+    {
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "donationIndex": 2,
+      "amount": "7.840680850172513",
+      "timeline": [
+        {
+          "cycle": 51,
+          "timestamp": 1788897055,
+          "event": "created",
+          "remaining": "7.840680850172513"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 4,
+      "amount": "18.578416836183848",
+      "timeline": [
+        {
+          "cycle": 32,
+          "timestamp": 1788828581,
+          "event": "created",
+          "remaining": "18.578416836183848"
+        }
+      ]
+    },
+    {
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donationIndex": 2,
+      "amount": "10.738396012619644",
+      "timeline": [
+        {
+          "cycle": 46,
+          "timestamp": 1788879038,
+          "event": "created",
+          "remaining": "10.738396012619644"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 2,
+      "amount": "11.984705685468079",
+      "timeline": [
+        {
+          "cycle": 71,
+          "timestamp": 1788969137,
+          "event": "created",
+          "remaining": "11.984705685468079"
+        }
+      ]
+    },
+    {
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donationIndex": 2,
+      "amount": "5.07668546008341",
+      "timeline": [
+        {
+          "cycle": 57,
+          "timestamp": 1788918676,
+          "event": "created",
+          "remaining": "5.07668546008341"
+        }
+      ]
+    },
+    {
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donationIndex": 2,
+      "amount": "1.0589002455162155",
+      "timeline": [
+        {
+          "cycle": 37,
+          "timestamp": 1788846607,
+          "event": "created",
+          "remaining": "1.0589002455162155"
+        }
+      ]
+    },
+    {
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "donationIndex": 3,
+      "amount": "15.766780190386871",
+      "timeline": [
+        {
+          "cycle": 26,
+          "timestamp": 1788806951,
+          "event": "created",
+          "remaining": "15.766780190386871"
+        }
+      ]
+    },
+    {
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donationIndex": 3,
+      "amount": "2.7779367659401526",
+      "timeline": [
+        {
+          "cycle": 38,
+          "timestamp": 1788850213,
+          "event": "created",
+          "remaining": "2.7779367659401526"
+        }
+      ]
+    },
+    {
+      "donator": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "donationIndex": 4,
+      "amount": "18.93907126284126",
+      "timeline": [
+        {
+          "cycle": 26,
+          "timestamp": 1788806952,
+          "event": "created",
+          "remaining": "18.93907126284126"
+        }
+      ]
+    },
+    {
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donationIndex": 3,
+      "amount": "9.019786899813356",
+      "timeline": [
+        {
+          "cycle": 60,
+          "timestamp": 1788929491,
+          "event": "created",
+          "remaining": "9.019786899813356"
+        }
+      ]
+    },
+    {
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donationIndex": 4,
+      "amount": "0.6555759039762493",
+      "timeline": [
+        {
+          "cycle": 41,
+          "timestamp": 1788861020,
+          "event": "created",
+          "remaining": "0.6555759039762493"
+        }
+      ]
+    },
+    {
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donationIndex": 4,
+      "amount": "10.487662403822913",
+      "timeline": [
+        {
+          "cycle": 70,
+          "timestamp": 1788965530,
+          "event": "created",
+          "remaining": "10.487662403822913"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 3,
+      "amount": "17.21797926273307",
+      "timeline": [
+        {
+          "cycle": 48,
+          "timestamp": 1788886247,
+          "event": "created",
+          "remaining": "17.21797926273307"
+        }
+      ]
+    },
+    {
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donationIndex": 3,
+      "amount": "14.647175151119392",
+      "timeline": [
+        {
+          "cycle": 49,
+          "timestamp": 1788889850,
+          "event": "created",
+          "remaining": "14.647175151119392"
+        }
+      ]
+    },
+    {
+      "donator": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+      "donationIndex": 5,
+      "amount": "15.865084893518297",
+      "timeline": [
+        {
+          "cycle": 50,
+          "timestamp": 1788893452,
+          "event": "created",
+          "remaining": "15.865084893518297"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 5,
+      "amount": "6.74733964492896",
+      "timeline": [
+        {
+          "cycle": 32,
+          "timestamp": 1788828582,
+          "event": "created",
+          "remaining": "6.74733964492896"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 6,
+      "amount": "19.628700489239",
+      "timeline": [
+        {
+          "cycle": 33,
+          "timestamp": 1788832185,
+          "event": "created",
+          "remaining": "19.628700489239"
+        }
+      ]
+    },
+    {
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "donationIndex": 3,
+      "amount": "17.40985314083212",
+      "timeline": [
+        {
+          "cycle": 64,
+          "timestamp": 1788943907,
+          "event": "created",
+          "remaining": "17.40985314083212"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 7,
+      "amount": "9.853385896499255",
+      "timeline": [
+        {
+          "cycle": 36,
+          "timestamp": 1788843001,
+          "event": "created",
+          "remaining": "9.853385896499255"
+        }
+      ]
+    },
+    {
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donationIndex": 4,
+      "amount": "14.116483721575062",
+      "timeline": [
+        {
+          "cycle": 52,
+          "timestamp": 1788900659,
+          "event": "created",
+          "remaining": "14.116483721575062"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 8,
+      "amount": "17.164449146857283",
+      "timeline": [
+        {
+          "cycle": 40,
+          "timestamp": 1788857417,
+          "event": "created",
+          "remaining": "17.164449146857283"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 9,
+      "amount": "14.135256482556008",
+      "timeline": [
+        {
+          "cycle": 43,
+          "timestamp": 1788868228,
+          "event": "created",
+          "remaining": "14.135256482556008"
+        }
+      ]
+    },
+    {
+      "donator": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "donationIndex": 10,
+      "amount": "14.962170592164838",
+      "timeline": [
+        {
+          "cycle": 45,
+          "timestamp": 1788875432,
+          "event": "created",
+          "remaining": "14.962170592164838"
+        }
+      ]
+    },
+    {
+      "donator": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "donationIndex": 5,
+      "amount": "0.08315278051552052",
+      "timeline": [
+        {
+          "cycle": 47,
+          "timestamp": 1788882642,
+          "event": "created",
+          "remaining": "0.08315278051552052"
+        }
+      ]
+    },
+    {
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "donationIndex": 3,
+      "amount": "11.352338788116167",
+      "timeline": [
+        {
+          "cycle": 47,
+          "timestamp": 1788882643,
+          "event": "created",
+          "remaining": "11.352338788116167"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 4,
+      "amount": "12.195803385157182",
+      "timeline": [
+        {
+          "cycle": 51,
+          "timestamp": 1788897056,
+          "event": "created",
+          "remaining": "12.195803385157182"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 5,
+      "amount": "4.070148403781779",
+      "timeline": [
+        {
+          "cycle": 59,
+          "timestamp": 1788925885,
+          "event": "created",
+          "remaining": "4.070148403781779"
+        }
+      ]
+    },
+    {
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donationIndex": 4,
+      "amount": "0.22802180519114962",
+      "timeline": [
+        {
+          "cycle": 56,
+          "timestamp": 1788915071,
+          "event": "created",
+          "remaining": "0.22802180519114962"
+        }
+      ]
+    },
+    {
+      "donator": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "donationIndex": 6,
+      "amount": "3.1380311845864135",
+      "timeline": [
+        {
+          "cycle": 57,
+          "timestamp": 1788918677,
+          "event": "created",
+          "remaining": "3.1380311845864135"
+        }
+      ]
+    },
+    {
+      "donator": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "donationIndex": 4,
+      "amount": "9.765935984669579",
+      "timeline": [
+        {
+          "cycle": 58,
+          "timestamp": 1788922282,
+          "event": "created",
+          "remaining": "9.765935984669579"
+        }
+      ]
+    },
+    {
+      "donator": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "donationIndex": 5,
+      "amount": "0.8033448025018081",
+      "timeline": [
+        {
+          "cycle": 70,
+          "timestamp": 1788965531,
+          "event": "created",
+          "remaining": "0.8033448025018081"
+        }
+      ]
+    },
+    {
+      "donator": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "donationIndex": 4,
+      "amount": "7.379858680920779",
+      "timeline": [
+        {
+          "cycle": 69,
+          "timestamp": 1788961927,
+          "event": "created",
+          "remaining": "7.379858680920779"
+        }
+      ]
+    },
+    {
+      "donator": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "donationIndex": 4,
+      "amount": "10.50402931946446",
+      "timeline": [
+        {
+          "cycle": 66,
+          "timestamp": 1788951114,
+          "event": "created",
+          "remaining": "10.50402931946446"
+        }
+      ]
+    },
+    {
+      "donator": "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+      "donationIndex": 5,
+      "amount": "7.215017791590068",
+      "timeline": [
+        {
+          "cycle": 71,
+          "timestamp": 1788969136,
+          "event": "created",
+          "remaining": "7.215017791590068"
+        }
+      ]
+    }
+  ],
+  "gasStats": {
+    "donations": {
+      "total": "22107819",
+      "count": 125,
+      "min": "161197",
+      "max": "231951",
+      "avg": "176862"
+    },
+    "allocations": {
+      "total": "28013002",
+      "count": 125,
+      "min": "179944",
+      "max": "513512",
+      "avg": "224104"
+    },
+    "payouts": {
+      "total": "21051345",
+      "count": 55,
+      "min": "109094",
+      "max": "712491",
+      "avg": "382751"
+    }
+  },
+  "gasTimeSeries": [
+    {
+      "cycle": 0,
+      "timestamp": 1788713234,
+      "cumulativeGas": "854557",
+      "gasRate": "0",
+      "donationGas": "231951",
+      "allocationGas": "513512",
+      "payoutGas": "109094"
+    },
+    {
+      "cycle": 6,
+      "timestamp": 1788734862,
+      "cumulativeGas": "7455607",
+      "gasRate": "1100175",
+      "donationGas": "2312296",
+      "allocationGas": "3872389",
+      "payoutGas": "1270922"
+    },
+    {
+      "cycle": 12,
+      "timestamp": 1788756486,
+      "cumulativeGas": "12812523",
+      "gasRate": "892819",
+      "donationGas": "4117074",
+      "allocationGas": "6260808",
+      "payoutGas": "2434641"
+    },
+    {
+      "cycle": 18,
+      "timestamp": 1788778117,
+      "cumulativeGas": "19914600",
+      "gasRate": "1183679",
+      "donationGas": "6400735",
+      "allocationGas": "9149068",
+      "payoutGas": "4364797"
+    },
+    {
+      "cycle": 24,
+      "timestamp": 1788799744,
+      "cumulativeGas": "26033235",
+      "gasRate": "1019772",
+      "donationGas": "8149505",
+      "allocationGas": "11227874",
+      "payoutGas": "6655856"
+    },
+    {
+      "cycle": 30,
+      "timestamp": 1788821377,
+      "cumulativeGas": "33236256",
+      "gasRate": "1200503",
+      "donationGas": "10594363",
+      "allocationGas": "14086394",
+      "payoutGas": "8555499"
+    },
+    {
+      "cycle": 36,
+      "timestamp": 1788843006,
+      "cumulativeGas": "39770215",
+      "gasRate": "1088993",
+      "donationGas": "12863278",
+      "allocationGas": "16934531",
+      "payoutGas": "9972406"
+    },
+    {
+      "cycle": 42,
+      "timestamp": 1788864627,
+      "cumulativeGas": "43997740",
+      "gasRate": "704587",
+      "donationGas": "14255454",
+      "allocationGas": "18563591",
+      "payoutGas": "11178695"
+    },
+    {
+      "cycle": 48,
+      "timestamp": 1788886249,
+      "cumulativeGas": "49262643",
+      "gasRate": "877483",
+      "donationGas": "15843027",
+      "allocationGas": "20367843",
+      "payoutGas": "13051773"
+    },
+    {
+      "cycle": 54,
+      "timestamp": 1788907864,
+      "cumulativeGas": "53266000",
+      "gasRate": "667226",
+      "donationGas": "16861509",
+      "allocationGas": "21641743",
+      "payoutGas": "14762748"
+    },
+    {
+      "cycle": 60,
+      "timestamp": 1788929495,
+      "cumulativeGas": "60123735",
+      "gasRate": "1142955",
+      "donationGas": "19128070",
+      "allocationGas": "24355135",
+      "payoutGas": "16640530"
+    },
+    {
+      "cycle": 66,
+      "timestamp": 1788951116,
+      "cumulativeGas": "65815645",
+      "gasRate": "948651",
+      "donationGas": "20554446",
+      "allocationGas": "26019518",
+      "payoutGas": "19241681"
+    },
+    {
+      "cycle": 72,
+      "timestamp": 1788969140,
+      "cumulativeGas": "71172166",
+      "gasRate": "892753",
+      "donationGas": "22107819",
+      "allocationGas": "28013002",
+      "payoutGas": "21051345"
+    }
+  ]
+}
