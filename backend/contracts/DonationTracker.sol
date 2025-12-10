@@ -67,6 +67,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     event ReceiptRequested (address indexed donator, uint index, uint timestamp);
     event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint tokenId, uint timestamp);
     event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
+    event EmergencyWithdraw (address indexed from, address indexed to, uint amount, uint timestamp);
 
     error NotEnoughFunds(uint256 available, uint256 requested);
     error AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
@@ -116,18 +117,6 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
         donationReceipt = DonationReceipt(_donationReceiptAddress);
     }
-
-    // Optional: Owner can rescue stuck tokens/ETH in emergency
-    // and transfer it back to the donator
-//    function emergencyWithdraw(address _donator, uint256 _amount) external onlyOwner {
-//
-//        require(totalUserDonations[_donator] >= _amount, NotEnoughFunds(totalUserDonations[_donator], _amount));
-//
-//        (bool success,) = _donator.call{value: _amount}("");
-//        require(success, "Transfer failed");
-//    }
-
-
 
     function contractBalance() external view returns (uint256) {
         return address(this).balance;
@@ -227,9 +216,12 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
     function emergencyWithdraw() external onlyOwner() {
         require(address(this).balance > 0, NotEnoughFunds(address(this).balance,address(this).balance));
+        uint amout = address(this).balance;
         (bool success,) = payable(owner()).call{value: address(this).balance}("");
 
         require(success, TransferFailed());
+
+        emit EmergencyWithdraw(address(this), owner(), amout, block.timestamp);
     }
 
     function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {

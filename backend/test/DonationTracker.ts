@@ -56,7 +56,7 @@ export interface Allocation {
 
 
 describe("DonationTracker", function () {
-    // expected state post deploy
+
     describe("Post Construct", function () {
         let tracker: any;
         let receipt: any;
@@ -1528,6 +1528,23 @@ describe("DonationTracker", function () {
             // Verify absolutely zero balance
             const finalBalance = await tracker.contractBalance();
             expect(finalBalance).to.equal(0);
+        });
+
+        it("Should emit the emergencyWithdraw event", async function () {
+            const {tracker, owner, donator1, donator2, donator3} = await setUpSmartContract();
+
+            // Make donations with odd amounts that might create rounding dust
+            await tracker.connect(donator1).donate({value: parseEther("1")});
+
+            const tx = await tracker.connect(owner).emergencyWithdraw()
+            const receipt = await tx.wait();
+            const block = await ethers.provider.getBlock(receipt!.blockHash);
+            const timestamp = block!.timestamp;
+
+
+            expect (tx ).to.emit(tracker, "EmergencyWithdraw")
+                .withArgs(await tracker.getAddress(), owner.address, parseEther("1"), timestamp);
+
         });
 
     });
