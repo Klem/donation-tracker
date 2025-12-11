@@ -152,6 +152,17 @@ const Donator = () => {
             .reverse(); // Afficher les plus récentes en premier
     }, [donations]);
 
+    // Filtrer les dons passés pour exclure ceux qui sont encore actifs (en cours)
+    const completedDonations = useMemo(() => {
+        if (!pastDonations || !activeDonations) return [];
+
+        // Créer un Set des index des donations actives pour une recherche rapide
+        const activeIndices = new Set(activeDonations.map(d => d.index));
+
+        // Retourner uniquement les donations dont l'index n'est pas dans les donations actives
+        return pastDonations.filter(donation => !activeIndices.has(donation.index));
+    }, [pastDonations, activeDonations]);
+
     return (
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-6xl mx-auto">
@@ -294,20 +305,20 @@ const Donator = () => {
                 <Card className="border-slate-200 mt-6">
                     <CardHeader>
                         <CardTitle>Dons passés</CardTitle>
-                        <CardDescription>Historique complet de tous vos dons (depuis Ponder)</CardDescription>
+                        <CardDescription>Historique des dons complètement dépensés</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {isPastDonationsLoading ? (
                             <div className="text-center py-8 text-slate-500">
                                 Chargement...
                             </div>
-                        ) : pastDonations.length === 0 ? (
+                        ) : completedDonations.length === 0 ? (
                             <div className="text-center py-8 text-slate-500">
                                 Aucun don passé trouvé
                             </div>
                         ) : (
                             <div className="space-y-3">
-                                {pastDonations.map((donation) => (
+                                {completedDonations.map((donation) => (
                                     <div
                                         key={donation.id}
                                         className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200"
