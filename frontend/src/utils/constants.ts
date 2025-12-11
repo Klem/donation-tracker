@@ -1,6 +1,6 @@
-export const CONTRACT_ADDRESS: `0x${string}` = "0xfE4a5E2582A8ea90b7C015131ceeeBAc4Ea0A62d";
-export const NFT_ADDRESS: `0x${string}` = "0x5958372eAe12b77F78e5ec7BA81eAa6595b75f21";
-export const CONTRACT_ABI = [
+export const CONTRACT_ADDRESS: `0x${string}` = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+export const NFT_ADDRESS: `0x${string}` = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const CONTRACT_ABI =  [
     {
         "inputs": [
             {
@@ -20,27 +20,12 @@ export const CONTRACT_ABI = [
                 "type": "address"
             },
             {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "timestamp",
+                "name": "index",
                 "type": "uint256"
             }
         ],
-        "name": "AllocationFailed",
+        "name": "DonationDeleted",
         "type": "error"
     },
     {
@@ -221,7 +206,23 @@ export const CONTRACT_ABI = [
         "type": "error"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
         "name": "TransferFailed",
         "type": "error"
     },
@@ -229,6 +230,43 @@ export const CONTRACT_ABI = [
         "inputs": [],
         "name": "UseDonateFunction",
         "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "donator",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "AllocationFailed",
+        "type": "event"
     },
     {
         "anonymous": false,
@@ -259,6 +297,37 @@ export const CONTRACT_ABI = [
             }
         ],
         "name": "DonationReceived",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "EmergencyWithdraw",
         "type": "event"
     },
     {
