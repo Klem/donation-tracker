@@ -94,3 +94,13 @@ export const leftoverTransfer = onchainTable("leftover_transfer", (t) => ({
   transactionHash: t.text().notNull(),
   blockNumber: t.integer().notNull(),
 }));
+
+export const emergencyWithdraw = onchainTable("emergency_withdraw", (t) => ({
+    id: t.text().primaryKey(),
+    from: t.text().notNull(),
+    to: t.text().notNull(),
+    amount: t.text().notNull(),
+    timestamp: t.integer().notNull(),
+    transactionHash: t.text().notNull(),
+    blockNumber: t.integer().notNull(),
+}));

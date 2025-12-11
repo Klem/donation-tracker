@@ -1,4 +1,4 @@
-export const TRACKER_ABI =  [
+export const TRACKER_ABI =   [
     {
         "inputs": [
             {
@@ -18,27 +18,12 @@ export const TRACKER_ABI =  [
                 "type": "address"
             },
             {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "timestamp",
+                "name": "index",
                 "type": "uint256"
             }
         ],
-        "name": "AllocationFailed",
+        "name": "DonationDeleted",
         "type": "error"
     },
     {
@@ -219,7 +204,23 @@ export const TRACKER_ABI =  [
         "type": "error"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
         "name": "TransferFailed",
         "type": "error"
     },
@@ -227,6 +228,43 @@ export const TRACKER_ABI =  [
         "inputs": [],
         "name": "UseDonateFunction",
         "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "donator",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "AllocationFailed",
+        "type": "event"
     },
     {
         "anonymous": false,
@@ -257,6 +295,37 @@ export const TRACKER_ABI =  [
             }
         ],
         "name": "DonationReceived",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            }
+        ],
+        "name": "EmergencyWithdraw",
         "type": "event"
     },
     {

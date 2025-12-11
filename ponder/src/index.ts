@@ -161,3 +161,18 @@ ponder.on("DonationTracker:LeftoverTransferred", async ({ event, context }) => {
     blockNumber: Number(event.block.number),
   });
 });
+
+ponder.on("DonationTracker:EmergencyWithdraw", async ({ event, context }) => {
+    const { from, to, amount, timestamp } = event.args;
+    const { db } = context;
+
+    await db.insert(schema.emergencyWithdraw).values({
+        id: `${event.transaction.hash}-${event.log.logIndex}`,
+        from,
+        to,
+        amount: amount.toString(),
+        timestamp: Number(timestamp),
+        transactionHash: event.transaction.hash,
+        blockNumber: Number(event.block.number),
+    });
+});
