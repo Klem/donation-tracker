@@ -68,6 +68,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     event ReceiptMinted (address indexed minter, address indexed donator, uint index, uint tokenId, uint timestamp);
     event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
     event EmergencyWithdraw (address indexed from, address indexed to, uint amount, uint timestamp);
+    event AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
+    error TransferFailed(address from, address to, uint amount);
 
     error NotEnoughFunds(uint256 available, uint256 requested);
     error AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
@@ -76,7 +78,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     error NotADonator(address addr);
     error NullDonation(address addr);
     error UseDonateFunction();
-    error TransferFailed();
+    error TransferFailed(address from, address to, uint amount);
     error ReceiptAlreadyRequested(address donator, uint tokenId);
     error ReceiptNotRequested(address donator, uint tokenId);
     error ReceiptAlreadyMinted(address donator, uint tokenId);
@@ -160,7 +162,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         uint amount = totalDonationLeftovers;
         totalDonationLeftovers = 0;
         (bool success,) = owner().call{value: amount}("");
-        require(success, TransferFailed());
+        require(success, TransferFailed(address (this), owner(), amount));
 
         emit LeftoverTransferred(address(this), owner(), amount, block.timestamp);
     }
@@ -189,7 +191,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         _allocateDonation(d);
     }
 
-    function payout(address payable _to, string calldata _message) external payable onlyRecipient () {
+    function payout(address payable _to, string calldata _message) external payable onlyRecipient nonReentrant() {
         require(recipientTotalBalance[msg.sender] >= msg.value, NotEnoughFunds(recipientTotalBalance[msg.sender], msg.value));
         _payout(_to, msg.value, recipientDonators[msg.sender], _message);
     }
@@ -219,7 +221,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         uint amout = address(this).balance;
         (bool success,) = payable(owner()).call{value: address(this).balance}("");
 
-        require(success, TransferFailed());
+        require(success, TransferFailed(address (this), owner(), amout));
 
         emit EmergencyWithdraw(address(this), owner(), amout, block.timestamp);
     }
@@ -289,8 +291,10 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             recipientTotalBalance[recipientWallet] += recipientAmount;
 
             (bool success,) = recipientWallet.call{value: recipientAmount}("");
-            require(success, AllocationFailed(d.donator, address(this), recipientWallet, recipientAmount, block.timestamp));
 
+            if(!success) {
+                emit AllocationFailed(d.donator, address(this), recipientWallet, recipientAmount, block.timestamp);
+            } else {
 
             emit FundsAllocated(d.donator, address(this), recipientWallet, recipientAmount, block.timestamp);
         }
@@ -304,7 +308,13 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function _payout(address payable _to, uint _amount, address[] memory _donators, string calldata _message) onlyRecipient private {
-        // loop though all donors of this recipient
+        // since we have no control over the payout address
+        // we must make sure it goes through before hand
+
+        (bool success,) = payable(_to).call{value: _amount}("");
+        require(success, TransferFailed(msg.sender, _to, _amount));
+
+        // only then we process internal balances
         uint _remaining = _amount;
         recipientTotalBalance[msg.sender] -= _amount;
         totalSpent += _amount;
@@ -336,8 +346,6 @@ contract DonationTracker is Ownable, ReentrancyGuard {
                 }
             }
         }
-        (bool success,) = payable(_to).call{value: _amount}("");
-        require(success, TransferFailed());
 
         if (recipientPayoutCount[msg.sender] % CLEANUP_FREQUENCY == 0) {
             _cleanupSpentDonations();
