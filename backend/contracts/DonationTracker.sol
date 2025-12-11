@@ -14,6 +14,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     mapping(address => address[]) private recipientDonators;
     mapping(address => uint) private recipientTotalBalance;
     mapping(address => uint256) private recipientPayoutCount;
+    mapping(address => mapping(uint => uint)) private donationIndexToArrayIndex;
+    mapping(address => mapping(uint => bool)) private donationIndexExists;
 
     /**
      * These will only increase onvertime
@@ -69,10 +71,9 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     event LeftoverTransferred (address indexed from, address indexed to, uint amount, uint timestamp);
     event EmergencyWithdraw (address indexed from, address indexed to, uint amount, uint timestamp);
     event AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
-    error TransferFailed(address from, address to, uint amount);
+
 
     error NotEnoughFunds(uint256 available, uint256 requested);
-    error AllocationFailed (address donator, address from, address to, uint amount, uint timestamp);
     error InvalidIndex(uint index);
     error NotARecipient(address addr);
     error NotADonator(address addr);
@@ -84,6 +85,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     error ReceiptAlreadyMinted(address donator, uint tokenId);
     error TooManyDonations(address donator, uint current, uint max);
     error TooManyActiveDonators(address recipient, uint current, uint max);
+    error DonationDeleted(address donator, uint index);
 
     modifier onlyRecipient() {
         bool isRecipient = false;
@@ -104,18 +106,17 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     constructor(address _donationReceiptAddress) Ownable(msg.sender) {
-        ALLOCATION_RECIPIENTS.push(
-            Recipient("Colin", payable(0x70997970C51812dc3A010C7d01b50e0d17dc79C8), 1000)
-        );
-        ALLOCATION_RECIPIENTS.push(
-            Recipient("Alex", payable(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC), 2000)
-        );
-        ALLOCATION_RECIPIENTS.push(
-            Recipient("Julian", payable(0x90F79bf6EB2c4f870365E785982E1f101E93b906), 3500)
-        );
-        ALLOCATION_RECIPIENTS.push(
-            Recipient("Klem", payable(0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65), 3500)
-        );
+        // Hardhat config
+        ALLOCATION_RECIPIENTS.push( Recipient("Salaires", payable(0x70997970C51812dc3A010C7d01b50e0d17dc79C8), 1000));
+        ALLOCATION_RECIPIENTS.push(Recipient("Fournisseurs", payable(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC), 2000));
+        ALLOCATION_RECIPIENTS.push(Recipient("Communication", payable(0x90F79bf6EB2c4f870365E785982E1f101E93b906), 3500));
+        ALLOCATION_RECIPIENTS.push(Recipient("Loyers et services", payable(0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65), 3500));
+
+//        ALLOCATION_RECIPIENTS.push(Recipient("Julian", payable(0x165fe97417a9b8f3bC69DD2881e5675268120240), 2500));
+//        ALLOCATION_RECIPIENTS.push( Recipient("Colin", payable(0x6c74829D66d1ea68fcc3ED7309aD56eEbe07A784), 2000));
+//        ALLOCATION_RECIPIENTS.push(Recipient("Alex", payable(0xd1C764F76780B4F208DB7b7Bc7bb2d3425310b8a), 3000));
+//        ALLOCATION_RECIPIENTS.push(Recipient("Klem", payable(0x8f134Cc37945FE29619ae7755A24329F7d478eA4), 2500));
+
 
         donationReceipt = DonationReceipt(_donationReceiptAddress);
     }
@@ -145,8 +146,10 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function userDonationAt(address _donator, uint _index) external view returns (Donation memory) {
-        require(_index < donations[_donator].length, InvalidIndex(_index));
-        return donations[_donator][_index];
+        require(donationIndexExists[_donator][_index], DonationDeleted(_donator, _index));
+
+        uint currentArrayIndex = donationIndexToArrayIndex[_donator][_index];
+        return donations[_donator][currentArrayIndex];
     }
 
     function userTotalDonations(address _donator) external view returns (uint) {
@@ -197,7 +200,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function requestReceipt(uint _index) external onlyDonator() {
-        require(_index < donations[msg.sender].length, InvalidIndex(_index));
+        require(donationIndexExists[msg.sender][_index], DonationDeleted(msg.sender, _index));
         Donation storage d = _userDonationAtStorage(msg.sender, _index);
         require(!d.receiptRequested, ReceiptAlreadyRequested(msg.sender, _index));
 
@@ -207,7 +210,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function mintReceipt(address _donator, uint _index, string calldata _tokenURI) external onlyOwner() {
-        require(_index < donations[_donator].length, InvalidIndex(_index));
+        require(donationIndexExists[_donator][_index], DonationDeleted(_donator, _index));
         Donation storage d = _userDonationAtStorage(_donator, _index);
         require(d.receiptRequested, ReceiptNotRequested(_donator, _index));
         require(!d.receiptMinted, ReceiptAlreadyMinted(_donator, _index));
@@ -227,7 +230,10 @@ contract DonationTracker is Ownable, ReentrancyGuard {
     }
 
     function _userDonationAtStorage(address _donator, uint _index) private view returns (Donation storage) {
-        return donations[_donator][_index];
+        require(donationIndexExists[_donator][_index], DonationDeleted(_donator, _index));
+
+        uint currentArrayIndex = donationIndexToArrayIndex[_donator][_index];
+        return donations[_donator][currentArrayIndex];
     }
 
     function _deposit() private returns (Donation memory){
@@ -243,7 +249,7 @@ contract DonationTracker is Ownable, ReentrancyGuard {
         if (donations[msg.sender].length == 0) {
             totalDonators++;
         }
-
+        uint originalIndex = donations[msg.sender].length;
         Donation memory d = Donation({
             donator: msg.sender,
             amount: msg.value,
@@ -252,10 +258,12 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             allocated: false,
             receiptRequested: false,
             receiptMinted: false,
-            index: donations[msg.sender].length // length of 1 is index 0
+            index: originalIndex // length of 1 is index 0
         });
 
         donations[msg.sender].push(d);
+        donationIndexToArrayIndex[msg.sender][originalIndex] = originalIndex;
+        donationIndexExists[msg.sender][originalIndex] = true;
 
         totalUserDonations[msg.sender] += msg.value;
         totalUnspentUserDonations[msg.sender] += msg.value;
@@ -297,6 +305,8 @@ contract DonationTracker is Ownable, ReentrancyGuard {
             } else {
 
             emit FundsAllocated(d.donator, address(this), recipientWallet, recipientAmount, block.timestamp);
+            }
+
         }
 
         // Handle rounding errors (if any)
@@ -370,12 +380,16 @@ contract DonationTracker is Ownable, ReentrancyGuard {
 
                 // Only remove if donation is allocated AND completely spent by ALL recipients
                 if (d.allocated && d.remaining == 0) {
+                    uint originalIndex = d.index;
                     uint lastIndex = userDonations.length - 1;
                     if (j != lastIndex) {
                         userDonations[j] = userDonations[lastIndex];
-                        // Update the swapped donation's index to reflect its new position
-                        userDonations[j].index = j;
+                        // element that was last index is now j
+                        uint swappedOriginalIndex = userDonations[j].index;
+                        donationIndexToArrayIndex[donator][swappedOriginalIndex] = j;
                     }
+                    donationIndexExists[donator][originalIndex] = false;
+                    delete donationIndexToArrayIndex[donator][originalIndex];
                     userDonations.pop();
                 }
             }
