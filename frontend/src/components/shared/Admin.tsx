@@ -1,9 +1,9 @@
 'use client'
-import React, {useState, useEffect, useMemo} from 'react'
+import React, {useState, useEffect, useMemo, useRef} from 'react'
 import {useReadContract, useAccount, usePublicClient, useWriteContract, useWaitForTransactionReceipt} from "wagmi";
 import {formatEther} from "viem";
 import { useAllDonations } from "@/hooks/usePonder";
-import {DollarSign, TrendingUp, Users, Wallet, TrendingDown} from "lucide-react";
+import {DollarSign, TrendingUp, Users, Wallet, TrendingDown, AlertTriangle, X} from "lucide-react";
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from "../../utils/constants";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
@@ -24,7 +24,7 @@ const Admin = () => {
     const { data: allDonations = [], isLoading: isDonationsLoading } = useAllDonations();
 
     // Récupération des statistiques globales
-    const {data: totalDonated} = useReadContract({
+    const {data: totalDonated, refetch: refetchTotalDonated} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'totalDonated',
@@ -33,7 +33,7 @@ const Admin = () => {
         },
     });
 
-    const {data: totalDonators} = useReadContract({
+    const {data: totalDonators, refetch: refetchTotalDonators} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'totalDonators',
@@ -42,7 +42,7 @@ const Admin = () => {
         },
     });
 
-    const {data: totalAllocated} = useReadContract({
+    const {data: totalAllocated, refetch: refetchTotalAllocated} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'totalAllocated',
@@ -51,7 +51,7 @@ const Admin = () => {
         },
     });
 
-    const {data: totalSpent} = useReadContract({
+    const {data: totalSpent, refetch: refetchTotalSpent} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'totalSpent',
@@ -60,7 +60,7 @@ const Admin = () => {
         },
     });
 
-    const {data: contractBalance} = useReadContract({
+    const {data: contractBalance, refetch: refetchContractBalance} = useReadContract({
         address: CONTRACT_ADDRESS,
         abi: CONTRACT_ABI,
         functionName: 'contractBalance',
@@ -218,6 +218,33 @@ const Admin = () => {
                     </Card>
                 </div>
 
+                {/* Emergency Actions */}
+                <Card className="border-red-200 bg-red-50 mb-8">
+                    <CardHeader>
+                        <CardTitle className="text-red-900 flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5"/>
+                            Actions d'urgence
+                        </CardTitle>
+                        <CardDescription className="text-red-700">
+                            Ces actions sont irréversibles et peuvent affecter le fonctionnement du système
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <EmergencyWithdrawButton
+                            contractBalance={stats.contractBalance}
+                            onSuccess={() => {
+                                // Refresh all stats
+                                refetchContractBalance();
+                                refetchTotalDonated();
+                                refetchTotalDonators();
+                                refetchTotalAllocated();
+                                refetchTotalSpent();
+                                setRefreshTrigger(prev => prev + 1);
+                            }}
+                        />
+                    </CardContent>
+                </Card>
+
                 {/* Donations à allouer */}
                 <Card className="border-slate-200 mb-8">
                     <CardHeader>
@@ -245,7 +272,13 @@ const Admin = () => {
                                         timestamp={donation.timestamp}
                                         index={donation.index}
                                         isPending={true}
-                                        onSuccess={() => setRefreshTrigger(prev => prev + 1)}
+                                        onSuccess={() => {
+                                            // Refresh stats after allocation
+                                            refetchContractBalance();
+                                            refetchTotalAllocated();
+                                            refetchTotalSpent();
+                                            setRefreshTrigger(prev => prev + 1);
+                                        }}
                                     />
                                 ))}
                             </div>
@@ -301,6 +334,8 @@ const DonationItem = ({donator, amount, timestamp, index, isPending = false, onS
     isPending?: boolean,
     onSuccess?: () => void
 }) => {
+    const hasCalledSuccessRef = useRef(false);
+
     // Récupérer les détails complets de la donation
     const {data: donation, refetch} = useReadContract({
         address: CONTRACT_ADDRESS,
@@ -316,9 +351,17 @@ const DonationItem = ({donator, amount, timestamp, index, isPending = false, onS
         hash,
     });
 
+    // Reset ref when starting new allocation
+    useEffect(() => {
+        if (isWritePending) {
+            hasCalledSuccessRef.current = false;
+        }
+    }, [isWritePending]);
+
     // Refetch après succès et rafraîchir la liste parente
     useEffect(() => {
-        if (isSuccess) {
+        if (isSuccess && !hasCalledSuccessRef.current) {
+            hasCalledSuccessRef.current = true;
             refetch();
             if (onSuccess) {
                 onSuccess();
@@ -415,6 +458,157 @@ const DonationItem = ({donator, amount, timestamp, index, isPending = false, onS
                 </div>
             )}
         </div>
+    );
+};
+
+// Emergency Withdraw Button Component
+const EmergencyWithdrawButton = ({contractBalance, onSuccess}: { contractBalance: string, onSuccess?: () => void }) => {
+    const [showModal, setShowModal] = useState(false);
+    const [feedback, setFeedback] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+    const hasCalledSuccessRef = useRef(false);
+    const {data: hash, writeContract, isPending: isWritePending, error: writeError} = useWriteContract();
+    const {isLoading: isConfirming, isSuccess, isError, error: txError} = useWaitForTransactionReceipt({
+        hash,
+    });
+
+    const handleEmergencyWithdraw = () => {
+        try {
+            setFeedback(null);
+            hasCalledSuccessRef.current = false; // Reset on new transaction
+            writeContract({
+                address: CONTRACT_ADDRESS,
+                abi: CONTRACT_ABI,
+                functionName: 'emergencyWithdraw',
+            });
+        } catch (error) {
+            console.error('❌ Emergency withdraw error:', error);
+            setFeedback({
+                type: 'error',
+                message: 'Erreur lors de l\'initialisation de la transaction'
+            });
+        }
+    };
+
+    useEffect(() => {
+        if (isSuccess && !hasCalledSuccessRef.current) {
+            hasCalledSuccessRef.current = true;
+
+            setFeedback({
+                type: 'success',
+                message: `✅ Retrait d'urgence réussi ! ${contractBalance} ETH ont été transférés vers votre wallet.`
+            });
+            setShowModal(false);
+
+            // Trigger refresh once
+            if (onSuccess) {
+                onSuccess();
+            }
+
+            // Auto-hide feedback after 5 seconds
+            setTimeout(() => setFeedback(null), 5000);
+        }
+    }, [isSuccess, contractBalance, onSuccess]);
+
+    useEffect(() => {
+        if (isError || writeError) {
+            const errorMessage = (txError as Error)?.message || (writeError as Error)?.message || 'Transaction échouée';
+            setFeedback({
+                type: 'error',
+                message: `❌ Échec du retrait d'urgence : ${errorMessage}`
+            });
+
+            // Auto-hide feedback after 8 seconds
+            setTimeout(() => setFeedback(null), 8000);
+        }
+    }, [isError, writeError, txError]);
+
+    return (
+        <>
+            {/* Feedback Message */}
+            {feedback && (
+                <div className={`mb-4 p-4 rounded-lg border ${
+                    feedback.type === 'success'
+                        ? 'bg-green-50 border-green-200 text-green-900'
+                        : 'bg-red-50 border-red-200 text-red-900'
+                }`}>
+                    <p className="text-sm font-medium">{feedback.message}</p>
+                </div>
+            )}
+
+            <Button
+                variant="destructive"
+                className="w-full bg-red-600 hover:bg-red-700"
+                disabled={parseFloat(contractBalance) === 0 || isWritePending || isConfirming}
+                onClick={() => setShowModal(true)}
+            >
+                <AlertTriangle className="w-4 h-4 mr-2"/>
+                {isWritePending || isConfirming
+                    ? 'Transaction en cours...'
+                    : `Retrait d'urgence (${contractBalance} ETH)`}
+            </Button>
+
+            {showModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+                    <Card className="w-full max-w-lg mx-4 border-red-200">
+                        <CardHeader className="relative">
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100"
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
+                            <CardTitle className="flex items-center gap-2 text-red-600">
+                                <AlertTriangle className="w-6 h-6"/>
+                                Confirmer le retrait d'urgence
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="space-y-3 text-left">
+                                <p className="font-semibold text-slate-900">
+                                    ⚠️ ATTENTION : Cette action est irréversible !
+                                </p>
+                                <p>
+                                    Vous êtes sur le point de retirer <span className="font-bold text-red-600">{contractBalance} ETH</span> du contrat.
+                                </p>
+                                <div className="bg-red-50 border border-red-200 rounded-lg p-3 space-y-2">
+                                    <p className="font-semibold text-red-900">Conséquences :</p>
+                                    <ul className="list-disc list-inside space-y-1 text-sm text-red-800">
+                                        <li>Tous les fonds seront transférés vers votre wallet</li>
+                                        <li>Le suivi (tracking) des donations sera perdu</li>
+                                        <li>Les recipients ne pourront plus effectuer de payout</li>
+                                        <li>Les allocations en cours seront annulées</li>
+                                    </ul>
+                                </div>
+                                <p className="text-sm text-slate-600">
+                                    Cette action ne doit être utilisée qu'en cas d'urgence absolue.
+                                </p>
+                            </div>
+                            <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setShowModal(false)}
+                                    disabled={isWritePending || isConfirming}
+                                >
+                                    Annuler
+                                </Button>
+                                <Button
+                                    variant="destructive"
+                                    onClick={handleEmergencyWithdraw}
+                                    disabled={isWritePending || isConfirming}
+                                    className="bg-red-600 hover:bg-red-700"
+                                >
+                                    {isWritePending
+                                        ? 'Confirmation...'
+                                        : isConfirming
+                                            ? 'Retrait en cours...'
+                                            : 'Confirmer le retrait'}
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
+        </>
     );
 };
 
